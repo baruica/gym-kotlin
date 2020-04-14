@@ -3,6 +3,7 @@ package fr.craft.gym.subscribing.infrastructure
 import fr.craft.gym.subscribing.domain.Subscription
 import fr.craft.gym.subscribing.domain.SubscriptionId
 import fr.craft.gym.subscribing.domain.SubscriptionRepository
+import fr.craft.gym.subscribing.domain.SubscriptionRepositoryException
 import java.time.LocalDate
 import java.util.HashMap
 import java.util.UUID
@@ -32,8 +33,8 @@ class SubscriptionInMemoryRepository : SubscriptionRepository {
     }
 
     override fun endedSubscriptions(asOfDate: LocalDate): Map<SubscriptionId, Subscription> {
-        return subscriptions.filter {
-            it.value.willBeEnded(asOfDate)
+        return subscriptions.filterValues {
+            it.willBeEnded(asOfDate)
         }
     }
 

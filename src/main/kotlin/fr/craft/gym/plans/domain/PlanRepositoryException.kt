@@ -1,6 +1,4 @@
-package fr.craft.gym.plans.infrastructure
-
-import fr.craft.gym.plans.domain.PlanId
+package fr.craft.gym.plans.domain
 
 class PlanRepositoryException(override val message: String) : Throwable(message) {
 

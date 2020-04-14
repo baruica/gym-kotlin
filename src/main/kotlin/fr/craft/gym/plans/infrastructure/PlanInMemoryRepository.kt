@@ -3,6 +3,7 @@ package fr.craft.gym.plans.infrastructure
 import fr.craft.gym.plans.domain.Plan
 import fr.craft.gym.plans.domain.PlanId
 import fr.craft.gym.plans.domain.PlanRepository
+import fr.craft.gym.plans.domain.PlanRepositoryException
 import java.util.HashMap
 import java.util.UUID
 

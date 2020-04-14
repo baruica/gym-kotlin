@@ -1,6 +1,4 @@
-package fr.craft.gym.subscribing.infrastructure
-
-import fr.craft.gym.subscribing.domain.SubscriptionId
+package fr.craft.gym.subscribing.domain
 
 class SubscriptionRepositoryException(override val message: String) : Throwable(message) {
 
