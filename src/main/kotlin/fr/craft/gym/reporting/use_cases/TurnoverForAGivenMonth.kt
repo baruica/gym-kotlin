@@ -1,5 +1,17 @@
 package fr.craft.gym.reporting.use_cases
 
-import java.time.LocalDate
+import fr.craft.gym.subscriptions.domain.SubscriptionRepository
 
-data class TurnoverForAGivenMonth(val asOfDate: LocalDate)
+class TurnoverForAGivenMonth(private val subscriptionRepository: SubscriptionRepository) {
+
+    fun handle(command: TurnoverForAGivenMonthQuery): Double {
+
+        var turnoverForAGivenMonth = 0.0
+
+        subscriptionRepository.onGoingSubscriptions(command.asOfDate).forEach {
+            turnoverForAGivenMonth = it.value.monthlyTurnover()
+        }
+
+        return turnoverForAGivenMonth
+    }
+}

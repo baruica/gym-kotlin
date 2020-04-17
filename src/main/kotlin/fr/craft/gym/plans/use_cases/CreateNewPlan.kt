@@ -1,10 +1,20 @@
 package fr.craft.gym.plans.use_cases
 
-import fr.craft.gym.plans.domain.PlanId
-import fr.craft.gym.plans.domain.PlanPeriodicity
+import fr.craft.gym.plans.domain.NewPlanCreated
+import fr.craft.gym.plans.domain.Plan
+import fr.craft.gym.plans.domain.PlanRepository
 
-data class CreateNewPlan(
-    val planId: PlanId,
-    val basePrice: Int,
-    val planPeriodicity: PlanPeriodicity
-)
+class CreateNewPlan(private val planRepository: PlanRepository) {
+
+    fun handle(command: CreateNewPlanCommand): NewPlanCreated {
+        val newPlan = Plan.new(
+            command.planId,
+            command.basePrice,
+            command.planPeriodicity
+        )
+
+        planRepository.store(newPlan)
+
+        return NewPlanCreated(newPlan)
+    }
+}

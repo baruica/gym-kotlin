@@ -20,8 +20,7 @@ class PlanInMemoryRepository : PlanRepository {
     }
 
     override fun get(planId: PlanId): Plan {
-        return plans[planId] ?: throw PlanRepositoryException.notFound(
-            planId
-        )
+        return plans[planId]
+            ?: throw PlanRepositoryException.notFound(planId)
     }
 }
