@@ -8,7 +8,7 @@
 - I want to see my turnover for a given month, based on the number of ongoing subscriptions
 - I want to change the price of a plan
 - Subscriptions are renewed automatically
-- A welcome email, with plan details, is sent to new members
+- A welcome email is sent to new members
 - After 3 years of membership, members receive a "thank you" email
 
 ## Choices
