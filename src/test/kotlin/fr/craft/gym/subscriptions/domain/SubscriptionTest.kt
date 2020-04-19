@@ -64,6 +64,15 @@ class SubscriptionTest {
         assertTrue(subscription.willBeEnded(LocalDate.parse("2018-08-05")))
     }
 
+    @Test
+    fun `has a monthly turnover`() {
+        val monthlySubscription = monthlySubscription(100, fifthOfJune(), false)
+        assertEquals(100.0, monthlySubscription.monthlyTurnover())
+
+        val yearlySubscription = yearlySubscription(1200, fifthOfJune(), false)
+        assertEquals(70.0, yearlySubscription.monthlyTurnover())
+    }
+
     private fun monthlySubscription(basePrice: Int, startDate: LocalDate, isStudent: Boolean): Subscription {
         return newSubscription(monthlyChosenPlan(basePrice), startDate, isStudent)
     }

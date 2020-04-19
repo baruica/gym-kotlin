@@ -17,7 +17,6 @@ class PlanSubscribedEventListenerTest {
     fun handle() {
         val memberRepository = MemberInMemoryRepository()
 
-        val subscriptionId = SubscriptionId("def")
         val subscriptionStartDate = LocalDate.now()
         val email = EmailAddress("luke@gmail.com")
 
@@ -26,7 +25,11 @@ class PlanSubscribedEventListenerTest {
         val tested = PlanSubscribedEventListener(memberRepository)
 
         val event = tested.handle(
-            PlanSubscribed(subscriptionId, subscriptionStartDate, email.email)
+            PlanSubscribed(
+                SubscriptionId("def"),
+                subscriptionStartDate,
+                email.email
+            )
         )
 
         assertTrue(memberRepository.findByEmail(email) is Member)
