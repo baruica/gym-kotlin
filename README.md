@@ -5,7 +5,7 @@
 - I want to create monthly or yearly subscription plans, with a base price
 - Yearly subscriptions get 30% off
 - Students that subscribe to any plan get 20% off
-- I want to see my turnover for a given month, based on the number of ongoing subscriptions
+- I want to see my turnover for a given month, based on the ongoing subscriptions
 - I want to change the price of a plan
 - Subscriptions are renewed automatically
 - A welcome email is sent to new members
