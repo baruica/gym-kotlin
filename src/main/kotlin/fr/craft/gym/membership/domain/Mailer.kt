@@ -1,6 +1,4 @@
-package fr.craft.gym
-
-import fr.craft.gym.membership.domain.EmailAddress
+package fr.craft.gym.membership.domain
 
 interface Mailer {
 

@@ -1,7 +1,7 @@
 package fr.craft.gym.membership.infrastructure
 
-import fr.craft.gym.Mailer
 import fr.craft.gym.membership.domain.EmailAddress
+import fr.craft.gym.membership.domain.Mailer
 import java.util.UUID
 
 class InMemoryMailer : Mailer {

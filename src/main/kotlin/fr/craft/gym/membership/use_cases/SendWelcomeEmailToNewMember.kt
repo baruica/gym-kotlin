@@ -1,6 +1,6 @@
 package fr.craft.gym.membership.use_cases
 
-import fr.craft.gym.Mailer
+import fr.craft.gym.membership.domain.Mailer
 import fr.craft.gym.membership.domain.Member
 import fr.craft.gym.membership.domain.MemberRepository
 import fr.craft.gym.membership.domain.NewMemberSubscribed
