@@ -1,6 +1,5 @@
 package fr.craft.gym.membership.domain
 
-import fr.craft.gym.XYearsBeforeThe
 import fr.craft.gym.fifthOfJune
 import fr.craft.gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
@@ -16,7 +15,7 @@ class MemberTest {
             MemberId("abc"),
             "julie@gmail.com",
             SubscriptionId("def"),
-            XYearsBeforeThe(3, fifthOfJune())
+            fifthOfJune().minusYears(3)
         )
 
         assertFalse(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-04")))

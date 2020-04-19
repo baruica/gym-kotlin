@@ -4,7 +4,7 @@ import fr.craft.gym.plans.domain.Plan
 import fr.craft.gym.plans.domain.PlanPriceChanged
 import fr.craft.gym.plans.domain.PlanRepository
 
-class ChangePriceOfPlan(private val planRepository: PlanRepository) {
+class ChangePlanPrice(private val planRepository: PlanRepository) {
 
     fun handle(command: ChangePriceOfPlanCommand): PlanPriceChanged {
         val plan: Plan = planRepository.get(command.planId)

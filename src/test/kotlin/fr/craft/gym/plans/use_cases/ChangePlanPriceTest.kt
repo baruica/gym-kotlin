@@ -6,7 +6,7 @@ import fr.craft.gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class ChangePriceOfPlanTest {
+class ChangePlanPriceTest {
 
     @Test
     fun handle() {
@@ -17,7 +17,7 @@ class ChangePriceOfPlanTest {
             YearlyPlan(planId, 450)
         )
 
-        val tested = ChangePriceOfPlan(planRepository)
+        val tested = ChangePlanPrice(planRepository)
 
         val event = tested.handle(
             ChangePriceOfPlanCommand(planId, 400)

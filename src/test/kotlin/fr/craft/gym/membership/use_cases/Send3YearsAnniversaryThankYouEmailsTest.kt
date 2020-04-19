@@ -1,6 +1,5 @@
 package fr.craft.gym.membership.use_cases
 
-import fr.craft.gym.XYearsBeforeThe
 import fr.craft.gym.fifthOfJune
 import fr.craft.gym.membership.domain.Member
 import fr.craft.gym.membership.domain.MemberId
@@ -9,7 +8,7 @@ import fr.craft.gym.membership.infrastructure.MemberInMemoryRepository
 import fr.craft.gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -19,13 +18,13 @@ class Send3YearsAnniversaryThankYouEmailsTest {
     fun handle() {
         val memberRepository = MemberInMemoryRepository()
 
-        val memberJulie = buildMember("julie@gmail.com", XYearsBeforeThe(3, fifthOfJune()))
+        val memberJulie = buildMember("julie@gmail.com", fifthOfJune().minusYears(3))
         memberRepository.store(memberJulie)
 
-        val memberBob = buildMember("bob@gmail.com", XYearsBeforeThe(2, fifthOfJune()))
+        val memberBob = buildMember("bob@gmail.com", fifthOfJune().minusYears(2))
         memberRepository.store(memberBob)
 
-        val memberLuke = buildMember("luke@gmail.com", XYearsBeforeThe(3, fifthOfJune()))
+        val memberLuke = buildMember("luke@gmail.com", fifthOfJune().minusYears(3))
         memberRepository.store(memberLuke)
 
         val mailer = InMemoryMailer()

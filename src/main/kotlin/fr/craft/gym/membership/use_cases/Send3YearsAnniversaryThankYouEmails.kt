@@ -10,9 +10,9 @@ class Send3YearsAnniversaryThankYouEmails(
 ) {
     fun handle(command: Send3YearsAnniversaryThankYouEmailsCommand): ThreeYearsAnniversaryThankYouEmailsSent {
 
-        val `3YearsAnniversaryMembers` = memberRepository.threeYearsAnniversaryMembers(command.asOfDate)
+        val threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(command.asOfDate)
 
-        `3YearsAnniversaryMembers`.mapValues {
+        threeYearsAnniversaryMembers.mapValues {
             mailer.sendEmail(
                 it.value.email,
                 "Thank you for your loyalty ${it.value.email} !"
@@ -22,7 +22,7 @@ class Send3YearsAnniversaryThankYouEmails(
         }
 
         return ThreeYearsAnniversaryThankYouEmailsSent(
-            `3YearsAnniversaryMembers`.keys.toList()
+            threeYearsAnniversaryMembers.keys.toList()
         )
     }
 }
