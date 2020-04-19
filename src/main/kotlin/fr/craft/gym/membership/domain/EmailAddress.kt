@@ -4,7 +4,7 @@ import kotlin.text.RegexOption.IGNORE_CASE
 
 data class EmailAddress(val email: String) {
 
-    private val EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"
+    private val EMAIL_REGEX = "^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$"
 
     init {
         require(Regex(EMAIL_REGEX, IGNORE_CASE).matches(email))
