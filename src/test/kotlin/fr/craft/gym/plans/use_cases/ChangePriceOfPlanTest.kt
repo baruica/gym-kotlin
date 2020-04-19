@@ -1,7 +1,6 @@
 package fr.craft.gym.plans.use_cases
 
 import fr.craft.gym.plans.domain.Plan.YearlyPlan
-import fr.craft.gym.plans.domain.PlanId
 import fr.craft.gym.plans.domain.Price
 import fr.craft.gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.Test
@@ -11,14 +10,11 @@ class ChangePriceOfPlanTest {
 
     @Test
     fun handle() {
-        val planId = PlanId("abcdef")
-
         val planRepository = PlanInMemoryRepository()
+        val planId = planRepository.nextId()
+
         planRepository.store(
-            YearlyPlan(
-                planId,
-                450
-            )
+            YearlyPlan(planId, 450)
         )
 
         val tested = ChangePriceOfPlan(planRepository)

@@ -11,10 +11,10 @@ import kotlin.test.assertTrue
 class MemberTest {
 
     @Test
-    fun isThreeYearsAnniversary() {
+    fun `is 3 years anniversary`() {
         val memberWith3yearsAnniversaryOnTheFifthOfJune = Member(
             MemberId("abc"),
-            EmailAddress("julie@gmail.com"),
+            "julie@gmail.com",
             SubscriptionId("def"),
             XYearsBeforeThe(3, fifthOfJune())
         )

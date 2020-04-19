@@ -2,7 +2,6 @@ package fr.craft.gym.membership.use_cases
 
 import fr.craft.gym.XYearsBeforeThe
 import fr.craft.gym.fifthOfJune
-import fr.craft.gym.membership.domain.EmailAddress
 import fr.craft.gym.membership.domain.Member
 import fr.craft.gym.membership.domain.MemberId
 import fr.craft.gym.membership.infrastructure.InMemoryMailer
@@ -20,13 +19,13 @@ class Send3YearsAnniversaryThankYouEmailsTest {
     fun handle() {
         val memberRepository = MemberInMemoryRepository()
 
-        val memberJulie = buildMember(EmailAddress("julie@gmail.com"), XYearsBeforeThe(3, fifthOfJune()))
+        val memberJulie = buildMember("julie@gmail.com", XYearsBeforeThe(3, fifthOfJune()))
         memberRepository.store(memberJulie)
 
-        val memberBob = buildMember(EmailAddress("bob@gmail.com"), XYearsBeforeThe(2, fifthOfJune()))
+        val memberBob = buildMember("bob@gmail.com", XYearsBeforeThe(2, fifthOfJune()))
         memberRepository.store(memberBob)
 
-        val memberLuke = buildMember(EmailAddress("luke@gmail.com"), XYearsBeforeThe(3, fifthOfJune()))
+        val memberLuke = buildMember("luke@gmail.com", XYearsBeforeThe(3, fifthOfJune()))
         memberRepository.store(memberLuke)
 
         val mailer = InMemoryMailer()
@@ -45,7 +44,7 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         assertTrue(event.memberIds.contains(memberLuke.id))
     }
 
-    private fun buildMember(email: EmailAddress, startDate: LocalDate): Member = Member(
+    private fun buildMember(email: String, startDate: LocalDate): Member = Member(
         MemberId(UUID.randomUUID().toString()),
         email,
         SubscriptionId("def"),

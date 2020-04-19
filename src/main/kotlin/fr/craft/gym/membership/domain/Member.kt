@@ -7,10 +7,12 @@ inline class MemberId(val id: String)
 
 class Member(
     val id: MemberId,
-    val email: EmailAddress,
+    email: String,
     val subscriptionId: SubscriptionId,
     private val startDate: LocalDate
 ) {
+    val email: EmailAddress = EmailAddress(email)
+
     private var welcomeEmailHasBeenSent: Boolean = false
     private var threeYearsAnniversaryEmailHasBeenSent: Boolean = false
 

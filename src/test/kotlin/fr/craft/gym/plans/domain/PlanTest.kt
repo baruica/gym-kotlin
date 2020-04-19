@@ -28,9 +28,9 @@ class PlanTest {
     @Test
     fun `can change its price`() {
         val tested = MonthlyPlan(PlanId("abc"), 400)
+        tested.changePrice(500)
 
-        assertEquals(PlanId("abc"), tested.id)
-        assertEquals(Price(400), tested.price)
+        assertEquals(Price(500), tested.price)
     }
 
     @Test

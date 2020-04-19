@@ -1,7 +1,6 @@
 package fr.craft.gym.subscriptions.use_cases
 
-import fr.craft.gym.membership.domain.EmailAddress
-import fr.craft.gym.plans.infrastructure.PlanInMemoryRepository
+import fr.craft.gym.plans.domain.PlanId
 import fr.craft.gym.subscriptions.domain.ChosenPlan
 import fr.craft.gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
@@ -13,7 +12,6 @@ class SubscribeToPlanTest {
     @Test
     fun handle() {
         val subscriptionRepository = SubscriptionInMemoryRepository()
-        val planRepository = PlanInMemoryRepository()
         val subscriptionId = subscriptionRepository.nextId()
 
         val tested = SubscribeToPlan(subscriptionRepository)
@@ -21,7 +19,7 @@ class SubscribeToPlanTest {
         val event = tested.handle(
             SubscribeToPlanCommand(
                 ChosenPlan(
-                    planRepository.nextId(),
+                    PlanId("abc"),
                     500,
                     12,
                     "yearly plan for 500 euros"
@@ -29,7 +27,7 @@ class SubscribeToPlanTest {
                 subscriptionId,
                 LocalDate.parse("2018-12-18"),
                 false,
-                EmailAddress("bob@mail.com")
+                "bob@mail.com"
             )
         )
 

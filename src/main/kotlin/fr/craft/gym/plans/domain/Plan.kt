@@ -31,7 +31,7 @@ sealed class Plan(
 
 internal data class Price(val amount: Int) {
     init {
-        require(amount >= 0) { "Amount must be non-negative, was $amount" }
+        require(amount >= 0) { "Price amount must be non-negative, was $amount" }
     }
 
     override fun toString(): String = "$amount euros"
