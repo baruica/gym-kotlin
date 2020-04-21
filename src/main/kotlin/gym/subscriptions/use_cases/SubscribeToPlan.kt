@@ -9,9 +9,11 @@ class SubscribeToPlan(
 ) {
     fun handle(command: SubscribeToPlanCommand): PlanSubscribed {
         val subscription = Subscription(
-            command.subscriptionId,
-            command.chosenPlan,
+            subscriptionRepository.nextId(),
             command.startDate,
+            command.planId,
+            command.planPrice,
+            command.planDurationInMonths,
             command.isStudent
         )
 

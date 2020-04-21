@@ -1,7 +1,6 @@
 package gym.subscriptions.use_cases
 
 import gym.plans.domain.PlanId
-import gym.subscriptions.domain.ChosenPlan
 import gym.subscriptions.domain.Subscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
@@ -16,8 +15,10 @@ class RenewSubscriptionsAutomaticallyTest {
         val subscriptionId = subscriptionRepository.nextId()
         val subscription = Subscription(
             subscriptionId,
-            ChosenPlan(PlanId("abcdef"), 200, 1, "description"),
             LocalDate.parse("2018-06-09"),
+            PlanId("abcdef"),
+            200,
+            1,
             false
         )
         subscriptionRepository.store(subscription)

@@ -1,7 +1,6 @@
 package gym.subscriptions.use_cases
 
 import gym.plans.domain.PlanId
-import gym.subscriptions.domain.ChosenPlan
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
 import java.time.LocalDate
@@ -12,27 +11,20 @@ class SubscribeToPlanTest {
     @Test
     fun handle() {
         val subscriptionRepository = SubscriptionInMemoryRepository()
-        val subscriptionId = subscriptionRepository.nextId()
 
         val tested = SubscribeToPlan(subscriptionRepository)
 
         val event = tested.handle(
             SubscribeToPlanCommand(
-                ChosenPlan(
-                    PlanId("abc"),
-                    500,
-                    12,
-                    "yearly plan for 500 euros"
-                ),
-                subscriptionId,
+                PlanId("abc"),
+                500,
+                12,
                 LocalDate.parse("2018-12-18"),
                 false,
                 "bob@mail.com"
             )
         )
 
-        assertEquals(subscriptionId, event.subscriptionId)
-        assertEquals(350, subscriptionRepository.get(subscriptionId).price)
-        assertEquals("yearly plan for 500 euros", subscriptionRepository.get(subscriptionId).chosenPlan.description)
+        assertEquals(350, subscriptionRepository.get(event.subscriptionId).price)
     }
 }

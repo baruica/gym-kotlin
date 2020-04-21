@@ -1,15 +1,24 @@
 package gym.subscriptions.domain
 
+import gym.plans.domain.PlanId
 import java.time.LocalDate
 
 inline class SubscriptionId(val id: String)
 
 class Subscription(
     val id: SubscriptionId,
-    internal val chosenPlan: ChosenPlan,
     val startDate: LocalDate,
+    planId: PlanId,
+    planPrice: Int,
+    planDurationInMonths: Int,
     isStudent: Boolean
 ) {
+    private val chosenPlan = ChosenPlan(
+        planId,
+        planPrice,
+        planDurationInMonths
+    )
+
     internal val price: Int =
         Price(chosenPlan.price).afterDiscount(
             chosenPlan.isYearly(),
@@ -40,6 +49,16 @@ class Subscription(
             true -> (price / 12).toDouble()
             false -> price.toDouble()
         }
+    }
+}
+
+data class ChosenPlan(
+    val planId: PlanId,
+    val price: Int,
+    val durationInMonths: Int
+) {
+    internal fun isYearly(): Boolean {
+        return durationInMonths == 12
     }
 }
 

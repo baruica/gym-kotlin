@@ -4,7 +4,7 @@ import gym.fifthOfJune
 import gym.plans.domain.PlanId
 import org.junit.Test
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -74,31 +74,21 @@ class SubscriptionTest {
     }
 
     private fun monthlySubscription(basePrice: Int, startDate: LocalDate, isStudent: Boolean): Subscription {
-        return newSubscription(monthlyChosenPlan(basePrice), startDate, isStudent)
+        return newSubscription(startDate, basePrice, 1, isStudent)
     }
 
     private fun yearlySubscription(basePrice: Int, startDate: LocalDate, isStudent: Boolean): Subscription {
-        return newSubscription(yearlyChosenPlan(basePrice), startDate, isStudent)
+        return newSubscription(startDate, basePrice, 12, isStudent)
     }
 
-    private fun newSubscription(chosenPlan: ChosenPlan, startDate: LocalDate, isStudent: Boolean): Subscription {
+    private fun newSubscription(startDate: LocalDate, basePrice: Int, durationInMonths: Int, isStudent: Boolean): Subscription {
         return Subscription(
             SubscriptionId(UUID.randomUUID().toString()),
-            chosenPlan,
             startDate,
+            PlanId(UUID.randomUUID().toString()),
+            basePrice,
+            durationInMonths,
             isStudent
         )
     }
-
-    private fun monthlyChosenPlan(basePrice: Int) = chosenPlan(basePrice, 1)
-
-    private fun yearlyChosenPlan(basePrice: Int) = chosenPlan(basePrice, 12)
-
-    private fun chosenPlan(price: Int, durationInMonths: Int) =
-        ChosenPlan(
-            PlanId(UUID.randomUUID().toString()),
-            price,
-            durationInMonths,
-            "$durationInMonths month(s) plan for $price euros"
-        )
 }
