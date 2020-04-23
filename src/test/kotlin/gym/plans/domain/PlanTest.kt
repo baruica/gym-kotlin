@@ -19,6 +19,13 @@ class PlanTest {
     }
 
     @Test
+    fun `a plan cannot be anything other than monthly or yearly`() {
+        assertFailsWith<java.lang.IllegalArgumentException> {
+            Plan.new(PlanId("abc"), 400, 4)
+        }
+    }
+
+    @Test
     fun `has a valid price`() {
         assertFailsWith<IllegalArgumentException> {
             MonthlyPlan(PlanId("abc"), -10)

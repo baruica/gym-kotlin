@@ -13,7 +13,7 @@ sealed class Plan(
             return when (planDurationInMonths) {
                 1 -> MonthlyPlan(id, price)
                 12 -> YearlyPlan(id, price)
-                else -> throw IllegalArgumentException("Plan is either monthly (1 month) or yearly (12 months)")
+                else -> throw IllegalArgumentException("Plan is either monthly or yearly")
             }
         }
     }
