@@ -11,10 +11,10 @@ class PlanTest {
 
     @Test
     fun `has a factory method to get specific type of plan`() {
-        val yearlyPlan = Plan.new(PlanId("abc"), 600, PlanPeriodicity.YEARLY)
+        val yearlyPlan = Plan.new(PlanId("abc"), 600, 12)
         assertTrue(yearlyPlan is YearlyPlan)
 
-        val monthlyPlan = Plan.new(PlanId("def"), 200, PlanPeriodicity.MONTHLY)
+        val monthlyPlan = Plan.new(PlanId("def"), 200, 1)
         assertTrue(monthlyPlan is MonthlyPlan)
     }
 

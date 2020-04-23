@@ -9,8 +9,8 @@ class CreateNewPlan(private val planRepository: PlanRepository) {
     fun handle(command: CreateNewPlanCommand): NewPlanCreated {
         val newPlan = Plan.new(
             command.planId,
-            command.basePrice,
-            command.planPeriodicity
+            command.planPrice,
+            command.planDurationInMonths
         )
 
         planRepository.store(newPlan)

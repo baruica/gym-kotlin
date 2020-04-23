@@ -9,11 +9,13 @@ sealed class Plan(
     internal var price: Price = Price(priceAmount)
 
     companion object {
-        fun new(id: PlanId, price: Int, planPeriodicity: PlanPeriodicity): Plan =
-            when (planPeriodicity) {
-                PlanPeriodicity.MONTHLY -> MonthlyPlan(id, price)
-                PlanPeriodicity.YEARLY -> YearlyPlan(id, price)
+        fun new(id: PlanId, price: Int, planDurationInMonths: Int): Plan {
+            return when (planDurationInMonths) {
+                1 -> MonthlyPlan(id, price)
+                12 -> YearlyPlan(id, price)
+                else -> throw IllegalArgumentException("Plan is either monthly (1 month) or yearly (12 months)")
             }
+        }
     }
 
     data class MonthlyPlan(override val id: PlanId, val priceAmount: Int) : Plan(id, priceAmount) {

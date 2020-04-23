@@ -1,6 +1,5 @@
 package gym.plans.use_cases
 
-import gym.plans.domain.PlanPeriodicity
 import gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -19,7 +18,7 @@ class CreateNewPlanTest {
             CreateNewPlanCommand(
                 planId,
                 300,
-                PlanPeriodicity.MONTHLY
+                1
             )
         )
 
