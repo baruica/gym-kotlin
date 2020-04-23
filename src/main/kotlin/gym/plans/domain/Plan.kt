@@ -13,7 +13,7 @@ sealed class Plan(
             return when (planDurationInMonths) {
                 1 -> MonthlyPlan(id, price)
                 12 -> YearlyPlan(id, price)
-                else -> throw IllegalArgumentException("Plan is either monthly or yearly")
+                else -> throw PlanException("Plan is either monthly or yearly")
             }
         }
     }
@@ -30,6 +30,8 @@ sealed class Plan(
         price = Price(newPriceAmount)
     }
 }
+
+data class PlanException(override val message: String) : Throwable()
 
 internal data class Price(val amount: Int) {
     init {
