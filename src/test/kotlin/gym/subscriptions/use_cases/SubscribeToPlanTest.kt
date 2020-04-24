@@ -1,9 +1,11 @@
 package gym.subscriptions.use_cases
 
+import gym.subscriptions.domain.SubscriptionEvent
 import gym.subscriptions.domain.SubscriptionId
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class SubscribeToPlanTest {
 
@@ -28,5 +30,6 @@ class SubscribeToPlanTest {
             350,
             subscriptionRepository.get(SubscriptionId(events.last().aggregateId)).price
         )
+        assertTrue(events.last() is SubscriptionEvent.NewSubscription)
     }
 }

@@ -30,13 +30,7 @@ class RenewSubscriptionsAutomaticallyTest {
             RenewSubscriptionsAutomaticallyCommand("2018-07-09")
         )
 
-        assertTrue(
-            events.contains(
-                SubscriptionEvent.SubscriptionRenewed(
-                    subscriptionId.toString()
-                )
-            )
-        )
+        assertTrue(events.last() is SubscriptionEvent.SubscriptionRenewed)
 
         val onGoingDateAfterRenewing = LocalDate.parse("2018-08-01")
         assertTrue(subscriptionRepository.get(subscription.subscriptionId).isOngoing(onGoingDateAfterRenewing))

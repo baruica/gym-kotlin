@@ -8,7 +8,6 @@ import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
 import java.time.LocalDate
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class SendWelcomeEmailToNewMemberTest {
@@ -35,7 +34,7 @@ class SendWelcomeEmailToNewMemberTest {
             MemberEvent.NewMemberSubscribed(memberId.toString(), email)
         )
 
-        assertEquals(memberId.toString(), events.last().aggregateId)
+        assertTrue(events.last() is MemberEvent.WelcomeEmailWasSentToNewMember)
         assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"))
     }
 }
