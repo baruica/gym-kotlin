@@ -1,7 +1,7 @@
 package gym.subscriptions.use_cases
 
-import gym.Event
 import gym.subscriptions.domain.Subscription
+import gym.subscriptions.domain.SubscriptionEvent
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
 import java.time.LocalDate
@@ -30,7 +30,13 @@ class RenewSubscriptionsAutomaticallyTest {
             RenewSubscriptionsAutomaticallyCommand("2018-07-09")
         )
 
-        assertTrue(events.contains(Event.SubscriptionRenewed(subscriptionId.toString())))
+        assertTrue(
+            events.contains(
+                SubscriptionEvent.SubscriptionRenewed(
+                    subscriptionId.toString()
+                )
+            )
+        )
 
         val onGoingDateAfterRenewing = LocalDate.parse("2018-08-01")
         assertTrue(subscriptionRepository.get(subscription.subscriptionId).isOngoing(onGoingDateAfterRenewing))

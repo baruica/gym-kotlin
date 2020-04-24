@@ -1,19 +1,18 @@
 package gym.plans.domain
 
-import gym.Aggregate
-import gym.Event
-
 inline class PlanId(private val id: String) {
     override fun toString(): String {
         return id
     }
 }
 
-sealed class Plan(val planId: PlanId, priceAmount: Int) : Aggregate(planId.toString()) {
+sealed class Plan(val planId: PlanId, priceAmount: Int) {
+
+    val raisedEvents: MutableList<PlanEvent> = mutableListOf()
 
     init {
         raisedEvents.add(
-            Event.NewPlanCreated(planId.toString())
+            PlanEvent.NewPlanCreated(planId.toString())
         )
     }
 
@@ -41,7 +40,7 @@ sealed class Plan(val planId: PlanId, priceAmount: Int) : Aggregate(planId.toStr
         price = Price(newPriceAmount)
 
         raisedEvents.add(
-            Event.PlanPriceChanged(planId.toString())
+            PlanEvent.PlanPriceChanged(planId.toString())
         )
     }
 }

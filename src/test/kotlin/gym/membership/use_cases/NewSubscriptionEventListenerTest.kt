@@ -1,9 +1,9 @@
 package gym.membership.use_cases
 
-import gym.Event
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.infrastructure.MemberInMemoryRepository
+import gym.subscriptions.domain.SubscriptionEvent
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -22,7 +22,7 @@ class NewSubscriptionEventListenerTest {
         val tested = NewSubscriptionEventListener(memberRepository)
 
         val events = tested.handle(
-            Event.NewSubscription(
+            SubscriptionEvent.NewSubscription(
                 "subscriptionId def",
                 "2018-06-05",
                 email.email

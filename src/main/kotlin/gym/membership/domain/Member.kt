@@ -1,7 +1,5 @@
 package gym.membership.domain
 
-import gym.Aggregate
-import gym.Event
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
@@ -16,19 +14,20 @@ class Member(
     email: String,
     val subscriptionId: SubscriptionId,
     private val startDate: LocalDate
-) : Aggregate(memberId.toString()) {
-
+) {
     val email = EmailAddress(email)
+
+    val raisedEvents: MutableList<MemberEvent> = mutableListOf()
 
     init {
         raisedEvents.add(
-            Event.NewMemberSubscribed(memberId.toString(), this.email.toString())
+            MemberEvent.NewMemberSubscribed(memberId.toString(), this.email.toString())
         )
     }
 
     fun markWelcomeEmailAsSent() {
         raisedEvents.add(
-            Event.WelcomeEmailWasSentToNewMember(memberId.toString())
+            MemberEvent.WelcomeEmailWasSentToNewMember(memberId.toString())
         )
     }
 
@@ -38,7 +37,7 @@ class Member(
 
     fun mark3YearsAnniversaryThankYouEmailAsSent() {
         raisedEvents.add(
-            Event.ThreeYearsAnniversaryThankYouEmailSent(memberId.toString())
+            MemberEvent.ThreeYearsAnniversaryThankYouEmailSent(memberId.toString())
         )
     }
 }
