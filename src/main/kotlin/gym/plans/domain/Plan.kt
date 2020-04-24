@@ -1,8 +1,10 @@
 package gym.plans.domain
 
 import gym.Aggregate
+import gym.NewPlanCreated
+import gym.PlanPriceChanged
 
-inline class PlanId(val id: String) {
+inline class PlanId(private val id: String) {
     override fun toString(): String {
         return id
     }
@@ -11,7 +13,7 @@ inline class PlanId(val id: String) {
 sealed class Plan(val planId: PlanId, priceAmount: Int) : Aggregate(planId.toString()) {
 
     init {
-        raisedEvents.add(NewPlanCreated(planId))
+        raisedEvents.add(NewPlanCreated(planId.toString()))
     }
 
     internal var price: Price = Price(priceAmount)
@@ -36,7 +38,7 @@ sealed class Plan(val planId: PlanId, priceAmount: Int) : Aggregate(planId.toStr
 
     fun changePrice(newPriceAmount: Int) {
         price = Price(newPriceAmount)
-        raisedEvents.add(PlanPriceChanged(planId))
+        raisedEvents.add(PlanPriceChanged(planId.toString()))
     }
 }
 

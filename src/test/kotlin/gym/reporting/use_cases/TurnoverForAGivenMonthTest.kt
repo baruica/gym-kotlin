@@ -1,6 +1,5 @@
 package gym.reporting.use_cases
 
-import gym.plans.domain.PlanId
 import gym.subscriptions.domain.Subscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
@@ -20,20 +19,22 @@ class TurnoverForAGivenMonthTest {
             Subscription(
                 subscriptionRepository.nextId(),
                 today,
-                PlanId("abcdef"),
+                "planId abcdef",
                 50,
                 1,
-                false
+                false,
+                "bob@gmail.com"
             )
         )
         subscriptionRepository.store(
             Subscription(
                 subscriptionRepository.nextId(),
                 inAMonth,
-                PlanId("defghi"),
+                "planId defghi",
                 500,
                 12,
-                false
+                false,
+                "bob@gmail.com"
             )
         )
 

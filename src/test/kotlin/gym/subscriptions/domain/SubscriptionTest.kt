@@ -1,10 +1,9 @@
 package gym.subscriptions.domain
 
 import gym.fifthOfJune
-import gym.plans.domain.PlanId
 import org.junit.Test
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -81,14 +80,20 @@ class SubscriptionTest {
         return newSubscription(startDate, basePrice, 12, isStudent)
     }
 
-    private fun newSubscription(startDate: LocalDate, basePrice: Int, durationInMonths: Int, isStudent: Boolean): Subscription {
+    private fun newSubscription(
+        startDate: LocalDate,
+        basePrice: Int,
+        durationInMonths: Int,
+        isStudent: Boolean
+    ): Subscription {
         return Subscription(
             SubscriptionId(UUID.randomUUID().toString()),
             startDate,
-            PlanId(UUID.randomUUID().toString()),
+            UUID.randomUUID().toString(),
             basePrice,
             durationInMonths,
-            isStudent
+            isStudent,
+            "bob@gmail.com"
         )
     }
 }

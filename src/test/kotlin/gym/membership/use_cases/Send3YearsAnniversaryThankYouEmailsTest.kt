@@ -1,5 +1,6 @@
 package gym.membership.use_cases
 
+import gym.ThreeYearsAnniversaryThankYouEmailSent
 import gym.fifthOfJune
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
@@ -8,7 +9,7 @@ import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -31,16 +32,18 @@ class Send3YearsAnniversaryThankYouEmailsTest {
 
         val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
 
-        val event = tested.handle(
+        val events = tested.handle(
             Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         )
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"))
+        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberJulie.memberId.toString())))
+
         assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"))
+        assertFalse(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberBob.memberId.toString())))
+
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"))
-        assertTrue(event.memberIds.contains(memberJulie.id.toString()))
-        assertFalse(event.memberIds.contains(memberBob.id.toString()))
-        assertTrue(event.memberIds.contains(memberLuke.id.toString()))
+        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberLuke.memberId.toString())))
     }
 
     private fun buildMember(email: String, startDate: LocalDate): Member = Member(

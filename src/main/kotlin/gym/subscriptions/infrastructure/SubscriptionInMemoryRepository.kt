@@ -3,7 +3,6 @@ package gym.subscriptions.infrastructure
 import gym.subscriptions.domain.Subscription
 import gym.subscriptions.domain.SubscriptionId
 import gym.subscriptions.domain.SubscriptionRepository
-import gym.subscriptions.domain.SubscriptionRepositoryException
 import java.time.LocalDate
 import java.util.HashMap
 import java.util.UUID
@@ -17,7 +16,7 @@ class SubscriptionInMemoryRepository : SubscriptionRepository {
     }
 
     override fun store(subscription: Subscription) {
-        subscriptions[subscription.id] = subscription
+        subscriptions[subscription.subscriptionId] = subscription
     }
 
     override fun storeAll(subscriptions: Map<SubscriptionId, Subscription>) {

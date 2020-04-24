@@ -1,27 +1,35 @@
 package gym.membership.domain
 
+import gym.Aggregate
+import gym.NewMemberSubscribed
+import gym.ThreeYearsAnniversaryThankYouEmailSent
+import gym.WelcomeEmailWasSentToNewMember
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
-inline class MemberId(val id: String) {
+inline class MemberId(private val id: String) {
     override fun toString(): String {
         return id
     }
 }
 
 class Member(
-    val id: MemberId,
+    val memberId: MemberId,
     email: String,
     val subscriptionId: SubscriptionId,
     private val startDate: LocalDate
-) {
-    val email: EmailAddress = EmailAddress(email)
+) : Aggregate(memberId.toString()) {
 
-    private var welcomeEmailHasBeenSent: Boolean = false
-    private var threeYearsAnniversaryEmailHasBeenSent: Boolean = false
+    val email = EmailAddress(email)
+
+    init {
+        raisedEvents.add(
+            NewMemberSubscribed(memberId.toString(), this.email.toString())
+        )
+    }
 
     fun markWelcomeEmailAsSent() {
-        this.welcomeEmailHasBeenSent = true
+        raisedEvents.add(WelcomeEmailWasSentToNewMember(memberId.toString()))
     }
 
     fun isThreeYearsAnniversary(asOfDate: LocalDate): Boolean {
@@ -29,6 +37,6 @@ class Member(
     }
 
     fun mark3YearsAnniversaryThankYouEmailAsSent() {
-        this.threeYearsAnniversaryEmailHasBeenSent = true
+        raisedEvents.add(ThreeYearsAnniversaryThankYouEmailSent(memberId.toString()))
     }
 }

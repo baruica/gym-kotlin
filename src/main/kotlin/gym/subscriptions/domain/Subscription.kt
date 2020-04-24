@@ -1,39 +1,51 @@
 package gym.subscriptions.domain
 
-import gym.plans.domain.PlanId
+import gym.Aggregate
+import gym.NewSubscription
+import gym.SubscriptionRenewed
 import java.time.LocalDate
 
-inline class SubscriptionId(val id: String)
+inline class SubscriptionId(private val id: String) {
+    override fun toString(): String {
+        return id
+    }
+}
 
 class Subscription(
-    val id: SubscriptionId,
-    val startDate: LocalDate,
-    planId: PlanId,
+    val subscriptionId: SubscriptionId,
+    startDate: LocalDate,
+    planId: String,
     planPrice: Int,
     planDurationInMonths: Int,
-    isStudent: Boolean
-) {
-    private val chosenPlan = ChosenPlan(
-        planId,
-        planPrice,
-        planDurationInMonths
-    )
+    isStudent: Boolean,
+    email: String
+) : Aggregate(subscriptionId.toString()) {
 
-    internal val price: Int =
-        Price(chosenPlan.price).afterDiscount(
+    private val chosenPlan: ChosenPlan = ChosenPlan(planId, planPrice, planDurationInMonths)
+    internal val price: Int
+    private val periods: MutableList<Period>
+
+    init {
+        this.price = Price(chosenPlan.price).afterDiscount(
             chosenPlan.isYearly(),
             isStudent
         )
 
-    private val periods: MutableList<Period> =
-        mutableListOf(
+        this.periods = mutableListOf(
             Period(startDate, chosenPlan.durationInMonths)
         )
+
+        raisedEvents.add(
+            NewSubscription(subscriptionId.toString(), startDate.toString(), email)
+        )
+    }
 
     fun renew() {
         periods.add(
             periods.last().next()
         )
+
+        raisedEvents.add(SubscriptionRenewed(subscriptionId.toString()))
     }
 
     fun isOngoing(asOfDate: LocalDate): Boolean {
@@ -52,11 +64,7 @@ class Subscription(
     }
 }
 
-data class ChosenPlan(
-    val planId: PlanId,
-    val price: Int,
-    val durationInMonths: Int
-) {
+private data class ChosenPlan(val planId: String, val price: Int, val durationInMonths: Int) {
     internal fun isYearly(): Boolean {
         return durationInMonths == 12
     }

@@ -3,8 +3,8 @@ package gym.plans.infrastructure
 import gym.plans.domain.Plan
 import gym.plans.domain.PlanId
 import gym.plans.domain.PlanRepository
-import gym.plans.domain.PlanRepositoryException
-import java.util.*
+import java.util.HashMap
+import java.util.UUID
 
 class PlanInMemoryRepository : PlanRepository {
 

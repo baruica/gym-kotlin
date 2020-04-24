@@ -8,6 +8,7 @@ import gym.plans.domain.PlanRepository
 class ChangePlanPrice(private val planRepository: PlanRepository) {
 
     fun handle(command: ChangePriceOfPlanCommand): List<Event> {
+
         val plan: Plan = planRepository.get(PlanId(command.planId))
 
         plan.changePrice(command.newPrice)

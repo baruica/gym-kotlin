@@ -1,13 +1,14 @@
 package gym.subscriptions.use_cases
 
+import gym.Event
 import gym.subscriptions.domain.SubscriptionRepository
-import gym.subscriptions.domain.SubscriptionsRenewedAutomatically
+import java.time.LocalDate
 
 class RenewSubscriptionsAutomatically(private val subscriptionRepository: SubscriptionRepository) {
 
-    fun handle(command: RenewSubscriptionsAutomaticallyCommand): SubscriptionsRenewedAutomatically {
+    fun handle(command: RenewSubscriptionsAutomaticallyCommand): List<Event> {
 
-        val endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(command.asOfDate)
+        val endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(LocalDate.parse(command.asOfDate))
 
         endedSubscriptionsAsOf.mapValues {
             it.value.renew()
@@ -15,8 +16,8 @@ class RenewSubscriptionsAutomatically(private val subscriptionRepository: Subscr
 
         subscriptionRepository.storeAll(endedSubscriptionsAsOf)
 
-        return SubscriptionsRenewedAutomatically(
-            endedSubscriptionsAsOf.keys.toList()
-        )
+        return endedSubscriptionsAsOf.values.map {
+            it.raisedEvents.last()
+        }
     }
 }

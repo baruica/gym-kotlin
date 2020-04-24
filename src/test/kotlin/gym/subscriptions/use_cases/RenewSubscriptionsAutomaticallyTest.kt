@@ -1,6 +1,6 @@
 package gym.subscriptions.use_cases
 
-import gym.plans.domain.PlanId
+import gym.SubscriptionRenewed
 import gym.subscriptions.domain.Subscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
@@ -16,25 +16,26 @@ class RenewSubscriptionsAutomaticallyTest {
         val subscription = Subscription(
             subscriptionId,
             LocalDate.parse("2018-06-09"),
-            PlanId("abcdef"),
+            "planId abcdef",
             200,
             1,
-            false
+            false,
+            "bob@gmail.com"
         )
         subscriptionRepository.store(subscription)
 
         val tested = RenewSubscriptionsAutomatically(subscriptionRepository)
 
-        val event = tested.handle(
-            RenewSubscriptionsAutomaticallyCommand(LocalDate.parse("2018-07-09"))
+        val events = tested.handle(
+            RenewSubscriptionsAutomaticallyCommand("2018-07-09")
         )
 
-        assertTrue(event.renewedSubscriptions.contains(subscriptionId))
+        assertTrue(events.contains(SubscriptionRenewed(subscriptionId.toString())))
 
         val onGoingDateAfterRenewing = LocalDate.parse("2018-08-01")
-        assertTrue(subscriptionRepository.get(subscription.id).isOngoing(onGoingDateAfterRenewing))
+        assertTrue(subscriptionRepository.get(subscription.subscriptionId).isOngoing(onGoingDateAfterRenewing))
 
         val dateWillBeEndedAfterRenewal = LocalDate.parse("2018-08-10")
-        assertTrue(subscriptionRepository.get(subscription.id).willBeEnded(dateWillBeEndedAfterRenewal))
+        assertTrue(subscriptionRepository.get(subscription.subscriptionId).willBeEnded(dateWillBeEndedAfterRenewal))
     }
 }
