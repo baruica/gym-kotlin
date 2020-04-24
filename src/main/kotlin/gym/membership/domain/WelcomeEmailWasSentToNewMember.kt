@@ -1,3 +1,5 @@
 package gym.membership.domain
 
-data class WelcomeEmailWasSentToNewMember(val memberId: MemberId)
+class WelcomeEmailWasSentToNewMember(memberId: MemberId) {
+    val memberId = memberId.toString()
+}

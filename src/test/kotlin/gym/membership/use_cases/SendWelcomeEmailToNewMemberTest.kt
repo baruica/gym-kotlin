@@ -34,7 +34,7 @@ class SendWelcomeEmailToNewMemberTest {
             NewMemberSubscribed(memberId, member.email)
         )
 
-        assertEquals(memberId, event.memberId)
+        assertEquals(memberId.toString(), event.memberId)
         assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"))
     }
 }

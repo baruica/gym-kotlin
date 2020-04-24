@@ -1,10 +1,6 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.Mailer
-import gym.membership.domain.Member
-import gym.membership.domain.MemberRepository
-import gym.membership.domain.NewMemberSubscribed
-import gym.membership.domain.WelcomeEmailWasSentToNewMember
+import gym.membership.domain.*
 
 class SendWelcomeEmailToNewMember(
     private val memberRepository: MemberRepository,
@@ -12,7 +8,7 @@ class SendWelcomeEmailToNewMember(
 ) {
     fun handle(event: NewMemberSubscribed): WelcomeEmailWasSentToNewMember {
 
-        val member: Member = memberRepository.get(event.memberId)
+        val member: Member = memberRepository.get(MemberId(event.memberId))
 
         mailer.sendEmail(
             member.email,

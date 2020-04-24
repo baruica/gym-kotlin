@@ -1,6 +1,9 @@
 package gym.membership.domain
 
-data class NewMemberSubscribed(
-    val memberId: MemberId,
-    val memberEmail: EmailAddress
-)
+class NewMemberSubscribed(
+    memberId: MemberId,
+    memberEmail: EmailAddress
+) {
+    val memberId = memberId.toString()
+    val memberEmail = memberEmail.toString()
+}

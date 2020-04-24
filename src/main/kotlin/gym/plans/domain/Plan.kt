@@ -1,15 +1,23 @@
 package gym.plans.domain
 
-inline class PlanId(val id: String)
+import gym.Aggregate
 
-sealed class Plan(
-    open val id: PlanId,
-    priceAmount: Int
-) {
+inline class PlanId(val id: String) {
+    override fun toString(): String {
+        return id
+    }
+}
+
+sealed class Plan(val planId: PlanId, priceAmount: Int) : Aggregate(planId.toString()) {
+
+    init {
+        raisedEvents.add(NewPlanCreated(planId))
+    }
+
     internal var price: Price = Price(priceAmount)
 
     companion object {
-        fun new(id: PlanId, price: Int, planDurationInMonths: Int): Plan {
+        fun new(id: String, price: Int, planDurationInMonths: Int): Plan {
             return when (planDurationInMonths) {
                 1 -> MonthlyPlan(id, price)
                 12 -> YearlyPlan(id, price)
@@ -18,16 +26,17 @@ sealed class Plan(
         }
     }
 
-    data class MonthlyPlan(override val id: PlanId, val priceAmount: Int) : Plan(id, priceAmount) {
+    data class MonthlyPlan(val id: String, val priceAmount: Int) : Plan(PlanId(id), priceAmount) {
         override fun toString(): String = "Monthly plan for $price"
     }
 
-    data class YearlyPlan(override val id: PlanId, val priceAmount: Int) : Plan(id, priceAmount) {
+    data class YearlyPlan(val id: String, val priceAmount: Int) : Plan(PlanId(id), priceAmount) {
         override fun toString(): String = "Yearly plan for $price"
     }
 
     fun changePrice(newPriceAmount: Int) {
         price = Price(newPriceAmount)
+        raisedEvents.add(PlanPriceChanged(planId))
     }
 }
 

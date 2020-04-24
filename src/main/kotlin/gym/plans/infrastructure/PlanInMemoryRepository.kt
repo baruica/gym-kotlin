@@ -4,8 +4,7 @@ import gym.plans.domain.Plan
 import gym.plans.domain.PlanId
 import gym.plans.domain.PlanRepository
 import gym.plans.domain.PlanRepositoryException
-import java.util.HashMap
-import java.util.UUID
+import java.util.*
 
 class PlanInMemoryRepository : PlanRepository {
 
@@ -16,7 +15,7 @@ class PlanInMemoryRepository : PlanRepository {
     }
 
     override fun store(plan: Plan) {
-        plans[plan.id] = plan
+        plans[plan.planId] = plan
     }
 
     override fun get(planId: PlanId): Plan {

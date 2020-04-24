@@ -3,7 +3,11 @@ package gym.membership.domain
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
-inline class MemberId(val id: String)
+inline class MemberId(val id: String) {
+    override fun toString(): String {
+        return id
+    }
+}
 
 class Member(
     val id: MemberId,

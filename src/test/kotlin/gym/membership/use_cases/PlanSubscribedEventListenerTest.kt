@@ -33,6 +33,6 @@ class PlanSubscribedEventListenerTest {
         )
 
         assertTrue(memberRepository.findByEmail(email) is Member)
-        assertEquals(email, event?.memberEmail)
+        assertEquals(email.email, event?.memberEmail)
     }
 }

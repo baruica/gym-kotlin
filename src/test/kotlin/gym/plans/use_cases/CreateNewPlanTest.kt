@@ -1,5 +1,6 @@
 package gym.plans.use_cases
 
+import gym.plans.domain.PlanId
 import gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -14,14 +15,19 @@ class CreateNewPlanTest {
 
         val planId = planRepository.nextId()
 
-        val event = tested.handle(
+        val events = tested.handle(
             CreateNewPlanCommand(
-                planId,
+                planId.toString(),
                 300,
                 1
             )
         )
 
-        assertEquals(planId, event.newPlan.id)
+        assertEquals(
+            planId,
+            planRepository.get(
+                PlanId(events.first().aggregateId.toString())
+            ).planId
+        )
     }
 }

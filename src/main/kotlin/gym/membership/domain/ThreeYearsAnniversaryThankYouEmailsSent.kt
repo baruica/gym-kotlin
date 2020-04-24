@@ -1,3 +1,5 @@
 package gym.membership.domain
 
-data class ThreeYearsAnniversaryThankYouEmailsSent(val memberIds: List<MemberId>)
+class ThreeYearsAnniversaryThankYouEmailsSent(memberIds: List<MemberId>) {
+    val memberIds: List<String> = memberIds.map { memberId -> memberId.toString() }
+}

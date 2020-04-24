@@ -8,7 +8,7 @@ import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -32,15 +32,15 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
 
         val event = tested.handle(
-            Send3YearsAnniversaryThankYouEmailsCommand(fifthOfJune())
+            Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         )
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"))
         assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"))
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"))
-        assertTrue(event.memberIds.contains(memberJulie.id))
-        assertFalse(event.memberIds.contains(memberBob.id))
-        assertTrue(event.memberIds.contains(memberLuke.id))
+        assertTrue(event.memberIds.contains(memberJulie.id.toString()))
+        assertFalse(event.memberIds.contains(memberBob.id.toString()))
+        assertTrue(event.memberIds.contains(memberLuke.id.toString()))
     }
 
     private fun buildMember(email: String, startDate: LocalDate): Member = Member(

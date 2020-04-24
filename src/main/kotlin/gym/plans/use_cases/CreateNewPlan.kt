@@ -1,12 +1,13 @@
 package gym.plans.use_cases
 
-import gym.plans.domain.NewPlanCreated
+import gym.Event
 import gym.plans.domain.Plan
 import gym.plans.domain.PlanRepository
 
 class CreateNewPlan(private val planRepository: PlanRepository) {
 
-    fun handle(command: CreateNewPlanCommand): NewPlanCreated {
+    fun handle(command: CreateNewPlanCommand): List<Event> {
+
         val newPlan = Plan.new(
             command.planId,
             command.planPrice,
@@ -15,6 +16,6 @@ class CreateNewPlan(private val planRepository: PlanRepository) {
 
         planRepository.store(newPlan)
 
-        return NewPlanCreated(newPlan)
+        return newPlan.raisedEvents
     }
 }

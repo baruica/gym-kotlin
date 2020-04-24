@@ -1,3 +1,6 @@
 package gym.plans.domain
 
-data class PlanPriceChanged(val plan: Plan)
+import gym.AggregateId
+import gym.Event
+
+data class PlanPriceChanged(val planId: PlanId) : Event(AggregateId(planId.toString()))
