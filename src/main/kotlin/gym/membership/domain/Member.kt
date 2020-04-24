@@ -1,9 +1,7 @@
 package gym.membership.domain
 
 import gym.Aggregate
-import gym.NewMemberSubscribed
-import gym.ThreeYearsAnniversaryThankYouEmailSent
-import gym.WelcomeEmailWasSentToNewMember
+import gym.Event
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
@@ -24,12 +22,14 @@ class Member(
 
     init {
         raisedEvents.add(
-            NewMemberSubscribed(memberId.toString(), this.email.toString())
+            Event.NewMemberSubscribed(memberId.toString(), this.email.toString())
         )
     }
 
     fun markWelcomeEmailAsSent() {
-        raisedEvents.add(WelcomeEmailWasSentToNewMember(memberId.toString()))
+        raisedEvents.add(
+            Event.WelcomeEmailWasSentToNewMember(memberId.toString())
+        )
     }
 
     fun isThreeYearsAnniversary(asOfDate: LocalDate): Boolean {
@@ -37,6 +37,8 @@ class Member(
     }
 
     fun mark3YearsAnniversaryThankYouEmailAsSent() {
-        raisedEvents.add(ThreeYearsAnniversaryThankYouEmailSent(memberId.toString()))
+        raisedEvents.add(
+            Event.ThreeYearsAnniversaryThankYouEmailSent(memberId.toString())
+        )
     }
 }

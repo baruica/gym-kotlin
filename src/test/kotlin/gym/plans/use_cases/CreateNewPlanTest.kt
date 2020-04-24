@@ -26,7 +26,7 @@ class CreateNewPlanTest {
         assertEquals(
             planId,
             planRepository.get(
-                PlanId(events.first().aggregateId.toString())
+                PlanId(events.first().aggregateId)
             ).planId
         )
     }

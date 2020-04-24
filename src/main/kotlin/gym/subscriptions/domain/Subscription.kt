@@ -1,8 +1,7 @@
 package gym.subscriptions.domain
 
 import gym.Aggregate
-import gym.NewSubscription
-import gym.SubscriptionRenewed
+import gym.Event
 import java.time.LocalDate
 
 inline class SubscriptionId(private val id: String) {
@@ -36,7 +35,7 @@ class Subscription(
         )
 
         raisedEvents.add(
-            NewSubscription(subscriptionId.toString(), startDate.toString(), email)
+            Event.NewSubscription(subscriptionId.toString(), startDate.toString(), email)
         )
     }
 
@@ -45,7 +44,9 @@ class Subscription(
             periods.last().next()
         )
 
-        raisedEvents.add(SubscriptionRenewed(subscriptionId.toString()))
+        raisedEvents.add(
+            Event.SubscriptionRenewed(subscriptionId.toString())
+        )
     }
 
     fun isOngoing(asOfDate: LocalDate): Boolean {

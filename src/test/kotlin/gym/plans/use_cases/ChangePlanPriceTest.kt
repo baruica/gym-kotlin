@@ -25,7 +25,7 @@ class ChangePlanPriceTest {
         )
 
         val plan = planRepository.get(
-            PlanId(events.last().aggregateId.toString())
+            PlanId(events.last().aggregateId)
         )
         assertEquals(Price(400), plan.price)
     }

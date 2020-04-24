@@ -1,6 +1,6 @@
 package gym.membership.use_cases
 
-import gym.NewMemberSubscribed
+import gym.Event
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
 import gym.membership.infrastructure.InMemoryMailer
@@ -32,10 +32,10 @@ class SendWelcomeEmailToNewMemberTest {
         val tested = SendWelcomeEmailToNewMember(memberRepository, mailer)
 
         val events = tested.handle(
-            NewMemberSubscribed(memberId.toString(), email)
+            Event.NewMemberSubscribed(memberId.toString(), email)
         )
 
-        assertEquals(memberId.toString(), events.last().aggregateId.toString())
+        assertEquals(memberId.toString(), events.last().aggregateId)
         assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"))
     }
 }

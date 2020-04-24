@@ -1,10 +1,11 @@
 package gym.membership.use_cases
 
-import gym.NewSubscription
+import gym.Event
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.infrastructure.MemberInMemoryRepository
 import org.junit.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -21,14 +22,15 @@ class NewSubscriptionEventListenerTest {
         val tested = NewSubscriptionEventListener(memberRepository)
 
         val events = tested.handle(
-            NewSubscription(
+            Event.NewSubscription(
                 "subscriptionId def",
                 "2018-06-05",
                 email.email
             )
         )
 
-        assertTrue(memberRepository.findByEmail(email) is Member)
-        //assertEquals(email.email, events.last().memberEmail)
+        val member = memberRepository.findByEmail(email)
+        assertTrue(member is Member)
+        assertEquals(member.memberId.toString(), events.last().aggregateId)
     }
 }

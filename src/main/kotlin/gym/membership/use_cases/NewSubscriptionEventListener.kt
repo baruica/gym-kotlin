@@ -1,7 +1,6 @@
 package gym.membership.use_cases
 
 import gym.Event
-import gym.NewSubscription
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.domain.MemberRepository
@@ -11,7 +10,7 @@ import java.time.LocalDate
 class NewSubscriptionEventListener(
     private val memberRepository: MemberRepository
 ) {
-    fun handle(event: NewSubscription): List<Event> {
+    fun handle(event: Event.NewSubscription): List<Event> {
 
         val knownMember: Member? = memberRepository.findByEmail(EmailAddress(event.email))
 

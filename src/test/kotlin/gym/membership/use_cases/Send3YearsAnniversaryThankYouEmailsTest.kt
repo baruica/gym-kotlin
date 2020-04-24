@@ -1,6 +1,6 @@
 package gym.membership.use_cases
 
-import gym.ThreeYearsAnniversaryThankYouEmailSent
+import gym.Event
 import gym.fifthOfJune
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
@@ -37,13 +37,13 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         )
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"))
-        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberJulie.memberId.toString())))
+        assertTrue(events.contains(Event.ThreeYearsAnniversaryThankYouEmailSent(memberJulie.memberId.toString())))
 
         assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"))
-        assertFalse(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberBob.memberId.toString())))
+        assertFalse(events.contains(Event.ThreeYearsAnniversaryThankYouEmailSent(memberBob.memberId.toString())))
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"))
-        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberLuke.memberId.toString())))
+        assertTrue(events.contains(Event.ThreeYearsAnniversaryThankYouEmailSent(memberLuke.memberId.toString())))
     }
 
     private fun buildMember(email: String, startDate: LocalDate): Member = Member(

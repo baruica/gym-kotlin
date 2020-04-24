@@ -26,7 +26,7 @@ class SubscribeToPlanTest {
 
         assertEquals(
             350,
-            subscriptionRepository.get(SubscriptionId(events.last().aggregateId.toString())).price
+            subscriptionRepository.get(SubscriptionId(events.last().aggregateId)).price
         )
     }
 }
