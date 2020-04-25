@@ -22,10 +22,7 @@
 - *Aggregate* ids are provided by their *repository* ([read](https://matthiasnoback.nl/2018/05/when-and-where-to-determine-the-id-of-an-entity/))
 - *Aggregate* ids have their own types ([read](https://buildplease.com/pages/vo-ids/))
 - *Domain events* are put aside during the aggregate's execution, then "collected" and published by the use case ([read](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/))
-- all objects are closed for extension by default ([read](https://ocramius.github.io/blog/when-to-declare-classes-final/))
-- use *factory methods* instead of being limited to just constructors ([read](http://verraes.net/2014/06/named-constructors-in-php/))
 - avoid *get/set* prefixes ([read](https://blog.pragmatists.com/refactoring-from-anemic-model-to-ddd-880d3dd3d45f))
-- exception messages are hidden in the exception classes ([read](http://rosstuck.com/formatting-exception-messages))
 
 ## Links
 
