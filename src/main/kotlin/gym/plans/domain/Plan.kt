@@ -1,56 +1,49 @@
 package gym.plans.domain
 
+import gym.plans.domain.PlanEvent.NewPlanCreated
+import gym.plans.domain.PlanEvent.PlanPriceChanged
+
 inline class PlanId(private val id: String) {
     override fun toString(): String {
         return id
     }
 }
 
-sealed class Plan(val planId: PlanId, priceAmount: Int) {
+class Plan(id: String, priceAmount: Int, planDurationInMonths: Int) {
+
+    val planId = PlanId(id)
+
+    private val planDurationsInMonths = listOf(1, 12)
+
+    internal var price = Price(priceAmount)
 
     val raisedEvents: MutableList<PlanEvent> = mutableListOf()
 
     init {
+        require(planDurationsInMonths.contains(planDurationInMonths)) {
+            "Plan duration is either 1 month or 12 months, was $planDurationInMonths"
+        }
+
         raisedEvents.add(
-            PlanEvent.NewPlanCreated(planId.toString())
+            NewPlanCreated(planId.toString())
         )
     }
 
-    internal var price: Price = Price(priceAmount)
-
-    companion object {
-        fun new(id: String, price: Int, planDurationInMonths: Int): Plan {
-            return when (planDurationInMonths) {
-                1 -> MonthlyPlan(id, price)
-                12 -> YearlyPlan(id, price)
-                else -> throw PlanException("Plan is either monthly or yearly")
-            }
-        }
-    }
-
-    data class MonthlyPlan(val id: String, val priceAmount: Int) : Plan(PlanId(id), priceAmount) {
-        override fun toString(): String = "Monthly plan for $price"
-    }
-
-    data class YearlyPlan(val id: String, val priceAmount: Int) : Plan(PlanId(id), priceAmount) {
-        override fun toString(): String = "Yearly plan for $price"
-    }
-
     fun changePrice(newPriceAmount: Int) {
-        price = Price(newPriceAmount)
+        val oldPrice = this.price.priceAmount
+
+        this.price = Price(newPriceAmount)
 
         raisedEvents.add(
-            PlanEvent.PlanPriceChanged(planId.toString())
+            PlanPriceChanged(planId.toString(), oldPrice, this.price.priceAmount)
         )
     }
 }
 
-data class PlanException(override val message: String) : Throwable()
-
-internal data class Price(val amount: Int) {
+internal data class Price(val priceAmount: Int) {
     init {
-        require(amount >= 0) { "Price amount must be non-negative, was $amount" }
+        require(priceAmount >= 0) {
+            "Price amount must be non-negative, was $priceAmount"
+        }
     }
-
-    override fun toString(): String = "$amount euros"
 }

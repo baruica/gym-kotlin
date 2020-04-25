@@ -93,7 +93,7 @@ private class Discount(chosenPlanIsYearly: Boolean, isStudent: Boolean) {
     }
 }
 
-internal class Period(private val startDate: LocalDate, durationInMonths: Int) {
+private data class Period(private val startDate: LocalDate, val durationInMonths: Int) {
 
     private val endDate: LocalDate = (startDate.plusMonths(durationInMonths.toLong())).minusDays(1)
 

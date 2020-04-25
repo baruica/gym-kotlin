@@ -1,6 +1,6 @@
 package gym.plans.use_cases
 
-import gym.plans.domain.Plan.YearlyPlan
+import gym.plans.domain.Plan
 import gym.plans.domain.PlanEvent
 import gym.plans.domain.PlanId
 import gym.plans.domain.Price
@@ -17,7 +17,7 @@ class ChangePlanPriceTest {
         val planId = planRepository.nextId()
 
         planRepository.store(
-            YearlyPlan(planId.toString(), 450)
+            Plan(planId.toString(), 450, 12)
         )
 
         val tested = ChangePlanPrice(planRepository)
@@ -26,10 +26,12 @@ class ChangePlanPriceTest {
             ChangePriceOfPlanCommand(planId.toString(), 400)
         )
 
+        assertTrue(events.last() is PlanEvent.PlanPriceChanged)
+        assertTrue(events.contains(PlanEvent.PlanPriceChanged(planId.toString(), 450, 400)))
+
         val plan = planRepository.get(
             PlanId(events.last().aggregateId)
         )
         assertEquals(Price(400), plan.price)
-        assertTrue(events.last() is PlanEvent.PlanPriceChanged)
     }
 }
