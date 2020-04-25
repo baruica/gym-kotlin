@@ -31,12 +31,18 @@ class Subscription(
     }
 
     fun renew() {
+        val oldEndOfSubscription: LocalDate = periods.last().endDate
+
         periods.add(
             periods.last().next()
         )
 
         raisedEvents.add(
-            SubscriptionRenewed(subscriptionId.toString())
+            SubscriptionRenewed(
+                subscriptionId.toString(),
+                oldEndOfSubscription.toString(),
+                periods.last().endDate.toString()
+            )
         )
     }
 
@@ -74,7 +80,7 @@ private class Discount(durationInMonths: Int, isStudent: Boolean) {
 
 private data class Period(private val startDate: LocalDate, val durationInMonths: Int) {
 
-    private val endDate: LocalDate = (startDate.plusMonths(durationInMonths.toLong())).minusDays(1)
+    internal val endDate: LocalDate = (startDate.plusMonths(durationInMonths.toLong())).minusDays(1)
 
     internal fun isBefore(date: LocalDate): Boolean = date.isAfter(endDate)
 

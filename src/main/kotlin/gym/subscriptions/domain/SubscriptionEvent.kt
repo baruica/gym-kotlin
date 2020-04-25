@@ -7,5 +7,9 @@ sealed class SubscriptionEvent(val aggregateId: String) {
         val email: String
     ) : SubscriptionEvent(subscriptionId)
 
-    data class SubscriptionRenewed(val subscriptionId: String) : SubscriptionEvent(subscriptionId)
+    data class SubscriptionRenewed(
+        val subscriptionId: String,
+        val oldEndDate: String,
+        val newEndDate: String
+    ) : SubscriptionEvent(subscriptionId)
 }
