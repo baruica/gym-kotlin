@@ -1,13 +1,16 @@
 package gym.membership.use_cases
 
+import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
-import gym.membership.domain.MemberEvent
+import gym.membership.domain.MemberEvent.NewMemberSubscribed
+import gym.membership.domain.MemberEvent.WelcomeEmailWasSentToNewMember
 import gym.membership.domain.MemberId
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
 import java.time.LocalDate
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class SendWelcomeEmailToNewMemberTest {
@@ -17,11 +20,13 @@ class SendWelcomeEmailToNewMemberTest {
 
         val memberId = MemberId("abc")
         val email = "bob@gmail.com"
+        val subscriptionId = SubscriptionId("def")
+        val startDate = LocalDate.now()
         val member = Member(
             memberId,
-            email,
-            SubscriptionId("def"),
-            LocalDate.now()
+            EmailAddress(email),
+            subscriptionId,
+            startDate
         )
         val memberRepository = MemberInMemoryRepository()
         memberRepository.store(member)
@@ -31,10 +36,22 @@ class SendWelcomeEmailToNewMemberTest {
         val tested = SendWelcomeEmailToNewMember(memberRepository, mailer)
 
         val events = tested.handle(
-            MemberEvent.NewMemberSubscribed(memberId.toString(), email)
+            NewMemberSubscribed(
+                memberId.toString(),
+                email,
+                subscriptionId.toString(),
+                startDate.toString()
+            )
         )
 
-        assertTrue(events.last() is MemberEvent.WelcomeEmailWasSentToNewMember)
+        assertEquals(
+            events.last(),
+            WelcomeEmailWasSentToNewMember(
+                memberId.toString(),
+                email,
+                subscriptionId.toString()
+            )
+        )
         assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"))
     }
 }

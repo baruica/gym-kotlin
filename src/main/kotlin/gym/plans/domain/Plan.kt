@@ -7,9 +7,7 @@ inline class PlanId(private val id: String) {
     override fun toString(): String = id
 }
 
-class Plan(id: String, priceAmount: Int, planDurationInMonths: Int) {
-
-    val planId = PlanId(id)
+class Plan(val id: PlanId, priceAmount: Int, planDurationInMonths: Int) {
 
     private val planDurationsInMonths = listOf(1, 12)
 
@@ -23,25 +21,29 @@ class Plan(id: String, priceAmount: Int, planDurationInMonths: Int) {
         }
 
         raisedEvents.add(
-            NewPlanCreated(planId.toString())
+            NewPlanCreated(
+                id.toString(),
+                price.amount,
+                planDurationInMonths
+            )
         )
     }
 
     fun changePrice(newPriceAmount: Int) {
-        val oldPrice = this.price.priceAmount
+        val oldPrice = this.price.amount
 
         this.price = Price(newPriceAmount)
 
         raisedEvents.add(
-            PlanPriceChanged(planId.toString(), oldPrice, this.price.priceAmount)
+            PlanPriceChanged(id.toString(), oldPrice, this.price.amount)
         )
     }
 }
 
-internal data class Price(val priceAmount: Int) {
+internal data class Price(val amount: Int) {
     init {
-        require(priceAmount >= 0) {
-            "Price amount must be non-negative, was $priceAmount"
+        require(amount >= 0) {
+            "Price amount must be non-negative, was $amount"
         }
     }
 }

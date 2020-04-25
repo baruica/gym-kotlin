@@ -1,13 +1,12 @@
 package gym.membership.use_cases
 
 import gym.membership.domain.EmailAddress
-import gym.membership.domain.Member
-import gym.membership.domain.MemberEvent
+import gym.membership.domain.MemberEvent.NewMemberSubscribed
 import gym.membership.infrastructure.MemberInMemoryRepository
-import gym.subscriptions.domain.SubscriptionEvent
+import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
 import org.junit.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
 class NewSubscriptionEventListenerTest {
 
@@ -15,22 +14,31 @@ class NewSubscriptionEventListenerTest {
     fun handle() {
         val memberRepository = MemberInMemoryRepository()
 
-        val email = EmailAddress("luke@gmail.com")
+        val email = "luke@gmail.com"
 
-        assertNull(memberRepository.findByEmail(email))
+        assertNull(memberRepository.findByEmail(EmailAddress(email)))
 
-        val tested = NewSubscriptionEventListener(memberRepository)
-
-        val events = tested.handle(
-            SubscriptionEvent.NewSubscription(
-                "subscriptionId def",
-                "2018-06-05",
-                email.email
-            )
+        val subscriptionId = "subscriptionId def"
+        val subscriptionStartDate = "2018-06-05"
+        val newSubscriptionEvent = NewSubscription(
+            subscriptionId,
+            subscriptionStartDate,
+            email
         )
 
-        val member = memberRepository.findByEmail(email)
-        assertTrue(member is Member)
-        assertTrue(events.last() is MemberEvent.NewMemberSubscribed)
+        val tested = NewSubscriptionEventListener(memberRepository)
+        val events = tested.handle(
+            newSubscriptionEvent
+        )
+
+        assertEquals(
+            events.last(),
+            NewMemberSubscribed(
+                events.last().aggregateId,
+                email,
+                subscriptionId,
+                subscriptionStartDate
+            )
+        )
     }
 }

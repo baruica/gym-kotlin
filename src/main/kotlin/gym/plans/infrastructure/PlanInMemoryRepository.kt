@@ -3,8 +3,7 @@ package gym.plans.infrastructure
 import gym.plans.domain.Plan
 import gym.plans.domain.PlanId
 import gym.plans.domain.PlanRepository
-import java.util.HashMap
-import java.util.UUID
+import java.util.*
 
 class PlanInMemoryRepository : PlanRepository {
 
@@ -15,7 +14,7 @@ class PlanInMemoryRepository : PlanRepository {
     }
 
     override fun store(plan: Plan) {
-        plans[plan.planId] = plan
+        plans[plan.id] = plan
     }
 
     override fun get(planId: PlanId): Plan {

@@ -1,15 +1,16 @@
 package gym.membership.use_cases
 
 import gym.fifthOfJune
+import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
-import gym.membership.domain.MemberEvent
+import gym.membership.domain.MemberEvent.ThreeYearsAnniversaryThankYouEmailSent
 import gym.membership.domain.MemberId
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
 import org.junit.Test
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -19,13 +20,16 @@ class Send3YearsAnniversaryThankYouEmailsTest {
     fun handle() {
         val memberRepository = MemberInMemoryRepository()
 
-        val memberJulie = buildMember("julie@gmail.com", fifthOfJune().minusYears(3))
+        val startDateJulie = fifthOfJune().minusYears(3)
+        val memberJulie = buildMember("julie@gmail.com", startDateJulie)
         memberRepository.store(memberJulie)
 
-        val memberBob = buildMember("bob@gmail.com", fifthOfJune().minusYears(2))
+        val startDateBob = fifthOfJune().minusYears(2)
+        val memberBob = buildMember("bob@gmail.com", startDateBob)
         memberRepository.store(memberBob)
 
-        val memberLuke = buildMember("luke@gmail.com", fifthOfJune().minusYears(3))
+        val startDateLuke = fifthOfJune().minusYears(3)
+        val memberLuke = buildMember("luke@gmail.com", startDateLuke)
         memberRepository.store(memberLuke)
 
         val mailer = InMemoryMailer()
@@ -37,18 +41,18 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         )
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"))
-        assertTrue(events.contains(MemberEvent.ThreeYearsAnniversaryThankYouEmailSent(memberJulie.memberId.toString())))
+        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberJulie.id.toString(), startDateJulie.toString())))
 
         assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"))
-        assertFalse(events.contains(MemberEvent.ThreeYearsAnniversaryThankYouEmailSent(memberBob.memberId.toString())))
+        assertFalse(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberBob.id.toString(), startDateBob.toString())))
 
         assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"))
-        assertTrue(events.contains(MemberEvent.ThreeYearsAnniversaryThankYouEmailSent(memberLuke.memberId.toString())))
+        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())))
     }
 
     private fun buildMember(email: String, startDate: LocalDate): Member = Member(
         MemberId(UUID.randomUUID().toString()),
-        email,
+        EmailAddress(email),
         SubscriptionId("def"),
         startDate
     )

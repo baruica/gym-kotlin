@@ -5,8 +5,7 @@ import gym.membership.domain.Member
 import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
 import java.time.LocalDate
-import java.util.HashMap
-import java.util.UUID
+import java.util.*
 
 class MemberInMemoryRepository : MemberRepository {
 
@@ -17,7 +16,7 @@ class MemberInMemoryRepository : MemberRepository {
     }
 
     override fun store(member: Member) {
-        members[member.memberId] = member
+        members[member.id] = member
     }
 
     override fun get(memberId: MemberId): Member {

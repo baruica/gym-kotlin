@@ -9,7 +9,7 @@ inline class SubscriptionId(private val id: String) {
 }
 
 class Subscription(
-    val subscriptionId: SubscriptionId,
+    val id: SubscriptionId,
     startDate: LocalDate,
     planPrice: Int,
     planDurationInMonths: Int,
@@ -26,7 +26,7 @@ class Subscription(
 
     init {
         raisedEvents.add(
-            NewSubscription(subscriptionId.toString(), startDate.toString(), email)
+            NewSubscription(id.toString(), startDate.toString(), email)
         )
     }
 
@@ -39,7 +39,7 @@ class Subscription(
 
         raisedEvents.add(
             SubscriptionRenewed(
-                subscriptionId.toString(),
+                id.toString(),
                 oldEndOfSubscription.toString(),
                 periods.last().endDate.toString()
             )

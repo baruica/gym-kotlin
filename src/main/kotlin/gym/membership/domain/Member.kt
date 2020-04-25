@@ -9,34 +9,44 @@ inline class MemberId(private val id: String) {
 }
 
 class Member(
-    val memberId: MemberId,
-    email: String,
-    val subscriptionId: SubscriptionId,
-    private val startDate: LocalDate
+    val id: MemberId,
+    val email: EmailAddress,
+    private val subscriptionId: SubscriptionId,
+    private val memberSince: LocalDate
 ) {
-    val email = EmailAddress(email)
-
     val raisedEvents: MutableList<MemberEvent> = mutableListOf()
 
     init {
         raisedEvents.add(
-            NewMemberSubscribed(memberId.toString(), this.email.toString())
+            NewMemberSubscribed(
+                id.toString(),
+                email.toString(),
+                subscriptionId.toString(),
+                memberSince.toString()
+            )
         )
     }
 
     fun markWelcomeEmailAsSent() {
         raisedEvents.add(
-            WelcomeEmailWasSentToNewMember(memberId.toString())
+            WelcomeEmailWasSentToNewMember(
+                id.toString(),
+                email.email,
+                subscriptionId.toString()
+            )
         )
     }
 
     fun isThreeYearsAnniversary(asOfDate: LocalDate): Boolean {
-        return asOfDate.minusYears(3).isEqual(startDate)
+        return asOfDate.minusYears(3).isEqual(memberSince)
     }
 
     fun mark3YearsAnniversaryThankYouEmailAsSent() {
         raisedEvents.add(
-            ThreeYearsAnniversaryThankYouEmailSent(memberId.toString())
+            ThreeYearsAnniversaryThankYouEmailSent(
+                id.toString(),
+                memberSince.toString()
+            )
         )
     }
 }

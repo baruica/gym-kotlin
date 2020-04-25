@@ -1,11 +1,9 @@
 package gym.subscriptions.use_cases
 
-import gym.subscriptions.domain.SubscriptionEvent
-import gym.subscriptions.domain.SubscriptionId
+import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class SubscribeToPlanTest {
 
@@ -17,7 +15,6 @@ class SubscribeToPlanTest {
 
         val events = tested.handle(
             SubscribeToPlanCommand(
-                "planId abc",
                 500,
                 12,
                 "2018-12-18",
@@ -27,9 +24,12 @@ class SubscribeToPlanTest {
         )
 
         assertEquals(
-            350,
-            subscriptionRepository.get(SubscriptionId(events.last().aggregateId)).price
+            events.last(),
+            NewSubscription(
+                events.last().aggregateId,
+                "2018-12-18",
+                "bob@mail.com"
+            )
         )
-        assertTrue(events.last() is SubscriptionEvent.NewSubscription)
     }
 }

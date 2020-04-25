@@ -1,6 +1,7 @@
 package gym.subscriptions.domain
 
 sealed class SubscriptionEvent(val aggregateId: String) {
+
     data class NewSubscription(
         val subscriptionId: String,
         val subscriptionStartDate: String,
