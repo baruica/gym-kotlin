@@ -1,12 +1,11 @@
 package gym.membership.domain
 
+import gym.membership.domain.MemberEvent.*
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
 inline class MemberId(private val id: String) {
-    override fun toString(): String {
-        return id
-    }
+    override fun toString(): String = id
 }
 
 class Member(
@@ -21,13 +20,13 @@ class Member(
 
     init {
         raisedEvents.add(
-            MemberEvent.NewMemberSubscribed(memberId.toString(), this.email.toString())
+            NewMemberSubscribed(memberId.toString(), this.email.toString())
         )
     }
 
     fun markWelcomeEmailAsSent() {
         raisedEvents.add(
-            MemberEvent.WelcomeEmailWasSentToNewMember(memberId.toString())
+            WelcomeEmailWasSentToNewMember(memberId.toString())
         )
     }
 
@@ -37,7 +36,7 @@ class Member(
 
     fun mark3YearsAnniversaryThankYouEmailAsSent() {
         raisedEvents.add(
-            MemberEvent.ThreeYearsAnniversaryThankYouEmailSent(memberId.toString())
+            ThreeYearsAnniversaryThankYouEmailSent(memberId.toString())
         )
     }
 }

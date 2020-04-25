@@ -1,44 +1,32 @@
 package gym.subscriptions.domain
 
+import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
+import gym.subscriptions.domain.SubscriptionEvent.SubscriptionRenewed
 import java.time.LocalDate
 
 inline class SubscriptionId(private val id: String) {
-    override fun toString(): String {
-        return id
-    }
+    override fun toString(): String = id
 }
 
 class Subscription(
     val subscriptionId: SubscriptionId,
     startDate: LocalDate,
-    planId: String,
     planPrice: Int,
     planDurationInMonths: Int,
     isStudent: Boolean,
     email: String
 ) {
-    private val chosenPlan: ChosenPlan = ChosenPlan(planId, planPrice, planDurationInMonths)
-    internal val price: Int
-    private val periods: MutableList<Period>
+    val price: Int = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+
+    private val periods: MutableList<Period> = mutableListOf(
+        Period(startDate, planDurationInMonths)
+    )
 
     val raisedEvents: MutableList<SubscriptionEvent> = mutableListOf()
 
     init {
-        this.price = Price(chosenPlan.price).afterDiscount(
-            chosenPlan.isYearly(),
-            isStudent
-        )
-
-        this.periods = mutableListOf(
-            Period(startDate, chosenPlan.durationInMonths)
-        )
-
         raisedEvents.add(
-            SubscriptionEvent.NewSubscription(
-                subscriptionId.toString(),
-                startDate.toString(),
-                email
-            )
+            NewSubscription(subscriptionId.toString(), startDate.toString(), email)
         )
     }
 
@@ -48,7 +36,7 @@ class Subscription(
         )
 
         raisedEvents.add(
-            SubscriptionEvent.SubscriptionRenewed(subscriptionId.toString())
+            SubscriptionRenewed(subscriptionId.toString())
         )
     }
 
@@ -61,30 +49,21 @@ class Subscription(
     }
 
     fun monthlyTurnover(): Double {
-        return when (chosenPlan.isYearly()) {
-            true -> (price / 12).toDouble()
-            false -> price.toDouble()
-        }
+        return (price / periods.first().durationInMonths).toDouble()
     }
 }
 
-private data class ChosenPlan(val planId: String, val price: Int, val durationInMonths: Int) {
-    internal fun isYearly(): Boolean {
-        return durationInMonths == 12
+private data class Price(val amount: Int) {
+    internal fun afterDiscount(durationInMonths: Int, isStudent: Boolean): Int {
+        return (amount.toDouble() * (1 - Discount(durationInMonths, isStudent).rate)).toInt()
     }
 }
 
-private data class Price(val price: Int) {
-    internal fun afterDiscount(chosenPlanIsYearly: Boolean, isStudent: Boolean): Int {
-        return (price.toDouble() * (1 - Discount(chosenPlanIsYearly, isStudent).rate)).toInt()
-    }
-}
-
-private class Discount(chosenPlanIsYearly: Boolean, isStudent: Boolean) {
+private class Discount(durationInMonths: Int, isStudent: Boolean) {
     internal var rate: Double = 0.0
 
     init {
-        if (chosenPlanIsYearly) {
+        if (durationInMonths == 12) {
             rate += 0.3
         }
         if (isStudent) {

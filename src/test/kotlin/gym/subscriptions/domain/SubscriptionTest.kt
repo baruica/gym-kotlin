@@ -3,7 +3,7 @@ package gym.subscriptions.domain
 import gym.fifthOfJune
 import org.junit.Test
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -89,7 +89,6 @@ class SubscriptionTest {
         return Subscription(
             SubscriptionId(UUID.randomUUID().toString()),
             startDate,
-            UUID.randomUUID().toString(),
             basePrice,
             durationInMonths,
             isStudent,

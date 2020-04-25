@@ -19,7 +19,6 @@ class TurnoverForAGivenMonthTest {
             Subscription(
                 subscriptionRepository.nextId(),
                 today,
-                "planId abcdef",
                 50,
                 1,
                 false,
@@ -30,7 +29,6 @@ class TurnoverForAGivenMonthTest {
             Subscription(
                 subscriptionRepository.nextId(),
                 inAMonth,
-                "planId defghi",
                 500,
                 12,
                 false,

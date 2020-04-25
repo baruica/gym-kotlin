@@ -16,7 +16,6 @@ class RenewSubscriptionsAutomaticallyTest {
         val subscription = Subscription(
             subscriptionId,
             LocalDate.parse("2018-06-09"),
-            "planId abcdef",
             200,
             1,
             false,
