@@ -9,14 +9,12 @@ inline class PlanId(private val id: String) {
 
 class Plan(val id: PlanId, priceAmount: Int, planDurationInMonths: Int) {
 
-    private val planDurationsInMonths = listOf(1, 12)
-
     internal var price = Price(priceAmount)
 
     val raisedEvents: MutableList<PlanEvent> = mutableListOf()
 
     init {
-        require(planDurationsInMonths.contains(planDurationInMonths)) {
+        require(listOf(1, 12).contains(planDurationInMonths)) {
             "Plan duration is either 1 month or 12 months, was $planDurationInMonths"
         }
 
