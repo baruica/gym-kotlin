@@ -10,7 +10,7 @@ inline class PlanId(private val id: String) {
 
 class Plan(val id: PlanId, priceAmount: Int, planDurationInMonths: Int) : Aggregate(mutableListOf()) {
 
-    internal val price = Price(priceAmount)
+    internal var price = Price(priceAmount)
 
     init {
         require(listOf(1, 12).contains(planDurationInMonths)) {
