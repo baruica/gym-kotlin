@@ -1,6 +1,8 @@
 package gym.membership.domain
 
-sealed class MemberEvent(val aggregateId: String) {
+import gym.DomainEvent
+
+sealed class MemberEvent(id: String) : DomainEvent(id) {
 
     data class NewMemberSubscribed(
         val memberId: String,
