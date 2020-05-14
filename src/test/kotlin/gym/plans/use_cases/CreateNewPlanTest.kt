@@ -20,7 +20,7 @@ class CreateNewPlanTest {
         assertEquals(
             events.last(),
             NewPlanCreated(
-                events.last().aggregateId,
+                events.last().planId,
                 300,
                 1
             )

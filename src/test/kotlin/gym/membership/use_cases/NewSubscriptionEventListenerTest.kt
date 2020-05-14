@@ -34,7 +34,7 @@ class NewSubscriptionEventListenerTest {
         assertEquals(
             events.last(),
             NewMemberSubscribed(
-                events.last().aggregateId,
+                events.last().memberId,
                 email,
                 subscriptionId,
                 subscriptionStartDate
