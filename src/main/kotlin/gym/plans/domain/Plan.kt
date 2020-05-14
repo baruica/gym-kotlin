@@ -8,20 +8,17 @@ inline class PlanId(private val id: String) {
     override fun toString(): String = id
 }
 
-class Plan(val id: PlanId, priceAmount: Int, planDurationInMonths: Int) : Aggregate(mutableListOf()) {
+class Plan(val id: PlanId, priceAmount: Int, durationInMonths: Int) : Aggregate(mutableListOf()) {
 
     internal var price = Price(priceAmount)
+    private val duration = Duration(durationInMonths)
 
     init {
-        require(listOf(1, 12).contains(planDurationInMonths)) {
-            "Plan duration is either 1 month or 12 months, was $planDurationInMonths"
-        }
-
         raisedEvents.add(
             NewPlanCreated(
                 id.toString(),
                 price.amount,
-                planDurationInMonths
+                duration.durationInMonths
             )
         )
     }
@@ -41,6 +38,14 @@ internal data class Price(val amount: Int) {
     init {
         require(amount >= 0) {
             "Price amount must be non-negative, was $amount"
+        }
+    }
+}
+
+internal data class Duration(val durationInMonths: Int) {
+    init {
+        require(listOf(1, 12).contains(durationInMonths)) {
+            "Plan duration is either 1 month or 12 months, was $durationInMonths"
         }
     }
 }
