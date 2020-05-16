@@ -10,17 +10,14 @@ inline class SubscriptionId(private val id: String) {
 
 class Subscription(
     val id: SubscriptionId,
-    startDate: LocalDate,
+    private val startDate: LocalDate,
     planPrice: Int,
-    planDurationInMonths: Int,
+    private val planDurationInMonths: Int,
     email: String,
     isStudent: Boolean
 ) {
-    val price: Int = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
-
-    private val periods: MutableList<Period> = mutableListOf(
-        Period(startDate, planDurationInMonths)
-    )
+    val price = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+    private var endDate: LocalDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
 
     val raisedEvents: MutableList<SubscriptionEvent> = mutableListOf()
 
@@ -31,31 +28,29 @@ class Subscription(
     }
 
     fun renew() {
-        val oldEndOfSubscription: LocalDate = periods.last().endDate
+        val oldEndDate = endDate
 
-        periods.add(
-            periods.last().next()
-        )
+        endDate = oldEndDate.plusDays(1).plusMonths(planDurationInMonths.toLong()).minusDays(1)
 
         raisedEvents.add(
             SubscriptionRenewed(
                 id.toString(),
-                oldEndOfSubscription.toString(),
-                periods.last().endDate.toString()
+                oldEndDate.toString(),
+                endDate.toString()
             )
         )
     }
 
-    fun isOngoing(asOfDate: LocalDate): Boolean {
-        return periods.last().contains(asOfDate)
+    fun willBeEndedAfter(asFrom: LocalDate): Boolean {
+        return asFrom.isAfter(endDate)
     }
 
-    fun willBeEnded(asFrom: LocalDate): Boolean {
-        return periods.last().isBefore(asFrom)
+    fun isOngoing(asOfDate: LocalDate): Boolean {
+        return asOfDate in startDate..endDate
     }
 
     fun monthlyTurnover(): Double {
-        return (price / periods.first().durationInMonths).toDouble()
+        return (price / planDurationInMonths).toDouble()
     }
 }
 
@@ -75,24 +70,5 @@ private class Discount(durationInMonths: Int, isStudent: Boolean) {
         if (isStudent) {
             rate += 0.2
         }
-    }
-}
-
-private data class Period(private val startDate: LocalDate, val durationInMonths: Int) {
-
-    internal val endDate: LocalDate = (startDate.plusMonths(durationInMonths.toLong())).minusDays(1)
-
-    internal fun isBefore(date: LocalDate): Boolean = date.isAfter(endDate)
-
-    internal fun contains(asOfDate: LocalDate): Boolean {
-        return (asOfDate.isAfter(startDate) || asOfDate == startDate)
-            && (asOfDate.isBefore(endDate) || asOfDate == endDate)
-    }
-
-    internal fun next(): Period {
-        val firstDayOfNextPeriod = endDate.plusDays(1)
-        val nbMonthsInCurrentPeriod = java.time.Period.between(startDate, firstDayOfNextPeriod).months
-
-        return Period(firstDayOfNextPeriod, nbMonthsInCurrentPeriod)
     }
 }

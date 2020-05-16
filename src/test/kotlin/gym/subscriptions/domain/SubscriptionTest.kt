@@ -47,21 +47,21 @@ class SubscriptionTest {
     fun `can tell if it'll be ended as from a given date`() {
         val subscriptionEndingEndOfJune = monthlySubscription(100, fifthOfJune())
 
-        assertFalse(subscriptionEndingEndOfJune.willBeEnded(LocalDate.parse("2018-07-04")))
-        assertTrue(subscriptionEndingEndOfJune.willBeEnded(LocalDate.parse("2018-07-05")))
+        assertFalse(subscriptionEndingEndOfJune.willBeEndedAfter(LocalDate.parse("2018-07-04")))
+        assertTrue(subscriptionEndingEndOfJune.willBeEndedAfter(LocalDate.parse("2018-07-05")))
     }
 
     @Test
     fun `can be renewed`() {
         val subscription = monthlySubscription(100, fifthOfJune())
 
-        assertFalse(subscription.willBeEnded(LocalDate.parse("2018-07-04")))
-        assertTrue(subscription.willBeEnded(LocalDate.parse("2018-07-05")))
+        assertFalse(subscription.willBeEndedAfter(LocalDate.parse("2018-07-04")))
+        assertTrue(subscription.willBeEndedAfter(LocalDate.parse("2018-07-05")))
 
         subscription.renew()
 
-        assertFalse(subscription.willBeEnded(LocalDate.parse("2018-08-04")))
-        assertTrue(subscription.willBeEnded(LocalDate.parse("2018-08-05")))
+        assertFalse(subscription.willBeEndedAfter(LocalDate.parse("2018-08-04")))
+        assertTrue(subscription.willBeEndedAfter(LocalDate.parse("2018-08-05")))
     }
 
     @Test

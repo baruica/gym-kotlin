@@ -31,7 +31,7 @@ class SubscriptionInMemoryRepository : SubscriptionRepository {
 
     override fun endedSubscriptions(asOfDate: LocalDate): Map<SubscriptionId, Subscription> {
         return subscriptions.filterValues {
-            it.willBeEnded(asOfDate)
+            it.willBeEndedAfter(asOfDate)
         }
     }
 
