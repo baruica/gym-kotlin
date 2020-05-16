@@ -25,12 +25,12 @@ class Plan(val id: PlanId, priceAmount: Int, durationInMonths: Int) {
     }
 
     fun changePrice(newPriceAmount: Int) {
-        val oldPrice = this.price.amount
+        val oldPrice = price.amount
 
-        this.price = Price(newPriceAmount)
+        price = Price(newPriceAmount)
 
         raisedEvents.add(
-            PlanPriceChanged(id.toString(), oldPrice, this.price.amount)
+            PlanPriceChanged(id.toString(), oldPrice, price.amount)
         )
     }
 }

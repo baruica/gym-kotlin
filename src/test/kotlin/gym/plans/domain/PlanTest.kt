@@ -14,7 +14,7 @@ class PlanTest {
     }
 
     @Test
-    fun `must have a valid price`() {
+    fun `cannot have a negative price`() {
         assertFailsWith<IllegalArgumentException> {
             Plan(PlanId("abc"), -10, 1)
         }

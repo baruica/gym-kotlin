@@ -9,8 +9,8 @@ class TurnoverForAGivenMonth(
 
         var turnoverForGivenMonth = 0.0
 
-        subscriptionRepository.onGoingSubscriptions(command.asOfDate).forEach {
-            turnoverForGivenMonth = it.value.monthlyTurnover()
+        subscriptionRepository.onGoingSubscriptions(command.asOfDate).values.forEach {
+            turnoverForGivenMonth = it.monthlyTurnover()
         }
 
         return turnoverForGivenMonth
