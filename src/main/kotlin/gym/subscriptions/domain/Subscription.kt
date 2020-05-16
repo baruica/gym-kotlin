@@ -30,7 +30,7 @@ class Subscription(
     fun renew() {
         val oldEndDate = endDate
 
-        endDate = oldEndDate.plusDays(1).plusMonths(planDurationInMonths.toLong()).minusDays(1)
+        endDate = oldEndDate.plusMonths(planDurationInMonths.toLong())
 
         raisedEvents.add(
             SubscriptionRenewed(
