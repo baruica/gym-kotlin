@@ -1,7 +1,8 @@
 package gym.reporting.use_cases
 
-import gym.subscriptions.domain.Subscription
+import gym.monthlySubscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
+import gym.yearlySubscription
 import org.junit.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
@@ -16,24 +17,10 @@ class TurnoverForAGivenMonthTest {
         val inAMonth = LocalDate.parse("2018-07-09")
 
         subscriptionRepository.store(
-            Subscription(
-                subscriptionRepository.nextId(),
-                today,
-                50,
-                1,
-                false,
-                "bob@gmail.com"
-            )
+            monthlySubscription(50, today)
         )
         subscriptionRepository.store(
-            Subscription(
-                subscriptionRepository.nextId(),
-                inAMonth,
-                500,
-                12,
-                false,
-                "bob@gmail.com"
-            )
+            yearlySubscription(500, inAMonth)
         )
 
         val tested = TurnoverForAGivenMonth(subscriptionRepository)

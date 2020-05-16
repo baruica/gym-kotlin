@@ -15,8 +15,8 @@ class SubscribeToPlan(
             LocalDate.parse(command.startDate),
             command.planPrice,
             command.planDurationInMonths,
-            command.isStudent,
-            command.email
+            command.email,
+            command.isStudent
         )
 
         subscriptionRepository.store(subscription)

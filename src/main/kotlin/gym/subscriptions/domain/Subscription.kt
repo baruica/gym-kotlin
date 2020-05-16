@@ -13,8 +13,8 @@ class Subscription(
     startDate: LocalDate,
     planPrice: Int,
     planDurationInMonths: Int,
-    isStudent: Boolean,
-    email: String
+    email: String,
+    isStudent: Boolean
 ) {
     val price: Int = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
 
