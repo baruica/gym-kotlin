@@ -7,7 +7,7 @@ import kotlin.test.assertFailsWith
 class PlanTest {
 
     @Test
-    fun `a plan cannot have a duration other than 1 month or 12 months`() {
+    fun `cannot have a duration other than 1 month or 12 months`() {
         assertFailsWith<IllegalArgumentException> {
             Plan(PlanId("abc"), 400, 4)
         }
@@ -25,6 +25,6 @@ class PlanTest {
         val tested = Plan(PlanId("abc"), 400, 1)
         tested.changePrice(500)
 
-        assertEquals(Price(500), tested.price)
+        assertEquals(500, tested.price.amount)
     }
 }
