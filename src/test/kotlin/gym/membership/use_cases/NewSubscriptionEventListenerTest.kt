@@ -1,6 +1,6 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.EmailAddress
+import gym.membership.domain.Email
 import gym.membership.domain.MemberEvent.NewMemberSubscribed
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
@@ -16,7 +16,7 @@ class NewSubscriptionEventListenerTest {
 
         val email = "luke@gmail.com"
 
-        assertNull(memberRepository.findByEmail(EmailAddress(email)))
+        assertNull(memberRepository.findByEmail(Email(email)))
 
         val subscriptionId = "subscriptionId def"
         val subscriptionStartDate = "2018-06-05"

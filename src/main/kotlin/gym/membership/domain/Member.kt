@@ -10,7 +10,7 @@ inline class MemberId(private val id: String) {
 
 class Member(
     val id: MemberId,
-    val email: EmailAddress,
+    val email: Email,
     private val subscriptionId: SubscriptionId,
     private val memberSince: LocalDate
 ) {

@@ -1,6 +1,6 @@
 package gym.membership.infrastructure
 
-import gym.membership.domain.EmailAddress
+import gym.membership.domain.Email
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
@@ -24,7 +24,7 @@ class MemberInMemoryRepository : MemberRepository {
             ?: throw MemberRepositoryException.notFound(memberId)
     }
 
-    override fun findByEmail(email: EmailAddress): Member? {
+    override fun findByEmail(email: Email): Member? {
         return members.filterValues {
             it.email == email
         }.values.firstOrNull()

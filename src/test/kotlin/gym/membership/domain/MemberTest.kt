@@ -13,7 +13,7 @@ class MemberTest {
     fun `is 3 years anniversary`() {
         val memberWith3yearsAnniversaryOnTheFifthOfJune = Member(
             MemberId("abc"),
-            EmailAddress("julie@gmail.com"),
+            Email("julie@gmail.com"),
             SubscriptionId("def"),
             fifthOfJune().minusYears(3)
         )

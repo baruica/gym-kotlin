@@ -1,6 +1,6 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.EmailAddress
+import gym.membership.domain.Email
 import gym.membership.domain.Member
 import gym.membership.domain.MemberEvent
 import gym.membership.domain.MemberRepository
@@ -13,7 +13,7 @@ class NewSubscriptionEventListener(
 ) {
     fun handle(event: NewSubscription): List<MemberEvent> {
 
-        val email = EmailAddress(event.email)
+        val email = Email(event.email)
         val knownMember: Member? = memberRepository.findByEmail(email)
 
         if (knownMember == null) {

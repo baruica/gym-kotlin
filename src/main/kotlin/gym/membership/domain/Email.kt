@@ -2,7 +2,7 @@ package gym.membership.domain
 
 import kotlin.text.RegexOption.IGNORE_CASE
 
-data class EmailAddress(val email: String) {
+data class Email(val email: String) {
 
     private val pattern = "^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$"
 

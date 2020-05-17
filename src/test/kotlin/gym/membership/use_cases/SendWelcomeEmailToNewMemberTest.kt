@@ -1,6 +1,6 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.EmailAddress
+import gym.membership.domain.Email
 import gym.membership.domain.Member
 import gym.membership.domain.MemberEvent.NewMemberSubscribed
 import gym.membership.domain.MemberEvent.WelcomeEmailWasSentToNewMember
@@ -24,7 +24,7 @@ class SendWelcomeEmailToNewMemberTest {
         val startDate = LocalDate.now()
         val member = Member(
             memberId,
-            EmailAddress(email),
+            Email(email),
             subscriptionId,
             startDate
         )
