@@ -1,6 +1,6 @@
 package gym.membership.domain
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 class EmailTest {

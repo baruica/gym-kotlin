@@ -4,7 +4,7 @@ import gym.membership.domain.Email
 import gym.membership.domain.MemberEvent.NewMemberSubscribed
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 

@@ -3,7 +3,7 @@ package gym.subscriptions.use_cases
 import gym.monthlySubscription
 import gym.subscriptions.domain.SubscriptionEvent.SubscriptionRenewed
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
