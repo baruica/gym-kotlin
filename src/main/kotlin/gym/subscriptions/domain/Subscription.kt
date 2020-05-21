@@ -55,6 +55,12 @@ class Subscription(
 }
 
 private data class Price(val amount: Int) {
+    init {
+        require(amount >= 0) {
+            "Price amount must be non-negative, was $amount"
+        }
+    }
+
     internal fun afterDiscount(durationInMonths: Int, isStudent: Boolean): Int {
         return (amount.toDouble() * (1 - Discount(durationInMonths, isStudent).rate)).toInt()
     }
