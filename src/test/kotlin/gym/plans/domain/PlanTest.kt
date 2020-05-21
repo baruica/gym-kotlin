@@ -7,14 +7,14 @@ import kotlin.test.assertFailsWith
 class PlanTest {
 
     @Test
-    fun `cannot have a duration other than 1 month or 12 months`() {
+    fun `its duration cannot be anything but 1 month or 12 months`() {
         assertFailsWith<IllegalArgumentException> {
             Plan(PlanId("abc"), 400, 4)
         }
     }
 
     @Test
-    fun `cannot have a negative price`() {
+    fun `its price cannot be negative`() {
         assertFailsWith<IllegalArgumentException> {
             Plan(PlanId("abc"), -10, 1)
         }
