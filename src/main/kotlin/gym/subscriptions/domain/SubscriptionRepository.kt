@@ -1,16 +1,9 @@
 package gym.subscriptions.domain
 
+import common.Repository
 import java.time.LocalDate
 
-interface SubscriptionRepository {
-
-    fun nextId(): SubscriptionId
-
-    fun store(subscription: Subscription)
-
-    fun storeAll(subscriptions: Map<SubscriptionId, Subscription>)
-
-    fun get(subscriptionId: SubscriptionId): Subscription
+interface SubscriptionRepository : Repository {
 
     fun endedSubscriptions(asOfDate: LocalDate): Map<SubscriptionId, Subscription>
 

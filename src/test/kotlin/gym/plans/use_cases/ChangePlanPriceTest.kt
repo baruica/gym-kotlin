@@ -1,8 +1,9 @@
 package gym.plans.use_cases
 
+import common.InMemoryRepository
 import gym.plans.domain.Plan
+import gym.plans.domain.PlanId
 import gym.plans.domain.PlanPriceChanged
-import gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -10,22 +11,22 @@ class ChangePlanPriceTest {
 
     @Test
     fun handle() {
-        val planRepository = PlanInMemoryRepository()
-        val planId = planRepository.nextId()
+        val repository = InMemoryRepository()
+        val planId = repository.nextId()
 
-        planRepository.store(
-            Plan(planId, 450, 12)
+        repository.store(
+            Plan(PlanId(planId), 450, 12)
         )
 
-        val tested = ChangePlanPrice(planRepository)
+        val tested = ChangePlanPrice(repository)
 
         val events = tested.handle(
-            ChangePriceOfPlanCommand(planId.toString(), 400)
+            ChangePriceOfPlanCommand(planId, 400)
         )
 
         assertEquals(
             events.last(),
-            PlanPriceChanged(planId.toString(), 450, 400)
+            PlanPriceChanged(planId, 450, 400)
         )
     }
 }

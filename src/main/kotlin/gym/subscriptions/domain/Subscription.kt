@@ -1,14 +1,15 @@
 package gym.subscriptions.domain
 
 import common.Aggregate
+import common.AggregateId
 import java.time.LocalDate
 
-inline class SubscriptionId(private val id: String) {
+inline class SubscriptionId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
 class Subscription(
-    val id: SubscriptionId,
+    override val id: SubscriptionId,
     private val startDate: LocalDate,
     private val planDurationInMonths: Int,
     planPrice: Int,

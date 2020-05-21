@@ -1,38 +1,23 @@
 package gym.membership.infrastructure
 
+import common.InMemoryRepository
 import gym.membership.domain.Email
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
 import java.time.LocalDate
-import java.util.*
 
-class MemberInMemoryRepository : MemberRepository {
-
-    private val members = HashMap<MemberId, Member>()
-
-    override fun nextId(): MemberId {
-        return MemberId(UUID.randomUUID().toString())
-    }
-
-    override fun store(member: Member) {
-        members[member.id] = member
-    }
-
-    override fun get(memberId: MemberId): Member {
-        return members[memberId]
-            ?: throw MemberRepositoryException.notFound(memberId)
-    }
+class MemberInMemoryRepository : InMemoryRepository(), MemberRepository {
 
     override fun findByEmail(email: Email): Member? {
-        return members.filterValues {
-            it.email == email
-        }.values.firstOrNull()
+        return aggregates.filter {
+            (it.value as Member).email == email
+        }.values.firstOrNull() as Member?
     }
 
     override fun threeYearsAnniversaryMembers(asOfDate: LocalDate): Map<MemberId, Member> {
-        return members.filterValues {
-            it.isThreeYearsAnniversary(asOfDate)
-        }
+        return aggregates.filter {
+            (it.value as Member).isThreeYearsAnniversary(asOfDate)
+        } as Map<MemberId, Member>
     }
 }

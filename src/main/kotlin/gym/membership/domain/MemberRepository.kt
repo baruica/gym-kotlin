@@ -1,14 +1,9 @@
 package gym.membership.domain
 
+import common.Repository
 import java.time.LocalDate
 
-interface MemberRepository {
-
-    fun nextId(): MemberId
-
-    fun store(member: Member)
-
-    fun get(memberId: MemberId): Member
+interface MemberRepository : Repository {
 
     fun findByEmail(email: Email): Member?
 

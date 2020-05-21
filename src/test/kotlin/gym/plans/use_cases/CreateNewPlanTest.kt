@@ -1,7 +1,7 @@
 package gym.plans.use_cases
 
+import common.InMemoryRepository
 import gym.plans.domain.NewPlanCreated
-import gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -9,9 +9,9 @@ class CreateNewPlanTest {
 
     @Test
     fun handle() {
-        val planRepository = PlanInMemoryRepository()
+        val repository = InMemoryRepository()
 
-        val tested = CreateNewPlan(planRepository)
+        val tested = CreateNewPlan(repository)
 
         val events = tested.handle(
             CreateNewPlanCommand(300, 1)

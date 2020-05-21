@@ -1,13 +1,17 @@
 package gym.plans.domain
 
 import common.Aggregate
+import common.AggregateId
 
-inline class PlanId(private val id: String) {
+inline class PlanId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
-class Plan(val id: PlanId, priceAmount: Int, durationInMonths: Int) : Aggregate {
-
+class Plan(
+    override val id: PlanId,
+    priceAmount: Int,
+    durationInMonths: Int
+) : Aggregate {
     override val raisedEvents = mutableListOf<PlanEvent>()
 
     internal var price = Price(priceAmount)
