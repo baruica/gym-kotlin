@@ -1,7 +1,6 @@
 package gym.membership.use_cases
 
 import gym.membership.domain.*
-import gym.membership.domain.MemberEvent.NewMemberSubscribed
 
 class SendWelcomeEmailToNewMember(
     private val memberRepository: MemberRepository,

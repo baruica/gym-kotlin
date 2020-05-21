@@ -4,7 +4,7 @@ import gym.membership.domain.Email
 import gym.membership.domain.Member
 import gym.membership.domain.MemberEvent
 import gym.membership.domain.MemberRepository
-import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
+import gym.subscriptions.domain.NewSubscription
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 

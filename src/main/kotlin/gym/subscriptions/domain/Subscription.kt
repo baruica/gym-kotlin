@@ -1,7 +1,6 @@
 package gym.subscriptions.domain
 
-import gym.subscriptions.domain.SubscriptionEvent.NewSubscription
-import gym.subscriptions.domain.SubscriptionEvent.SubscriptionRenewed
+import common.Aggregate
 import java.time.LocalDate
 
 inline class SubscriptionId(private val id: String) {
@@ -15,11 +14,11 @@ class Subscription(
     planPrice: Int,
     email: String,
     isStudent: Boolean
-) {
+) : Aggregate {
+    override val raisedEvents = mutableListOf<SubscriptionEvent>()
+
     val price = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
     private var endDate: LocalDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
-
-    val raisedEvents: MutableList<SubscriptionEvent> = mutableListOf()
 
     init {
         raisedEvents.add(

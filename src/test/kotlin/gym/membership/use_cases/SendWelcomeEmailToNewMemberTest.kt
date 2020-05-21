@@ -1,10 +1,6 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.Email
-import gym.membership.domain.Member
-import gym.membership.domain.MemberEvent.NewMemberSubscribed
-import gym.membership.domain.MemberEvent.WelcomeEmailWasSentToNewMember
-import gym.membership.domain.MemberId
+import gym.membership.domain.*
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId

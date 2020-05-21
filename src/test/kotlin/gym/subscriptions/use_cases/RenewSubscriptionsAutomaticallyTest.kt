@@ -1,7 +1,7 @@
 package gym.subscriptions.use_cases
 
 import gym.monthlySubscription
-import gym.subscriptions.domain.SubscriptionEvent.SubscriptionRenewed
+import gym.subscriptions.domain.SubscriptionRenewed
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDate

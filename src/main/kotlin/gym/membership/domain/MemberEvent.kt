@@ -1,22 +1,23 @@
 package gym.membership.domain
 
-sealed class MemberEvent(open val memberId: String) {
+import common.DomainEvent
 
-    data class NewMemberSubscribed(
-        override val memberId: String,
-        val memberEmail: String,
-        val subscriptionId: String,
-        val memberSince: String
-    ) : MemberEvent(memberId)
+sealed class MemberEvent(override val aggregateId: String) : DomainEvent
 
-    data class WelcomeEmailWasSentToNewMember(
-        override val memberId: String,
-        val email: String,
-        val memberSince: String
-    ) : MemberEvent(memberId)
+data class NewMemberSubscribed(
+    val memberId: String,
+    val memberEmail: String,
+    val subscriptionId: String,
+    val memberSince: String
+) : MemberEvent(memberId)
 
-    data class ThreeYearsAnniversaryThankYouEmailSent(
-        override val memberId: String,
-        val memberSince: String
-    ) : MemberEvent(memberId)
-}
+data class WelcomeEmailWasSentToNewMember(
+    val memberId: String,
+    val email: String,
+    val memberSince: String
+) : MemberEvent(memberId)
+
+data class ThreeYearsAnniversaryThankYouEmailSent(
+    val memberId: String,
+    val memberSince: String
+) : MemberEvent(memberId)

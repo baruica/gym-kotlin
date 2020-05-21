@@ -1,16 +1,17 @@
 package gym.subscriptions.domain
 
-sealed class SubscriptionEvent(val aggregateId: String) {
+import common.DomainEvent
 
-    data class NewSubscription(
-        val subscriptionId: String,
-        val subscriptionStartDate: String,
-        val email: String
-    ) : SubscriptionEvent(subscriptionId)
+sealed class SubscriptionEvent(override val aggregateId: String) : DomainEvent
 
-    data class SubscriptionRenewed(
-        val subscriptionId: String,
-        val oldEndDate: String,
-        val newEndDate: String
-    ) : SubscriptionEvent(subscriptionId)
-}
+data class NewSubscription(
+    val subscriptionId: String,
+    val subscriptionStartDate: String,
+    val email: String
+) : SubscriptionEvent(subscriptionId)
+
+data class SubscriptionRenewed(
+    val subscriptionId: String,
+    val oldEndDate: String,
+    val newEndDate: String
+) : SubscriptionEvent(subscriptionId)

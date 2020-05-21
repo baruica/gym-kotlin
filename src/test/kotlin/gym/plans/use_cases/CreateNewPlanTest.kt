@@ -1,6 +1,6 @@
 package gym.plans.use_cases
 
-import gym.plans.domain.PlanEvent.NewPlanCreated
+import gym.plans.domain.NewPlanCreated
 import gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -20,7 +20,7 @@ class CreateNewPlanTest {
         assertEquals(
             events.last(),
             NewPlanCreated(
-                events.last().planId,
+                events.last().aggregateId,
                 300,
                 1
             )

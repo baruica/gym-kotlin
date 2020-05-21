@@ -1,6 +1,6 @@
 package gym.membership.domain
 
-import gym.membership.domain.MemberEvent.*
+import common.Aggregate
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
@@ -13,8 +13,8 @@ class Member(
     val email: Email,
     private val subscriptionId: SubscriptionId,
     private val memberSince: LocalDate
-) {
-    val raisedEvents: MutableList<MemberEvent> = mutableListOf()
+) : Aggregate {
+    override val raisedEvents = mutableListOf<MemberEvent>()
 
     init {
         raisedEvents.add(

@@ -3,8 +3,8 @@ package gym.membership.use_cases
 import gym.fifthOfJune
 import gym.membership.domain.Email
 import gym.membership.domain.Member
-import gym.membership.domain.MemberEvent.ThreeYearsAnniversaryThankYouEmailSent
 import gym.membership.domain.MemberId
+import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailSent
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId

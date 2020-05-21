@@ -1,12 +1,12 @@
 package gym.plans.use_cases
 
+import common.DomainEvent
 import gym.plans.domain.Plan
-import gym.plans.domain.PlanEvent
 import gym.plans.domain.PlanRepository
 
 class CreateNewPlan(private val planRepository: PlanRepository) {
 
-    fun handle(command: CreateNewPlanCommand): List<PlanEvent> {
+    fun handle(command: CreateNewPlanCommand): List<DomainEvent> {
 
         val newPlan = Plan(
             planRepository.nextId(),
