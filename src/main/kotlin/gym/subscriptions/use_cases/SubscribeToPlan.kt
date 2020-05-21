@@ -13,8 +13,8 @@ class SubscribeToPlan(
         val subscription = Subscription(
             subscriptionRepository.nextId(),
             LocalDate.parse(command.startDate),
-            command.planPrice,
             command.planDurationInMonths,
+            command.planPrice,
             command.email,
             command.isStudent
         )

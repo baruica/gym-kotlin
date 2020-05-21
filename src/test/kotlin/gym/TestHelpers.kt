@@ -35,8 +35,8 @@ fun newSubscription(
     return Subscription(
         subscriptionId,
         startDate,
-        price,
         durationInMonths,
+        price,
         "bob@gmail.com",
         isStudent
     )

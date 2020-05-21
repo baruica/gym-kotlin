@@ -11,8 +11,8 @@ inline class SubscriptionId(private val id: String) {
 class Subscription(
     val id: SubscriptionId,
     private val startDate: LocalDate,
-    planPrice: Int,
     private val planDurationInMonths: Int,
+    planPrice: Int,
     email: String,
     isStudent: Boolean
 ) {
