@@ -10,7 +10,7 @@ sealed class MemberEvent : DomainEvent {
     abstract val memberId: String
 }
 
-data class NewMemberSubscribed(
+data class NewMembership(
     override val memberId: String,
     val memberEmail: String,
     val subscriptionId: String,

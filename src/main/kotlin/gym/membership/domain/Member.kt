@@ -19,7 +19,7 @@ class Member(
 
     init {
         raisedEvents.add(
-            NewMemberSubscribed(
+            NewMembership(
                 id.toString(),
                 email.toString(),
                 subscriptionId.toString(),
