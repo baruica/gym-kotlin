@@ -1,17 +1,23 @@
 package gym.subscriptions.domain
 
 import common.DomainEvent
+import java.time.Instant
 
-sealed class SubscriptionEvent(override val aggregateId: String) : DomainEvent
+sealed class SubscriptionEvent : DomainEvent {
+    override fun aggregateId(): String = subscriptionId
+    override val created: Instant = Instant.now()
+
+    abstract val subscriptionId: String
+}
 
 data class NewSubscription(
-    val subscriptionId: String,
+    override val subscriptionId: String,
     val subscriptionStartDate: String,
     val email: String
-) : SubscriptionEvent(subscriptionId)
+) : SubscriptionEvent()
 
 data class SubscriptionRenewed(
-    val subscriptionId: String,
+    override val subscriptionId: String,
     val oldEndDate: String,
     val newEndDate: String
-) : SubscriptionEvent(subscriptionId)
+) : SubscriptionEvent()

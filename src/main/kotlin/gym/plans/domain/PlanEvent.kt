@@ -1,17 +1,23 @@
 package gym.plans.domain
 
 import common.DomainEvent
+import java.time.Instant
 
-sealed class PlanEvent(override val aggregateId: String) : DomainEvent
+sealed class PlanEvent : DomainEvent {
+    override fun aggregateId(): String = planId
+    override val created: Instant = Instant.now()
+
+    abstract val planId: String
+}
 
 data class NewPlanCreated(
-    val planId: String,
+    override val planId: String,
     val planPrice: Int,
     val planDurationInMonths: Int
-) : PlanEvent(planId)
+) : PlanEvent()
 
 data class PlanPriceChanged(
-    val planId: String,
+    override val planId: String,
     val oldPrice: Int,
     val newPrice: Int
-) : PlanEvent(planId)
+) : PlanEvent()

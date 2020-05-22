@@ -26,7 +26,7 @@ class SubscribeToPlanTest {
         assertEquals(
             events.last(),
             NewSubscription(
-                events.last().aggregateId,
+                events.last().aggregateId(),
                 "2018-12-18",
                 "bob@mail.com"
             )
