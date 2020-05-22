@@ -4,5 +4,5 @@ interface AggregateId
 
 interface Aggregate {
     val id: AggregateId
-    val raisedEvents: MutableList<out DomainEvent>
+    val raisedEvents: List<DomainEvent>
 }

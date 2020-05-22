@@ -2,9 +2,9 @@ package common
 
 import java.util.*
 
-open class InMemoryRepository : Repository {
+abstract class InMemoryRepository : Repository {
 
-    val aggregates = HashMap<AggregateId, Aggregate>()
+    val aggregates: MutableMap<AggregateId, Aggregate> = mutableMapOf()
 
     override fun nextId(): String {
         return UUID.randomUUID().toString()
