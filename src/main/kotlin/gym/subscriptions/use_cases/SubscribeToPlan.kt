@@ -11,10 +11,10 @@ class SubscribeToPlan(
 ) {
     fun handle(command: SubscribeToPlanCommand): List<DomainEvent> {
 
-        val subscription = Subscription(
+        val subscription = Subscription.subscribe(
             SubscriptionId(subscriptionRepository.nextId()),
-            LocalDate.parse(command.startDate),
             command.planDurationInMonths,
+            LocalDate.parse(command.startDate),
             command.planPrice,
             command.email,
             command.isStudent

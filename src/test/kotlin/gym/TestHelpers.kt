@@ -32,10 +32,10 @@ fun newSubscription(
     durationInMonths: Int,
     isStudent: Boolean
 ): Subscription {
-    return Subscription(
+    return Subscription.subscribe(
         subscriptionId,
-        startDate,
         durationInMonths,
+        startDate,
         price,
         "bob@gmail.com",
         isStudent

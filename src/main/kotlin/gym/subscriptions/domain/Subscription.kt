@@ -8,23 +8,44 @@ inline class SubscriptionId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
-class Subscription(
+class Subscription internal constructor(
     override val id: SubscriptionId,
-    private val startDate: LocalDate,
     private val planDurationInMonths: Int,
-    planPrice: Int,
-    email: String,
-    isStudent: Boolean
+    private val startDate: LocalDate,
+    internal val price: Price
 ) : Aggregate {
     override val raisedEvents = mutableListOf<SubscriptionEvent>()
 
-    val price = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
     private var endDate: LocalDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
 
-    init {
-        raisedEvents.add(
-            NewSubscription(id.toString(), startDate.toString(), email)
-        )
+    companion object {
+        fun subscribe(
+            subscriptionId: SubscriptionId,
+            planDurationInMonths: Int,
+            startDate: LocalDate,
+            planPrice: Int,
+            email: String,
+            isStudent: Boolean
+        ): Subscription {
+            val priceAfterDiscount = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+
+            val subscription = Subscription(
+                subscriptionId,
+                planDurationInMonths,
+                startDate,
+                priceAfterDiscount
+            )
+
+            subscription.raisedEvents.add(
+                NewSubscription(
+                    subscriptionId.toString(),
+                    startDate.toString(),
+                    email
+                )
+            )
+
+            return subscription
+        }
     }
 
     fun renew() {
@@ -50,19 +71,19 @@ class Subscription(
     }
 
     fun monthlyTurnover(): Double {
-        return (price / planDurationInMonths).toDouble()
+        return (price.amount / planDurationInMonths).toDouble()
     }
 }
 
-private data class Price(val amount: Int) {
+internal data class Price(val amount: Int) {
     init {
         require(amount >= 0) {
             "Price amount must be non-negative, was $amount"
         }
     }
 
-    internal fun afterDiscount(durationInMonths: Int, isStudent: Boolean): Int {
-        return (amount.toDouble() * (1 - Discount(durationInMonths, isStudent).rate)).toInt()
+    internal fun afterDiscount(durationInMonths: Int, isStudent: Boolean): Price {
+        return Price((amount.toDouble() * (1 - Discount(durationInMonths, isStudent).rate)).toInt())
     }
 }
 
