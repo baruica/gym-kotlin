@@ -3,12 +3,12 @@ package gym.membership.domain
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
-class EmailTest {
+class EmailAddressTest {
 
     @Test
-    fun `does not allow invalid emails`() {
+    fun `does not allow an invalid email address`() {
         assertFailsWith<IllegalArgumentException> {
-            Email("bob[at]gmail.com")
+            EmailAddress("bob[at]gmail.com")
         }
     }
 }

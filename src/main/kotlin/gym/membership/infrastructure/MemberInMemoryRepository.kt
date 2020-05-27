@@ -3,7 +3,7 @@ package gym.membership.infrastructure
 import common.Aggregate
 import common.AggregateId
 import common.RepositoryException
-import gym.membership.domain.Email
+import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
@@ -33,9 +33,9 @@ class MemberInMemoryRepository : MemberRepository {
             ?: throw RepositoryException.notFound(aggregateId)
     }
 
-    override fun findByEmail(email: Email): Member? {
+    override fun findByEmailAddress(emailAddress: EmailAddress): Member? {
         return members.filter {
-            it.value.email == email
+            it.value.emailAddress == emailAddress
         }.values.firstOrNull()
     }
 

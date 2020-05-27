@@ -11,7 +11,7 @@ inline class MemberId(private val id: String) : AggregateId {
 
 class Member(
     override val id: MemberId,
-    val email: Email,
+    val emailAddress: EmailAddress,
     private val subscriptionId: SubscriptionId,
     private val memberSince: LocalDate
 ) : Aggregate {
@@ -21,7 +21,7 @@ class Member(
         raisedEvents.add(
             NewMembership(
                 id.toString(),
-                email.toString(),
+                emailAddress.toString(),
                 subscriptionId.toString(),
                 memberSince.toString()
             )
@@ -32,7 +32,7 @@ class Member(
         raisedEvents.add(
             WelcomeEmailWasSentToNewMember(
                 id.toString(),
-                email.email,
+                emailAddress.value,
                 subscriptionId.toString()
             )
         )

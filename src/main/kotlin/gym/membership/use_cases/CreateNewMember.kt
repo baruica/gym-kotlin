@@ -1,7 +1,7 @@
 package gym.membership.use_cases
 
 import common.DomainEvent
-import gym.membership.domain.Email
+import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
@@ -13,13 +13,13 @@ class CreateNewMember(
 ) {
     fun handle(command: CreateNewMemberCommand): List<DomainEvent> {
 
-        val email = Email(command.email)
-        val knownMember: Member? = memberRepository.findByEmail(email)
+        val emailAddress = EmailAddress(command.email)
+        val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)
 
         if (knownMember == null) {
             val member = Member(
                 MemberId(memberRepository.nextId()),
-                email,
+                emailAddress,
                 SubscriptionId(command.subscriptionId),
                 LocalDate.parse(command.subscriptionStartDate)
             )

@@ -15,8 +15,8 @@ class SendWelcomeEmailToNewMember(
         val member = memberRepository.get(MemberId(command.memberId)) as Member
 
         mailer.sendEmail(
-            member.email,
-            "Thank you for subscribing ${member.email} !"
+            member.emailAddress,
+            "Thank you for subscribing ${member.emailAddress} !"
         )
 
         member.markWelcomeEmailAsSent()

@@ -1,6 +1,6 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.Email
+import gym.membership.domain.EmailAddress
 import gym.membership.domain.NewMembership
 import gym.membership.infrastructure.MemberInMemoryRepository
 import org.junit.jupiter.api.Test
@@ -15,7 +15,7 @@ class CreateNewMemberTest {
 
         val email = "luke@gmail.com"
 
-        assertNull(memberRepository.findByEmail(Email(email)))
+        assertNull(memberRepository.findByEmailAddress(EmailAddress(email)))
 
         val subscriptionId = "subscriptionId def"
         val subscriptionStartDate = "2018-06-05"

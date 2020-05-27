@@ -17,8 +17,8 @@ class Send3YearsAnniversaryThankYouEmails(
 
         threeYearsAnniversaryMembers.mapValues {
             mailer.sendEmail(
-                it.value.email,
-                "Thank you for your loyalty ${it.value.email} !"
+                it.value.emailAddress,
+                "Thank you for your loyalty ${it.value.emailAddress} !"
             )
 
             it.value.mark3YearsAnniversaryThankYouEmailAsSent()

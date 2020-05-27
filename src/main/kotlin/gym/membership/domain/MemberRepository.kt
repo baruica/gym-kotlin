@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 interface MemberRepository : Repository {
 
-    fun findByEmail(email: Email): Member?
+    fun findByEmailAddress(emailAddress: EmailAddress): Member?
 
     fun threeYearsAnniversaryMembers(asOfDate: LocalDate): Map<MemberId, Member>
 }
