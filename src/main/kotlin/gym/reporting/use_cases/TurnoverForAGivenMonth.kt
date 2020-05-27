@@ -7,12 +7,8 @@ class TurnoverForAGivenMonth(
 ) {
     fun handle(command: TurnoverForAGivenMonthQuery): Double {
 
-        var turnoverForGivenMonth = 0.0
-
-        subscriptionRepository.onGoingSubscriptions(command.asOfDate).values.forEach {
-            turnoverForGivenMonth = it.monthlyTurnover()
-        }
-
-        return turnoverForGivenMonth
+        return subscriptionRepository.onGoingSubscriptions(command.asOfDate).values
+            .map { it.monthlyTurnover() }
+            .fold(0.0, { sum, monthlyTurnover -> sum + monthlyTurnover })
     }
 }
