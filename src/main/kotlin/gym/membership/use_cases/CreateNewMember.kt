@@ -28,6 +28,6 @@ class CreateNewMember(
             return member.raisedEvents
         }
 
-        return listOf()
+        return emptyList()
     }
 }
