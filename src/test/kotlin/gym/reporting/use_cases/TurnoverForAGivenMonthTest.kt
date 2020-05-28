@@ -20,15 +20,18 @@ class TurnoverForAGivenMonthTest {
             monthlySubscription(50, today)
         )
         subscriptionRepository.store(
+            yearlySubscription(400, today)
+        )
+        subscriptionRepository.store(
             yearlySubscription(500, inAMonth)
         )
 
         val tested = TurnoverForAGivenMonth(subscriptionRepository)
 
-        assertEquals(50.toDouble(), tested.handle(TurnoverForAGivenMonthQuery(today)))
-        assertEquals(1, subscriptionRepository.onGoingSubscriptions(today).size)
+        assertEquals(73.toDouble(), tested.handle(TurnoverForAGivenMonthQuery(today)))
+        assertEquals(2, subscriptionRepository.onGoingSubscriptions(today).size)
 
-        assertEquals(29.toDouble(), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
-        assertEquals(1, subscriptionRepository.onGoingSubscriptions(inAMonth).size)
+        assertEquals(52.toDouble(), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
+        assertEquals(2, subscriptionRepository.onGoingSubscriptions(inAMonth).size)
     }
 }
