@@ -4,12 +4,12 @@ import common.DomainEvent
 import gym.subscriptions.domain.NewSubscription
 
 class NewSubscriptionEventListener(
-    private val commandHandler: CreateNewMember
+    private val commandHandler: RegisterNewMember
 ) {
     fun handle(event: NewSubscription): List<DomainEvent> {
 
         return commandHandler.handle(
-            CreateNewMemberCommand(
+            RegisterNewMemberCommand(
                 event.subscriptionId,
                 event.subscriptionStartDate,
                 event.email

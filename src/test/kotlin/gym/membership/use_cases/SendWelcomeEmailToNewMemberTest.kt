@@ -21,7 +21,7 @@ class SendWelcomeEmailToNewMemberTest {
         val email = "bob@gmail.com"
         val subscriptionId = SubscriptionId("def")
         val startDate = LocalDate.now()
-        val member = Member(
+        val member = Member.register(
             memberId,
             EmailAddress(email),
             subscriptionId,

@@ -9,7 +9,7 @@ class CreateNewPlan(private val planRepository: PlanRepository) {
 
     fun handle(command: CreateNewPlanCommand): List<DomainEvent> {
 
-        val newPlan = Plan(
+        val newPlan = Plan.new(
             PlanId(planRepository.nextId()),
             command.planPrice,
             command.planDurationInMonths

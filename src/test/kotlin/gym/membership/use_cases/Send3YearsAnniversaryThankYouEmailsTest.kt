@@ -21,15 +21,15 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         val memberRepository = MemberInMemoryRepository()
 
         val startDateJulie = fifthOfJune().minusYears(3)
-        val memberJulie = buildMember("julie@gmail.com", startDateJulie)
+        val memberJulie = newMember("julie@gmail.com", startDateJulie)
         memberRepository.store(memberJulie)
 
         val startDateBob = fifthOfJune().minusYears(2)
-        val memberBob = buildMember("bob@gmail.com", startDateBob)
+        val memberBob = newMember("bob@gmail.com", startDateBob)
         memberRepository.store(memberBob)
 
         val startDateLuke = fifthOfJune().minusYears(3)
-        val memberLuke = buildMember("luke@gmail.com", startDateLuke)
+        val memberLuke = newMember("luke@gmail.com", startDateLuke)
         memberRepository.store(memberLuke)
 
         val mailer = InMemoryMailer()
@@ -50,7 +50,7 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())))
     }
 
-    private fun buildMember(email: String, startDate: LocalDate): Member = Member(
+    private fun newMember(email: String, startDate: LocalDate): Member = Member.register(
         MemberId(UUID.randomUUID().toString()),
         EmailAddress(email),
         SubscriptionId("def"),

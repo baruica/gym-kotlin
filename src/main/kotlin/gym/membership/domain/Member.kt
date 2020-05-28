@@ -9,7 +9,7 @@ inline class MemberId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
-class Member(
+class Member private constructor(
     override val id: MemberId,
     val emailAddress: EmailAddress,
     private val subscriptionId: SubscriptionId,
@@ -17,15 +17,31 @@ class Member(
 ) : Aggregate {
     override val raisedEvents = mutableListOf<MemberEvent>()
 
-    init {
-        raisedEvents.add(
-            NewMembership(
-                id.toString(),
-                emailAddress.toString(),
-                subscriptionId.toString(),
-                memberSince.toString()
+    companion object {
+        fun register(
+            id: MemberId,
+            emailAddress: EmailAddress,
+            subscriptionId: SubscriptionId,
+            memberSince: LocalDate
+        ): Member {
+            val member = Member(
+                id,
+                emailAddress,
+                subscriptionId,
+                memberSince
             )
-        )
+
+            member.raisedEvents.add(
+                NewMemberRegistered(
+                    member.id.toString(),
+                    member.emailAddress.toString(),
+                    member.subscriptionId.toString(),
+                    member.memberSince.toString()
+                )
+            )
+
+            return member
+        }
     }
 
     fun markWelcomeEmailAsSent() {

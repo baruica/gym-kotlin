@@ -8,16 +8,16 @@ import gym.membership.domain.MemberRepository
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
-class CreateNewMember(
+class RegisterNewMember(
     private val memberRepository: MemberRepository
 ) {
-    fun handle(command: CreateNewMemberCommand): List<DomainEvent> {
+    fun handle(command: RegisterNewMemberCommand): List<DomainEvent> {
 
         val emailAddress = EmailAddress(command.email)
         val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)
 
         if (knownMember == null) {
-            val member = Member(
+            val member = Member.register(
                 MemberId(memberRepository.nextId()),
                 emailAddress,
                 SubscriptionId(command.subscriptionId),

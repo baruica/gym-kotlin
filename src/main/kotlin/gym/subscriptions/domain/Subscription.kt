@@ -8,7 +8,7 @@ inline class SubscriptionId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
-class Subscription internal constructor(
+class Subscription private constructor(
     override val id: SubscriptionId,
     private val planDurationInMonths: Int,
     private val startDate: LocalDate,
@@ -38,8 +38,8 @@ class Subscription internal constructor(
 
             subscription.raisedEvents.add(
                 NewSubscription(
-                    subscriptionId.toString(),
-                    startDate.toString(),
+                    subscription.id.toString(),
+                    subscription.startDate.toString(),
                     email
                 )
             )

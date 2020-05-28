@@ -15,7 +15,7 @@ class ChangePlanPriceTest {
         val planId = repository.nextId()
 
         repository.store(
-            Plan(PlanId(planId), 450, 12)
+            Plan.new(PlanId(planId), 450, 12)
         )
 
         val tested = ChangePlanPrice(repository)

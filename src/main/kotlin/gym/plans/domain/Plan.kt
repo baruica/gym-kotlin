@@ -7,24 +7,35 @@ inline class PlanId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
-class Plan(
+class Plan private constructor(
     override val id: PlanId,
-    priceAmount: Int,
-    durationInMonths: Int
+    internal var price: Price,
+    private val duration: Duration
 ) : Aggregate {
     override val raisedEvents = mutableListOf<PlanEvent>()
 
-    internal var price = Price(priceAmount)
-    private val duration = Duration(durationInMonths)
-
-    init {
-        raisedEvents.add(
-            NewPlanCreated(
-                id.toString(),
-                price.amount,
-                duration.durationInMonths
+    companion object {
+        fun new(
+            id: PlanId,
+            priceAmount: Int,
+            durationInMonths: Int
+        ): Plan {
+            val plan = Plan(
+                id,
+                Price(priceAmount),
+                Duration(durationInMonths)
             )
-        )
+
+            plan.raisedEvents.add(
+                NewPlanCreated(
+                    id.toString(),
+                    plan.price.amount,
+                    plan.duration.durationInMonths
+                )
+            )
+
+            return plan
+        }
     }
 
     fun changePrice(newPriceAmount: Int) {
