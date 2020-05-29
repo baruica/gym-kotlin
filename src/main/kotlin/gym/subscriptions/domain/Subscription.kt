@@ -27,7 +27,7 @@ class Subscription private constructor(
             email: String,
             isStudent: Boolean
         ): Subscription {
-            val priceAfterDiscount = Price(planPrice).afterDiscount(planDurationInMonths, isStudent)
+            val priceAfterDiscount = Price(planPrice).applyDiscount(Discount(planDurationInMonths, isStudent))
 
             val subscription = Subscription(
                 subscriptionId,
@@ -82,15 +82,13 @@ internal data class Price(val amount: Int) {
         }
     }
 
-    internal fun afterDiscount(durationInMonths: Int, isStudent: Boolean): Price {
-        return Price((amount.toDouble() * (1 - Discount(durationInMonths, isStudent).rate)).toInt())
+    internal fun applyDiscount(discount: Discount): Price {
+        return Price((amount.toDouble() * (1 - discount.rate)).toInt())
     }
 }
 
-private class Discount(durationInMonths: Int, isStudent: Boolean) {
-    internal var rate: Double = 0.0
-
-    init {
+internal data class Discount(internal var rate: Double = 0.0) {
+    constructor(durationInMonths: Int, isStudent: Boolean) : this() {
         if (durationInMonths == 12) {
             rate += 0.3
         }
