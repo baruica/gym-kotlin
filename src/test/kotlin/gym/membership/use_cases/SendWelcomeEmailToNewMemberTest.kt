@@ -48,6 +48,6 @@ class SendWelcomeEmailToNewMemberTest {
                 subscriptionId.toString()
             )
         )
-        assertTrue(mailer.sentEmails.containsValue("Thank you for subscribing bob@gmail.com !"))
+        assertTrue(mailer.welcomeEmailWasSentTo("bob@gmail.com"))
     }
 }
