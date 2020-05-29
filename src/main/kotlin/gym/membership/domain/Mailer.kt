@@ -2,5 +2,7 @@ package gym.membership.domain
 
 interface Mailer {
 
-    fun sendEmail(emailAddress: EmailAddress, message: String)
+    fun sendWelcomeEmail(member: Member)
+
+    fun send3YearsAnniversaryEmail(member: Member)
 }

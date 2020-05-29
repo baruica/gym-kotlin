@@ -40,13 +40,13 @@ class Send3YearsAnniversaryThankYouEmailsTest {
             Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         )
 
-        assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty julie@gmail.com !"))
+        assertTrue(mailer.threeYearsAnniversaryWasSentTo("julie@gmail.com"))
         assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberJulie.id.toString(), startDateJulie.toString())))
 
-        assertFalse(mailer.sentEmails.containsValue("Thank you for your loyalty bob@gmail.com !"))
+        assertFalse(mailer.threeYearsAnniversaryWasSentTo("bob@gmail.com"))
         assertFalse(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberBob.id.toString(), startDateBob.toString())))
 
-        assertTrue(mailer.sentEmails.containsValue("Thank you for your loyalty luke@gmail.com !"))
+        assertTrue(mailer.threeYearsAnniversaryWasSentTo("luke@gmail.com"))
         assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())))
     }
 
