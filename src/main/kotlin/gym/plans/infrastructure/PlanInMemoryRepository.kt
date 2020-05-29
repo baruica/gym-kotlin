@@ -20,10 +20,8 @@ class PlanInMemoryRepository : PlanRepository {
         plans[aggregate.id as PlanId] = aggregate as Plan
     }
 
-    override fun storeAll(aggregates: Map<out AggregateId, Aggregate>) {
-        aggregates.forEach {
-            store(it.value)
-        }
+    override fun storeAll(aggregates: List<Aggregate>) {
+        aggregates.forEach { store(it) }
     }
 
     override fun get(aggregateId: AggregateId): Aggregate {

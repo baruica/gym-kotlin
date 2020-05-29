@@ -21,10 +21,8 @@ class SubscriptionInMemoryRepository : SubscriptionRepository {
         subscriptions[aggregate.id as SubscriptionId] = aggregate as Subscription
     }
 
-    override fun storeAll(aggregates: Map<out AggregateId, Aggregate>) {
-        aggregates.forEach {
-            store(it.value)
-        }
+    override fun storeAll(aggregates: List<Aggregate>) {
+        aggregates.forEach { store(it) }
     }
 
     override fun get(aggregateId: AggregateId): Aggregate {
@@ -32,15 +30,15 @@ class SubscriptionInMemoryRepository : SubscriptionRepository {
             ?: throw RepositoryException.notFound(aggregateId)
     }
 
-    override fun endedSubscriptions(asOfDate: LocalDate): Map<SubscriptionId, Subscription> {
+    override fun endedSubscriptions(asOfDate: LocalDate): List<Subscription> {
         return subscriptions.filter {
             it.value.willBeEndedAfter(asOfDate)
-        }
+        }.values.map { it }
     }
 
-    override fun onGoingSubscriptions(asOfDate: LocalDate): Map<SubscriptionId, Subscription> {
+    override fun onGoingSubscriptions(asOfDate: LocalDate): List<Subscription> {
         return subscriptions.filter {
             it.value.isOngoing(asOfDate)
-        }
+        }.values.map { it }
     }
 }

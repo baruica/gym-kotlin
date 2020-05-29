@@ -5,7 +5,7 @@ interface Repository {
 
     fun store(aggregate: Aggregate)
 
-    fun storeAll(aggregates: Map<out AggregateId, Aggregate>)
+    fun storeAll(aggregates: List<Aggregate>)
 
     fun get(aggregateId: AggregateId): Aggregate
 }

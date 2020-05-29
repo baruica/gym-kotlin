@@ -22,10 +22,8 @@ class MemberInMemoryRepository : MemberRepository {
         members[aggregate.id as MemberId] = aggregate as Member
     }
 
-    override fun storeAll(aggregates: Map<out AggregateId, Aggregate>) {
-        aggregates.forEach {
-            store(it.value)
-        }
+    override fun storeAll(aggregates: List<Aggregate>) {
+        aggregates.forEach { store(it) }
     }
 
     override fun get(aggregateId: AggregateId): Aggregate {
@@ -39,9 +37,9 @@ class MemberInMemoryRepository : MemberRepository {
         }.values.firstOrNull()
     }
 
-    override fun threeYearsAnniversaryMembers(asOfDate: LocalDate): Map<MemberId, Member> {
+    override fun threeYearsAnniversaryMembers(asOfDate: LocalDate): List<Member> {
         return members.filter {
             it.value.isThreeYearsAnniversary(asOfDate)
-        }
+        }.values.map { it }
     }
 }

@@ -11,13 +11,13 @@ class RenewSubscriptionsAutomatically(
 
         val endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(LocalDate.parse(command.asOfDate))
 
-        endedSubscriptionsAsOf.mapValues {
-            it.value.renew()
+        endedSubscriptionsAsOf.map {
+            it.renew()
         }
 
         subscriptionRepository.storeAll(endedSubscriptionsAsOf)
 
-        return endedSubscriptionsAsOf.values.map {
+        return endedSubscriptionsAsOf.map {
             it.raisedEvents.last()
         }
     }

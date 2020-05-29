@@ -15,16 +15,16 @@ class Send3YearsAnniversaryThankYouEmails(
             LocalDate.parse(command.asOfDate)
         )
 
-        threeYearsAnniversaryMembers.mapValues {
+        threeYearsAnniversaryMembers.map {
             mailer.sendEmail(
-                it.value.emailAddress,
-                "Thank you for your loyalty ${it.value.emailAddress} !"
+                it.emailAddress,
+                "Thank you for your loyalty ${it.emailAddress} !"
             )
 
-            it.value.mark3YearsAnniversaryThankYouEmailAsSent()
+            it.mark3YearsAnniversaryThankYouEmailAsSent()
         }
 
-        return threeYearsAnniversaryMembers.values.map {
+        return threeYearsAnniversaryMembers.map {
             it.raisedEvents.last()
         }
     }
