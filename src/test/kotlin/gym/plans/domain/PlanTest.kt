@@ -25,6 +25,6 @@ class PlanTest {
         val tested = Plan.new(PlanId("abc"), 400, 1)
         tested.changePrice(500)
 
-        assertEquals(500, tested.price.amount)
+        assertEquals(Price(500), tested.price)
     }
 }

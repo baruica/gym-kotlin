@@ -39,13 +39,18 @@ class Plan private constructor(
     }
 
     fun changePrice(newPriceAmount: Int) {
-        val oldPrice = price.amount
-
+        val oldPrice = price
         price = Price(newPriceAmount)
 
-        raisedEvents.add(
-            PlanPriceChanged(id.toString(), oldPrice, price.amount)
-        )
+        if (oldPrice != price) {
+            raisedEvents.add(
+                PlanPriceChanged(
+                    id.toString(),
+                    oldPrice.amount,
+                    price.amount
+                )
+            )
+        }
     }
 }
 
