@@ -21,7 +21,7 @@ class CreateNewPlanTest {
             )
         )
 
-        assertEquals(newPlan.id.toString(), newPlanId)
-        assertEquals(newPlan.price.amount, 300)
+        assertEquals(newPlanId, newPlan.id.toString())
+        assertEquals(300, newPlan.price.amount)
     }
 }

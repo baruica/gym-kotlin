@@ -35,7 +35,7 @@ class Send3YearsAnniversaryThankYouEmailsTest {
 
         val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
 
-        val members = tested.handle(
+        tested.handle(
             Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         )
 
