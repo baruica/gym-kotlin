@@ -1,6 +1,9 @@
 package gym.membership.use_cases
 
-import gym.membership.domain.*
+import gym.membership.domain.EmailAddress
+import gym.membership.domain.Mailer
+import gym.membership.domain.Member
+import gym.membership.domain.MemberRepository
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
@@ -15,7 +18,7 @@ class RegisterNewMember(
 
         if (knownMember == null) {
             val member = Member.register(
-                MemberId(command.memberId),
+                command.memberId,
                 emailAddress,
                 SubscriptionId(command.subscriptionId),
                 LocalDate.parse(command.subscriptionStartDate)

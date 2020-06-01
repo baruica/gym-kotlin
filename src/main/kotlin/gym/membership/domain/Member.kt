@@ -12,21 +12,21 @@ inline class MemberId(private val id: String) : AggregateId {
 class Member private constructor(
     override val id: MemberId,
     val emailAddress: EmailAddress,
-    internal val subscriptionId: SubscriptionId,
-    internal val memberSince: LocalDate
+    private val subscriptionId: SubscriptionId,
+    private val memberSince: LocalDate
 ) : Aggregate {
     private var welcomeEmailWasSent = false
     private var threeYearsAnniversaryThankYouEmailWasSent = false
 
     companion object {
         fun register(
-            id: MemberId,
+            id: String,
             emailAddress: EmailAddress,
             subscriptionId: SubscriptionId,
             memberSince: LocalDate
         ): Member {
             return Member(
-                id,
+                MemberId(id),
                 emailAddress,
                 subscriptionId,
                 memberSince

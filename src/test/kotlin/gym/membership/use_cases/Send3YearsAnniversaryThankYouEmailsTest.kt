@@ -3,7 +3,6 @@ package gym.membership.use_cases
 import gym.fifthOfJune
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
-import gym.membership.domain.MemberId
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
@@ -45,7 +44,7 @@ class Send3YearsAnniversaryThankYouEmailsTest {
     }
 
     private fun newMember(email: String, startDate: LocalDate): Member = Member.register(
-        MemberId(UUID.randomUUID().toString()),
+        UUID.randomUUID().toString(),
         EmailAddress(email),
         SubscriptionId("def"),
         startDate

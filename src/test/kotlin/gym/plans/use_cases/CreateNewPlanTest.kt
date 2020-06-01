@@ -1,5 +1,6 @@
 package gym.plans.use_cases
 
+import gym.plans.domain.Price
 import gym.plans.infrastructure.PlanInMemoryRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -22,6 +23,6 @@ class CreateNewPlanTest {
         )
 
         assertEquals(newPlanId, newPlan.id.toString())
-        assertEquals(300, newPlan.price.amount)
+        assertEquals(Price(300), newPlan.price)
     }
 }

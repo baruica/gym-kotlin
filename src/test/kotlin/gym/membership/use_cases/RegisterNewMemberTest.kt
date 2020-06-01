@@ -37,8 +37,6 @@ class RegisterNewMemberTest {
         if (member != null) {
             assertEquals(memberId, member.id.toString())
             assertEquals(emailAddress, member.emailAddress.value)
-            assertEquals(subscriptionId, member.subscriptionId.toString())
-            assertEquals(subscriptionStartDate, member.memberSince.toString())
 
             assertTrue(mailer.welcomeEmailWasSentTo(emailAddress))
         }

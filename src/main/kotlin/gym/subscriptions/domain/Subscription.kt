@@ -18,7 +18,7 @@ class Subscription private constructor(
 
     companion object {
         fun subscribe(
-            subscriptionId: SubscriptionId,
+            subscriptionId: String,
             planDurationInMonths: Int,
             startDate: LocalDate,
             planPrice: Int,
@@ -28,7 +28,7 @@ class Subscription private constructor(
             val priceAfterDiscount = Price(planPrice).applyDiscount(Discount(planDurationInMonths, isStudent))
 
             return Subscription(
-                subscriptionId,
+                SubscriptionId(subscriptionId),
                 planDurationInMonths,
                 startDate,
                 priceAfterDiscount
@@ -37,8 +37,7 @@ class Subscription private constructor(
     }
 
     fun renew() {
-        val oldEndDate = endDate
-        endDate = oldEndDate.plusMonths(planDurationInMonths.toLong())
+        endDate = endDate.plusMonths(planDurationInMonths.toLong())
     }
 
     fun willBeEndedAfter(asFrom: LocalDate): Boolean {
