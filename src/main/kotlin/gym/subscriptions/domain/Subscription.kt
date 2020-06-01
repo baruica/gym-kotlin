@@ -48,8 +48,8 @@ class Subscription private constructor(
         return asOfDate in startDate..endDate
     }
 
-    fun monthlyTurnover(): Double {
-        return (price.amount / planDurationInMonths).toDouble()
+    fun monthlyTurnover(): Int {
+        return (price.amount / planDurationInMonths)
     }
 }
 
