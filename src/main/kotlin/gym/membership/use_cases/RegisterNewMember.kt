@@ -20,9 +20,10 @@ class RegisterNewMember(
                 SubscriptionId(command.subscriptionId),
                 LocalDate.parse(command.subscriptionStartDate)
             )
-            memberRepository.store(member)
 
             mailer.sendWelcomeEmail(member)
+
+            memberRepository.store(member)
 
             return member
         }
