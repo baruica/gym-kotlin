@@ -4,7 +4,6 @@ import gym.fifthOfJune
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.domain.MemberId
-import gym.membership.domain.ThreeYearsAnniversaryThankYouEmailSent
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
 import gym.subscriptions.domain.SubscriptionId
@@ -36,18 +35,13 @@ class Send3YearsAnniversaryThankYouEmailsTest {
 
         val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
 
-        val events = tested.handle(
+        val members = tested.handle(
             Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
         )
 
         assertTrue(mailer.threeYearsAnniversaryWasSentTo("julie@gmail.com"))
-        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberJulie.id.toString(), startDateJulie.toString())))
-
         assertFalse(mailer.threeYearsAnniversaryWasSentTo("bob@gmail.com"))
-        assertFalse(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberBob.id.toString(), startDateBob.toString())))
-
         assertTrue(mailer.threeYearsAnniversaryWasSentTo("luke@gmail.com"))
-        assertTrue(events.contains(ThreeYearsAnniversaryThankYouEmailSent(memberLuke.id.toString(), startDateLuke.toString())))
     }
 
     private fun newMember(email: String, startDate: LocalDate): Member = Member.register(

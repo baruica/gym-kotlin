@@ -12,10 +12,11 @@ inline class MemberId(private val id: String) : AggregateId {
 class Member private constructor(
     override val id: MemberId,
     val emailAddress: EmailAddress,
-    private val subscriptionId: SubscriptionId,
-    private val memberSince: LocalDate
+    internal val subscriptionId: SubscriptionId,
+    internal val memberSince: LocalDate
 ) : Aggregate {
-    override val raisedEvents = mutableListOf<MemberEvent>()
+    private var welcomeEmailWasSent = false
+    private var threeYearsAnniversaryThankYouEmailWasSent = false
 
     companion object {
         fun register(
@@ -24,34 +25,17 @@ class Member private constructor(
             subscriptionId: SubscriptionId,
             memberSince: LocalDate
         ): Member {
-            val member = Member(
+            return Member(
                 id,
                 emailAddress,
                 subscriptionId,
                 memberSince
             )
-
-            member.raisedEvents.add(
-                NewMemberRegistered(
-                    member.id.toString(),
-                    member.emailAddress.toString(),
-                    member.subscriptionId.toString(),
-                    member.memberSince.toString()
-                )
-            )
-
-            return member
         }
     }
 
     fun markWelcomeEmailAsSent() {
-        raisedEvents.add(
-            WelcomeEmailWasSentToNewMember(
-                id.toString(),
-                emailAddress.value,
-                subscriptionId.toString()
-            )
-        )
+        welcomeEmailWasSent = true
     }
 
     fun isThreeYearsAnniversary(asOfDate: LocalDate): Boolean {
@@ -59,11 +43,6 @@ class Member private constructor(
     }
 
     fun mark3YearsAnniversaryThankYouEmailAsSent() {
-        raisedEvents.add(
-            ThreeYearsAnniversaryThankYouEmailSent(
-                id.toString(),
-                memberSince.toString()
-            )
-        )
+        threeYearsAnniversaryThankYouEmailWasSent = true
     }
 }

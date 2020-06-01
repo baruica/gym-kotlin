@@ -12,45 +12,22 @@ class Plan private constructor(
     internal var price: Price,
     private val duration: Duration
 ) : Aggregate {
-    override val raisedEvents = mutableListOf<PlanEvent>()
-
     companion object {
         fun new(
             id: PlanId,
             priceAmount: Int,
             durationInMonths: Int
         ): Plan {
-            val plan = Plan(
+            return Plan(
                 id,
                 Price(priceAmount),
                 Duration(durationInMonths)
             )
-
-            plan.raisedEvents.add(
-                NewPlanCreated(
-                    id.toString(),
-                    plan.price.amount,
-                    plan.duration.durationInMonths
-                )
-            )
-
-            return plan
         }
     }
 
     fun changePrice(newPriceAmount: Int) {
-        val oldPrice = price
         price = Price(newPriceAmount)
-
-        if (oldPrice != price) {
-            raisedEvents.add(
-                PlanPriceChanged(
-                    id.toString(),
-                    oldPrice.amount,
-                    price.amount
-                )
-            )
-        }
     }
 }
 

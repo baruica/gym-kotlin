@@ -11,12 +11,10 @@ inline class SubscriptionId(private val id: String) : AggregateId {
 class Subscription private constructor(
     override val id: SubscriptionId,
     private val planDurationInMonths: Int,
-    private val startDate: LocalDate,
+    internal val startDate: LocalDate,
     internal val price: Price
 ) : Aggregate {
-    override val raisedEvents = mutableListOf<SubscriptionEvent>()
-
-    private var endDate: LocalDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
+    internal var endDate: LocalDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
 
     companion object {
         fun subscribe(
@@ -29,37 +27,18 @@ class Subscription private constructor(
         ): Subscription {
             val priceAfterDiscount = Price(planPrice).applyDiscount(Discount(planDurationInMonths, isStudent))
 
-            val subscription = Subscription(
+            return Subscription(
                 subscriptionId,
                 planDurationInMonths,
                 startDate,
                 priceAfterDiscount
             )
-
-            subscription.raisedEvents.add(
-                NewSubscription(
-                    subscription.id.toString(),
-                    subscription.startDate.toString(),
-                    email
-                )
-            )
-
-            return subscription
         }
     }
 
     fun renew() {
         val oldEndDate = endDate
-
         endDate = oldEndDate.plusMonths(planDurationInMonths.toLong())
-
-        raisedEvents.add(
-            SubscriptionRenewed(
-                id.toString(),
-                oldEndDate.toString(),
-                endDate.toString()
-            )
-        )
     }
 
     fun willBeEndedAfter(asFrom: LocalDate): Boolean {

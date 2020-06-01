@@ -1,6 +1,5 @@
 package gym.subscriptions.use_cases
 
-import gym.subscriptions.domain.NewSubscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -9,12 +8,14 @@ class SubscribeToPlanTest {
 
     @Test
     fun handle() {
-        val subscriptionRepository = SubscriptionInMemoryRepository()
+        val repository = SubscriptionInMemoryRepository()
+        val subscriptionId = repository.nextId()
 
-        val tested = SubscribeToPlan(subscriptionRepository)
+        val tested = SubscribeToPlan(repository)
 
-        val events = tested.handle(
+        val subscription = tested.handle(
             SubscribeToPlanCommand(
+                subscriptionId,
                 500,
                 12,
                 "2018-12-18",
@@ -23,13 +24,8 @@ class SubscribeToPlanTest {
             )
         )
 
-        assertEquals(
-            events.last(),
-            NewSubscription(
-                events.last().aggregateId(),
-                "2018-12-18",
-                "bob@mail.com"
-            )
-        )
+        assertEquals(subscriptionId, subscription.id.toString())
+        assertEquals("2018-12-18", subscription.startDate.toString())
+        assertEquals(350, subscription.price.amount)
     }
 }
