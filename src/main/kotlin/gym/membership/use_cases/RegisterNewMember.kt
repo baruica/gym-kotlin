@@ -1,33 +1,32 @@
 package gym.membership.use_cases
 
-import common.DomainEvent
-import gym.membership.domain.EmailAddress
-import gym.membership.domain.Member
-import gym.membership.domain.MemberId
-import gym.membership.domain.MemberRepository
+import gym.membership.domain.*
 import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
 class RegisterNewMember(
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
+    private val mailer: Mailer
 ) {
-    fun handle(command: RegisterNewMemberCommand): List<DomainEvent> {
+    fun handle(command: RegisterNewMemberCommand): Member? {
 
         val emailAddress = EmailAddress(command.email)
         val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)
 
         if (knownMember == null) {
             val member = Member.register(
-                MemberId(memberRepository.nextId()),
+                MemberId(command.memberId),
                 emailAddress,
                 SubscriptionId(command.subscriptionId),
                 LocalDate.parse(command.subscriptionStartDate)
             )
             memberRepository.store(member)
 
-            return member.raisedEvents
+            mailer.sendWelcomeEmail(member)
+
+            return member
         }
 
-        return emptyList()
+        return null
     }
 }

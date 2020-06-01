@@ -17,7 +17,6 @@
   - *Aggregate* ([read](https://vaughnvernon.co/?p=838))
   - *Entity* ([read](http://thepaulrayner.com/blog/aggregates-and-entities-in-domain-driven-design/))
   - *Value Object* ([read](https://dev.to/flbenz/kotlin-and-domain-driven-design-value-objects-4m32))
-  - *Domain Event* ([read](http://verraes.net/2014/11/domain-events/))
   - *Repository*
 - *Aggregate* ids are provided by their *repository* ([read](https://matthiasnoback.nl/2018/05/when-and-where-to-determine-the-id-of-an-entity/))
 - *Aggregate* ids have their own types ([read](https://buildplease.com/pages/vo-ids/))
