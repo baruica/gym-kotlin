@@ -56,7 +56,7 @@ class Subscription private constructor(
 internal data class Price(val amount: Int) {
     init {
         require(amount >= 0) {
-            "Price amount must be non-negative, was $amount"
+            "Price amount must be non-negative, was [$amount]"
         }
     }
 
