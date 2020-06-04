@@ -12,7 +12,6 @@ class Plan private constructor(
     internal var price: Price,
     private val duration: Duration
 ) : Aggregate {
-
     companion object {
         fun new(
             id: String,
