@@ -1,4 +1,4 @@
-package gym.plans.use_cases
+package gym.plans.useCases
 
 data class CreateNewPlanCommand(
     val planId: String,

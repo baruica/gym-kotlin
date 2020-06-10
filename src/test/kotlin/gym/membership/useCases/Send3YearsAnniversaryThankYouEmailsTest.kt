@@ -1,4 +1,4 @@
-package gym.membership.use_cases
+package gym.membership.useCases
 
 import gym.fifthOfJune
 import gym.membership.domain.EmailAddress

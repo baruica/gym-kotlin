@@ -1,4 +1,4 @@
-package gym.membership.use_cases
+package gym.membership.useCases
 
 data class RegisterNewMemberCommand(
     val memberId: String,

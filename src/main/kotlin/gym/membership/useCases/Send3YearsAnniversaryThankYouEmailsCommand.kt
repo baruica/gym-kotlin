@@ -1,3 +1,3 @@
-package gym.membership.use_cases
+package gym.membership.useCases
 
 data class Send3YearsAnniversaryThankYouEmailsCommand(val asOfDate: String)

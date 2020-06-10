@@ -1,4 +1,4 @@
-package gym.reporting.use_cases
+package gym.reporting.useCases
 
 import gym.monthlySubscription
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository

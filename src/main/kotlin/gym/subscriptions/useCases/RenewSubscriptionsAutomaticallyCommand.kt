@@ -1,3 +1,3 @@
-package gym.subscriptions.use_cases
+package gym.subscriptions.useCases
 
 data class RenewSubscriptionsAutomaticallyCommand(val asOfDate: String)

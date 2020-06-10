@@ -1,4 +1,4 @@
-package gym.plans.use_cases
+package gym.plans.useCases
 
 import gym.plans.domain.Plan
 import gym.plans.domain.Price
