@@ -19,8 +19,7 @@ class SubscribeToPlanTest {
                 500,
                 12,
                 "2018-12-18",
-                false,
-                "bob@mail.com"
+                false
             )
         )
 

@@ -14,7 +14,6 @@ class SubscribeToPlan(
             command.planDurationInMonths,
             LocalDate.parse(command.startDate),
             command.planPrice,
-            command.email,
             command.isStudent
         )
 

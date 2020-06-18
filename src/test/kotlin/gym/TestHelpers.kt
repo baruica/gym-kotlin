@@ -36,7 +36,6 @@ fun newSubscription(
         durationInMonths,
         startDate,
         price,
-        "bob@gmail.com",
         isStudent
     )
 }

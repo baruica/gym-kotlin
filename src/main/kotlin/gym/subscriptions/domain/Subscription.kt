@@ -21,7 +21,6 @@ class Subscription private constructor(
             planDurationInMonths: Int,
             startDate: LocalDate,
             planPrice: Int,
-            email: String,
             isStudent: Boolean
         ): Subscription {
             val priceAfterDiscount = Price(planPrice).applyDiscount(Discount(planDurationInMonths, isStudent))
