@@ -1,6 +1,6 @@
 package common
 
-class RepositoryException(override val message: String) : Throwable(message) {
+data class RepositoryException(override val message: String) : Throwable(message) {
 
     companion object {
         fun notFound(aggregateId: AggregateId): RepositoryException {
