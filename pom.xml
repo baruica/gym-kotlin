@@ -15,6 +15,7 @@
         <kotlin.version>1.3.72</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <detekt.version>1.9.1</detekt.version>
     </properties>
 
     <dependencies>
@@ -67,9 +68,10 @@
             <plugin>
                 <groupId>com.github.ozsie</groupId>
                 <artifactId>detekt-maven-plugin</artifactId>
-                <version>1.9.1</version>
+                <version>${detekt.version}</version>
                 <executions>
                     <execution>
+                        <id>detekt-check</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
