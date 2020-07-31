@@ -15,7 +15,7 @@ class Send3YearsAnniversaryThankYouEmails(
             LocalDate.parse(command.asOfDate)
         )
 
-        threeYearsAnniversaryMembers.map {
+        threeYearsAnniversaryMembers.forEach {
             mailer.send3YearsAnniversaryEmail(it)
         }
 

@@ -11,7 +11,7 @@ class RenewSubscriptionsAutomatically(
 
         val endedSubscriptionsAsOf = subscriptionRepository.endedSubscriptions(LocalDate.parse(command.asOfDate))
 
-        endedSubscriptionsAsOf.map {
+        endedSubscriptionsAsOf.forEach {
             it.renew()
         }
 
