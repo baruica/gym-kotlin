@@ -1,14 +1,15 @@
 package gym.reporting.useCases
 
+import gym.reporting.Turnover
 import gym.subscriptions.domain.SubscriptionRepository
 
 class TurnoverForAGivenMonth(
     private val subscriptionRepository: SubscriptionRepository
 ) {
-    fun handle(command: TurnoverForAGivenMonthQuery): Int {
+    fun handle(command: TurnoverForAGivenMonthQuery): Turnover {
 
-        return subscriptionRepository.onGoingSubscriptions(command.asOfDate)
-            .map { it.monthlyTurnover() }
-            .fold(0, { sum, monthlyTurnover -> sum + monthlyTurnover })
+        return Turnover.monthly(
+            subscriptionRepository.onGoingSubscriptions(command.asOfDate)
+        )
     }
 }

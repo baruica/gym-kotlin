@@ -1,6 +1,7 @@
 package gym.reporting.useCases
 
 import gym.monthlySubscription
+import gym.reporting.Turnover
 import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import gym.yearlySubscription
 import org.junit.jupiter.api.Test
@@ -29,9 +30,9 @@ class TurnoverForAGivenMonthTest {
         val tested = TurnoverForAGivenMonth(subscriptionRepository)
 
         assertEquals(2, subscriptionRepository.onGoingSubscriptions(today).size)
-        assertEquals(73, tested.handle(TurnoverForAGivenMonthQuery(today)))
+        assertEquals(Turnover(73), tested.handle(TurnoverForAGivenMonthQuery(today)))
 
         assertEquals(2, subscriptionRepository.onGoingSubscriptions(inAMonth).size)
-        assertEquals(52, tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
+        assertEquals(Turnover(52), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
     }
 }
