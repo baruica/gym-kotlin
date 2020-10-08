@@ -7,8 +7,7 @@ data class Turnover internal constructor(val total: Int) {
         fun monthly(onGoingSubscriptions: List<Subscription>): Turnover {
             return Turnover(
                 onGoingSubscriptions
-                    .map { it.monthlyTurnover() }
-                    .fold(0, { sum, monthlyTurnover -> sum + monthlyTurnover })
+                    .sumBy { subscription -> subscription.monthlyTurnover() }
             )
         }
     }
