@@ -15,7 +15,7 @@
         <kotlin.version>1.4.10</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <detekt.version>1.13.1</detekt.version>
+        <detekt.version>1.14.2</detekt.version>
     </properties>
 
     <dependencies>
