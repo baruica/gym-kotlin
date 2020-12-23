@@ -2,7 +2,6 @@ package gym.membership.domain
 
 import common.Aggregate
 import common.AggregateId
-import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
 inline class MemberId(private val id: String) : AggregateId {
@@ -12,7 +11,6 @@ inline class MemberId(private val id: String) : AggregateId {
 class Member private constructor(
     override val id: MemberId,
     val emailAddress: EmailAddress,
-    private val subscriptionId: SubscriptionId,
     private val memberSince: LocalDate
 ) : Aggregate {
     private var welcomeEmailWasSent = false
@@ -22,13 +20,11 @@ class Member private constructor(
         fun register(
             id: String,
             emailAddress: EmailAddress,
-            subscriptionId: SubscriptionId,
             memberSince: LocalDate
         ): Member {
             return Member(
                 MemberId(id),
                 emailAddress,
-                subscriptionId,
                 memberSince
             )
         }

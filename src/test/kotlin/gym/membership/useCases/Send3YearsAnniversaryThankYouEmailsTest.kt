@@ -5,7 +5,6 @@ import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import gym.membership.infrastructure.InMemoryMailer
 import gym.membership.infrastructure.MemberInMemoryRepository
-import gym.subscriptions.domain.SubscriptionId
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.util.*
@@ -46,7 +45,6 @@ class Send3YearsAnniversaryThankYouEmailsTest {
     private fun newMember(email: String, startDate: LocalDate): Member = Member.register(
         UUID.randomUUID().toString(),
         EmailAddress(email),
-        SubscriptionId("def"),
         startDate
     )
 }
