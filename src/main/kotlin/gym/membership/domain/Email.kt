@@ -1,6 +1,6 @@
 package gym.membership.domain
 
-data class Email internal constructor(val emailAddress: EmailAddress, val emailBody: String) {
+data class Email private constructor(val emailAddress: EmailAddress, val emailBody: String) {
     companion object {
         fun welcome(emailAddress: EmailAddress): Email {
             return Email(

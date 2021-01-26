@@ -22,13 +22,13 @@ class InMemoryMailer : Mailer {
         member.mark3YearsAnniversaryThankYouEmailAsSent()
     }
 
-    fun welcomeEmailWasSentTo(emailAddress: String): Boolean {
+    internal fun welcomeEmailWasSentTo(emailAddress: String): Boolean {
         return sentEmails.containsValue(
             Email.welcome(EmailAddress(emailAddress))
         )
     }
 
-    fun threeYearsAnniversaryWasSentTo(emailAddress: String): Boolean {
+    internal fun threeYearsAnniversaryWasSentTo(emailAddress: String): Boolean {
         return sentEmails.containsValue(
             Email.threeYearsAnniversary(EmailAddress(emailAddress))
         )
