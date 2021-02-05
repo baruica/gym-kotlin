@@ -34,9 +34,9 @@ class RegisterNewMemberTest {
             registerNewMemberCommand
         )
 
-        if (member != null) {
-            assertEquals(memberId, member.id.toString())
-            assertEquals(emailAddress, member.emailAddress.value)
+        member?.let {
+            assertEquals(memberId, it.id.toString())
+            assertEquals(emailAddress, it.emailAddress.value)
 
             assertTrue(mailer.welcomeEmailWasSentTo(emailAddress))
         }
