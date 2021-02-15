@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 class RegisterNewMember(
     private val memberRepository: MemberRepository,
-    private val mailer: Mailer
+    private val mailer: Mailer,
 ) {
     fun handle(command: RegisterNewMemberCommand): Member? {
 

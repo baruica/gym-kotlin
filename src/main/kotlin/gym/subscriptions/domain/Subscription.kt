@@ -13,7 +13,7 @@ class Subscription private constructor(
     private val durationInMonths: Int,
     internal val startDate: LocalDate,
     internal var endDate: LocalDate,
-    internal val price: Price
+    internal val price: Price,
 ) : Aggregate {
     companion object {
         fun subscribe(

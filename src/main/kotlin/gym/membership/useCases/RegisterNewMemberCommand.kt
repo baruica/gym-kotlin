@@ -4,5 +4,5 @@ data class RegisterNewMemberCommand(
     val memberId: String,
     val subscriptionId: String,
     val subscriptionStartDate: String,
-    val email: String
+    val email: String,
 )

@@ -11,7 +11,7 @@ inline class MemberId(private val id: String) : AggregateId {
 class Member private constructor(
     override val id: MemberId,
     val emailAddress: EmailAddress,
-    private val memberSince: LocalDate
+    private val memberSince: LocalDate,
 ) : Aggregate {
     private var welcomeEmailWasSent = false
     private var threeYearsAnniversaryThankYouEmailWasSent = false

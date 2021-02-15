@@ -10,7 +10,7 @@ inline class PlanId(private val id: String) : AggregateId {
 class Plan private constructor(
     override val id: PlanId,
     internal var price: Price,
-    private val duration: Duration
+    private val duration: Duration,
 ) : Aggregate {
     companion object {
         fun new(
