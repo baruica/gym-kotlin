@@ -1,4 +1,4 @@
-package gym.plans.infrastructure
+package gym.plans.useCases
 
 import common.Aggregate
 import common.AggregateId
@@ -8,7 +8,7 @@ import gym.plans.domain.PlanId
 import gym.plans.domain.PlanRepository
 import java.util.*
 
-class PlanInMemoryRepository : PlanRepository {
+class InMemoryPlanRepository : PlanRepository {
 
     private val plans = mutableMapOf<PlanId, Plan>()
 

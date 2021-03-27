@@ -1,19 +1,24 @@
 package gym.membership.domain
 
-data class Email private constructor(val emailAddress: EmailAddress, val emailBody: String) {
-    companion object {
-        fun welcome(emailAddress: EmailAddress): Email {
-            return Email(
-                emailAddress,
-                "Thank you for subscribing $emailAddress !"
-            )
-        }
+sealed class Email(open val emailAddress: EmailAddress, val emailBody: String) {
 
-        fun threeYearsAnniversary(emailAddress: EmailAddress): Email {
-            return Email(
-                emailAddress,
-                "Thank you for your loyalty $emailAddress !"
-            )
-        }
-    }
+    data class Welcome(override val emailAddress: EmailAddress) : Email(
+        emailAddress,
+        "Welcome to our gym :)"
+    )
+
+    data class SubscriptionSummary(
+        override val emailAddress: EmailAddress,
+        val startDate: String,
+        val endDate: String,
+        val price: Int
+    ) : Email(
+        emailAddress,
+        "Thank you for subscribing, this subscription will run from $startDate until $endDate, and will only cost you $price!"
+    )
+
+    data class ThreeYearsAnniversary(override val emailAddress: EmailAddress) : Email(
+        emailAddress,
+        "Thank you for your loyalty $emailAddress !"
+    )
 }

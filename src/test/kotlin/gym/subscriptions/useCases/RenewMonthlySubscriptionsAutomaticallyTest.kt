@@ -1,7 +1,6 @@
 package gym.subscriptions.useCases
 
 import gym.monthlySubscription
-import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import gym.yearlySubscription
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -11,7 +10,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest {
 
     @Test
     fun handle() {
-        val repository = SubscriptionInMemoryRepository()
+        val repository = InMemorySubscriptionRepository()
 
         val monthlySubscriptionId = repository.nextId()
         repository.store(

@@ -2,7 +2,7 @@ package gym.reporting.useCases
 
 import gym.monthlySubscription
 import gym.reporting.Turnover
-import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
+import gym.subscriptions.useCases.InMemorySubscriptionRepository
 import gym.yearlySubscription
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -12,7 +12,7 @@ class TurnoverForAGivenMonthTest {
 
     @Test
     fun `turnover for a given month with ongoing subscriptions`() {
-        val subscriptionRepository = SubscriptionInMemoryRepository()
+        val subscriptionRepository = InMemorySubscriptionRepository()
 
         val today = LocalDate.parse("2018-06-09")
         val inAMonth = LocalDate.parse("2018-07-09")

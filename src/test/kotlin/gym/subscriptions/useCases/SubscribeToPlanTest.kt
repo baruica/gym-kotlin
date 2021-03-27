@@ -1,6 +1,5 @@
 package gym.subscriptions.useCases
 
-import gym.subscriptions.infrastructure.SubscriptionInMemoryRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -8,7 +7,7 @@ class SubscribeToPlanTest {
 
     @Test
     fun handle() {
-        val repository = SubscriptionInMemoryRepository()
+        val repository = InMemorySubscriptionRepository()
         val subscriptionId = repository.nextId()
 
         val tested = SubscribeToPlan(repository)

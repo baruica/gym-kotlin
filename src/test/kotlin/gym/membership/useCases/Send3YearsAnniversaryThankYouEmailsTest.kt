@@ -3,8 +3,6 @@ package gym.membership.useCases
 import gym.fifthOfJune
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
-import gym.membership.infrastructure.InMemoryMailer
-import gym.membership.infrastructure.MemberInMemoryRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.util.*
@@ -15,7 +13,7 @@ class Send3YearsAnniversaryThankYouEmailsTest {
 
     @Test
     fun handle() {
-        val memberRepository = MemberInMemoryRepository()
+        val memberRepository = InMemoryMemberRepository()
 
         val startDateJulie = fifthOfJune().minusYears(3)
         val memberJulie = newMember("julie@gmail.com", startDateJulie)

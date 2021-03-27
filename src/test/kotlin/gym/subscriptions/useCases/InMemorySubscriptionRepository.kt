@@ -1,4 +1,4 @@
-package gym.subscriptions.infrastructure
+package gym.subscriptions.useCases
 
 import common.Aggregate
 import common.AggregateId
@@ -9,7 +9,7 @@ import gym.subscriptions.domain.SubscriptionRepository
 import java.time.LocalDate
 import java.util.*
 
-class SubscriptionInMemoryRepository : SubscriptionRepository {
+class InMemorySubscriptionRepository : SubscriptionRepository {
 
     private val subscriptions = mutableMapOf<SubscriptionId, Subscription>()
 

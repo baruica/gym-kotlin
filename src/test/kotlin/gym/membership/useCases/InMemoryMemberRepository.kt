@@ -1,4 +1,4 @@
-package gym.membership.infrastructure
+package gym.membership.useCases
 
 import common.Aggregate
 import common.AggregateId
@@ -10,7 +10,7 @@ import gym.membership.domain.MemberRepository
 import java.time.LocalDate
 import java.util.*
 
-class MemberInMemoryRepository : MemberRepository {
+class InMemoryMemberRepository : MemberRepository {
 
     private val members = mutableMapOf<MemberId, Member>()
 
