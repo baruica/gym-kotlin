@@ -19,10 +19,10 @@ class SubscriptionTest {
     }
 
     @Test
-    fun `30 percent discount for yearly subscription`() {
+    fun `10 percent discount for yearly subscription`() {
         val subscriptionWithYearlyDiscount = yearlySubscription(1000, fifthOfJune(), isStudent = false)
 
-        assertEquals(Price(700), subscriptionWithYearlyDiscount.price)
+        assertEquals(Price(900), subscriptionWithYearlyDiscount.price)
     }
 
     @Test
@@ -31,7 +31,7 @@ class SubscriptionTest {
         assertEquals(Price(80), monthlySubscriptionWithStudentDiscount.price)
 
         val yearlySubscriptionWithStudentDiscount = yearlySubscription(100, fifthOfJune(), isStudent = true)
-        assertEquals(Price(50), yearlySubscriptionWithStudentDiscount.price)
+        assertEquals(Price(70), yearlySubscriptionWithStudentDiscount.price)
     }
 
     @Test
@@ -72,6 +72,6 @@ class SubscriptionTest {
         assertEquals(100, monthlySubscription.monthlyTurnover())
 
         val yearlySubscription = yearlySubscription(1200, fifthOfJune())
-        assertEquals(70, yearlySubscription.monthlyTurnover())
+        assertEquals(90, yearlySubscription.monthlyTurnover())
     }
 }

@@ -67,7 +67,7 @@ internal data class Price(val amount: Int) {
     internal fun applyDiscount(durationInMonths: Int, isStudent: Boolean): Price {
         var rate = 0.0
         if (durationInMonths == 12) {
-            rate += 0.3
+            rate += 0.1
         }
         if (isStudent) {
             rate += 0.2

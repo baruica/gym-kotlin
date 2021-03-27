@@ -3,7 +3,7 @@
 ## Requirements
 
 - Owners can create monthly or yearly subscription plans, with a base price
-- Yearly subscriptions get 30% off
+- Yearly subscriptions get 10% off
 - Students that subscribe to any plan get 20% off
 - Owners can see how much they make from ongoing subscriptions for a given month
 - Owners can change the price of a plan
