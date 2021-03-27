@@ -48,6 +48,10 @@ class Subscription private constructor(
         return asOfDate in startDate..endDate
     }
 
+    fun isMonthly(): Boolean {
+        return durationInMonths == 1
+    }
+
     fun monthlyTurnover(): Int {
         return (price.amount / durationInMonths)
     }

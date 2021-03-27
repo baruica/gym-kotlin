@@ -30,10 +30,11 @@ class SubscriptionInMemoryRepository : SubscriptionRepository {
             ?: throw RepositoryException.notFound(aggregateId)
     }
 
-    override fun endedSubscriptions(asOfDate: LocalDate): List<Subscription> {
-        return subscriptions.filter {
-            it.value.willBeEndedAfter(asOfDate)
-        }.values.map { it }
+    override fun endedMonthlySubscriptions(asOfDate: LocalDate): List<Subscription> {
+        return subscriptions
+            .filter { it.value.isMonthly() }
+            .filter { it.value.willBeEndedAfter(asOfDate) }
+            .values.map { it }
     }
 
     override fun onGoingSubscriptions(asOfDate: LocalDate): List<Subscription> {

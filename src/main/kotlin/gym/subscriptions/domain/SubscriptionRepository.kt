@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 interface SubscriptionRepository : Repository {
 
-    fun endedSubscriptions(asOfDate: LocalDate): List<Subscription>
+    fun endedMonthlySubscriptions(asOfDate: LocalDate): List<Subscription>
 
     fun onGoingSubscriptions(asOfDate: LocalDate): List<Subscription>
 }
