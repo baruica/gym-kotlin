@@ -3,6 +3,7 @@ package gym.subscriptions.domain
 import common.Aggregate
 import common.AggregateId
 import java.time.LocalDate
+import java.time.Period
 
 inline class SubscriptionId(private val id: String) : AggregateId {
     override fun toString(): String = id
@@ -37,7 +38,7 @@ class Subscription private constructor(
     }
 
     fun renew() {
-        endDate = endDate.plusMonths(durationInMonths.toLong())
+        endDate = endDate.plus(Period.ofMonths(durationInMonths))
     }
 
     fun willBeEndedAfter(asFrom: LocalDate): Boolean {
