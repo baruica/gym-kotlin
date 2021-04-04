@@ -37,9 +37,9 @@ class InMemoryMemberRepository : MemberRepository {
         }.values.firstOrNull()
     }
 
-    override fun threeYearsAnniversaryMembers(asOfDate: LocalDate): List<Member> {
+    override fun threeYearsAnniversaryMembers(date: LocalDate): List<Member> {
         return members.filter {
-            it.value.isThreeYearsAnniversary(asOfDate)
+            it.value.isThreeYearsAnniversary(date)
         }.values.map { it }
     }
 }
