@@ -30,9 +30,9 @@ class TurnoverForAGivenMonthTest {
         val tested = TurnoverForAGivenMonth(subscriptionRepository)
 
         assertEquals(2, subscriptionRepository.onGoingSubscriptions(today).size)
-        assertEquals(Turnover(80), tested.handle(TurnoverForAGivenMonthQuery(today)))
+        assertEquals(Turnover(80.0), tested.handle(TurnoverForAGivenMonthQuery(today)))
 
         assertEquals(2, subscriptionRepository.onGoingSubscriptions(inAMonth).size)
-        assertEquals(Turnover(67), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
+        assertEquals(Turnover(67.5), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
     }
 }

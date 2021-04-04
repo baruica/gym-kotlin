@@ -31,7 +31,7 @@ class SubscriptionTest {
         assertEquals(Price(80), monthlySubscriptionWithStudentDiscount.price)
 
         val yearlySubscriptionWithStudentDiscount = yearlySubscription(100, fifthOfJune(), isStudent = true)
-        assertEquals(Price(70), yearlySubscriptionWithStudentDiscount.price)
+        assertEquals(Price(72), yearlySubscriptionWithStudentDiscount.price)
     }
 
     @Test
@@ -69,9 +69,29 @@ class SubscriptionTest {
     @Test
     fun `has a monthly turnover`() {
         val monthlySubscription = monthlySubscription(100, fifthOfJune())
-        assertEquals(100, monthlySubscription.monthlyTurnover())
+        assertEquals(100.0, monthlySubscription.monthlyTurnover())
 
         val yearlySubscription = yearlySubscription(1200, fifthOfJune())
-        assertEquals(90, yearlySubscription.monthlyTurnover())
+        assertEquals(90.0, yearlySubscription.monthlyTurnover())
+    }
+
+    @Test
+    fun `can tell if it'll have its 3 years anniversary on a given date`() {
+        val threeYearsAnniversarySubscription = yearlySubscription(1000, fifthOfJune())
+
+        assertFalse(threeYearsAnniversarySubscription.hasThreeYearsAnniversaryOn(LocalDate.parse("2021-06-04")))
+        assertTrue(threeYearsAnniversarySubscription.hasThreeYearsAnniversaryOn(LocalDate.parse("2021-06-05")))
+        assertFalse(threeYearsAnniversarySubscription.hasThreeYearsAnniversaryOn(LocalDate.parse("2021-06-06")))
+    }
+
+    @Test
+    fun `5 percent discount after 3 years`() {
+        val threeYearsOldSubscription = yearlySubscription(1000, fifthOfJune())
+
+        assertEquals(Price(900), threeYearsOldSubscription.price)
+
+        threeYearsOldSubscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
+
+        assertEquals(Price(855), threeYearsOldSubscription.price)
     }
 }

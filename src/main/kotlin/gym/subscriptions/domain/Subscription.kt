@@ -14,7 +14,7 @@ class Subscription private constructor(
     private val durationInMonths: Int,
     internal val startDate: LocalDate,
     internal var endDate: LocalDate,
-    internal val price: Price,
+    internal var price: Price,
 ) : Aggregate {
     companion object {
         fun subscribe(
@@ -24,7 +24,9 @@ class Subscription private constructor(
             planPrice: Int,
             isStudent: Boolean
         ): Subscription {
-            val priceAfterDiscount = Price(planPrice).applyDiscount(planDurationInMonths, isStudent)
+            val priceAfterDiscount = Price(planPrice)
+                .applyDurationDiscount(planDurationInMonths)
+                .applyStudentDiscount(isStudent)
             val endDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
 
             return Subscription(
@@ -41,38 +43,61 @@ class Subscription private constructor(
         endDate = endDate.plus(Period.ofMonths(durationInMonths))
     }
 
-    fun willBeEndedAfter(asFrom: LocalDate): Boolean {
-        return asFrom.isAfter(endDate)
+    fun willBeEndedAfter(date: LocalDate): Boolean {
+        return date.isAfter(endDate)
     }
 
-    fun isOngoing(asOfDate: LocalDate): Boolean {
-        return asOfDate in startDate..endDate
+    fun isOngoing(date: LocalDate): Boolean {
+        return date in startDate..endDate
     }
 
     fun isMonthly(): Boolean {
         return durationInMonths == 1
     }
 
-    fun monthlyTurnover(): Int {
+    fun monthlyTurnover(): Double {
         return (price.amount / durationInMonths)
+    }
+
+    fun hasThreeYearsAnniversaryOn(date: LocalDate): Boolean {
+        return startDate.plus(Period.ofYears(3)).equals(date)
+    }
+
+    fun applyThreeYearsAnniversaryDiscount(date: LocalDate) {
+        price = price.applyThreeYearsAnniversaryDiscount(
+            hasThreeYearsAnniversaryOn(date)
+        )
     }
 }
 
-internal data class Price(val amount: Int) {
+internal data class Price(val amount: Double) {
+    constructor(amount: Int) : this(amount.toDouble())
+
     init {
         require(amount >= 0) {
             "Price amount must be non-negative, was [$amount]"
         }
     }
 
-    internal fun applyDiscount(durationInMonths: Int, isStudent: Boolean): Price {
-        var rate = 0.0
-        if (durationInMonths == 12) {
-            rate += 0.1
-        }
-        if (isStudent) {
-            rate += 0.2
-        }
-        return Price((amount.toDouble() * (1 - rate)).toInt())
+    internal fun applyDurationDiscount(durationInMonths: Int): Price {
+        return if (durationInMonths == 12) {
+            applyDiscount(0.1)
+        } else this
+    }
+
+    internal fun applyStudentDiscount(isStudent: Boolean): Price {
+        return if (isStudent) {
+            applyDiscount(0.2)
+        } else this
+    }
+
+    fun applyThreeYearsAnniversaryDiscount(hasThreeYearsAnniversary: Boolean): Price {
+        return if (hasThreeYearsAnniversary) {
+            applyDiscount(0.05)
+        } else this
+    }
+
+    private fun applyDiscount(rate: Double): Price {
+        return Price((amount * (1 - rate)))
     }
 }

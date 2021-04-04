@@ -24,6 +24,6 @@ class SubscribeToPlanTest {
 
         assertEquals(subscriptionId, subscription.id.toString())
         assertEquals("2018-12-18", subscription.startDate.toString())
-        assertEquals(450, subscription.price.amount)
+        assertEquals(450.0, subscription.price.amount)
     }
 }
