@@ -4,6 +4,7 @@ import common.Aggregate
 import common.AggregateId
 import java.time.LocalDate
 import java.time.Period
+import kotlin.math.roundToInt
 
 inline class SubscriptionId(private val id: String) : AggregateId {
     override fun toString(): String = id
@@ -55,8 +56,8 @@ class Subscription private constructor(
         return durationInMonths == 1
     }
 
-    fun monthlyTurnover(): Double {
-        return (price.amount / durationInMonths)
+    fun monthlyTurnover(): Int {
+        return (price.amount / durationInMonths).roundToInt()
     }
 
     fun hasThreeYearsAnniversaryOn(date: LocalDate): Boolean {
