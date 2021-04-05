@@ -11,5 +11,8 @@ interface Mailer {
         price: Int
     )
 
-    fun send3YearsAnniversaryEmail(member: Member)
+    fun send3YearsAnniversaryEmail(
+        member: Member,
+        newSubscriptionPrice: Double,
+    )
 }

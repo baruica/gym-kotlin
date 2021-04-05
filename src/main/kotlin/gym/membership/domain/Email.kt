@@ -17,8 +17,11 @@ sealed class Email(open val emailAddress: EmailAddress, val emailBody: String) {
         "Thank you for subscribing, this subscription will run from $startDate until $endDate, and will only cost you $price!"
     )
 
-    data class ThreeYearsAnniversary(override val emailAddress: EmailAddress) : Email(
+    data class ThreeYearsAnniversary(
+        override val emailAddress: EmailAddress,
+        val newSubscriptionPrice: Double
+    ) : Email(
         emailAddress,
-        "Thank you for your loyalty $emailAddress !"
+        "To thank you for your loyalty, we've applied a 5% discount on your subscription, you will now pay $newSubscriptionPrice !"
     )
 }

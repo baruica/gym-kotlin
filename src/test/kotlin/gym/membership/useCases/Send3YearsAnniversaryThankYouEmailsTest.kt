@@ -4,9 +4,7 @@ import gym.fifthOfJune
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 import java.util.*
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class Send3YearsAnniversaryThankYouEmailsTest {
@@ -15,34 +13,24 @@ class Send3YearsAnniversaryThankYouEmailsTest {
     fun handle() {
         val memberRepository = InMemoryMemberRepository()
 
-        val startDateJulie = fifthOfJune().minusYears(3)
-        val memberJulie = newMember("julie@gmail.com", startDateJulie)
-        memberRepository.store(memberJulie)
-
-        val startDateBob = fifthOfJune().minusYears(2)
-        val memberBob = newMember("bob@gmail.com", startDateBob)
-        memberRepository.store(memberBob)
-
-        val startDateLuke = fifthOfJune().minusYears(3)
-        val memberLuke = newMember("luke@gmail.com", startDateLuke)
-        memberRepository.store(memberLuke)
+        val luke = Member.register(
+            UUID.randomUUID().toString(),
+            EmailAddress("luke@gmail.com"),
+            fifthOfJune().minusYears(3)
+        )
+        memberRepository.store(luke)
 
         val mailer = InMemoryMailer()
 
         val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
 
         tested.handle(
-            Send3YearsAnniversaryThankYouEmailsCommand("2018-06-05")
+            Send3YearsAnniversaryThankYouEmailsCommand(
+                luke.id.toString(),
+                780.0
+            )
         )
 
-        assertTrue(mailer.threeYearsAnniversaryWasSentTo("julie@gmail.com"))
-        assertFalse(mailer.threeYearsAnniversaryWasSentTo("bob@gmail.com"))
-        assertTrue(mailer.threeYearsAnniversaryWasSentTo("luke@gmail.com"))
+        assertTrue(mailer.threeYearsAnniversaryWasSentTo(luke.emailAddress, 780.0))
     }
-
-    private fun newMember(email: String, startDate: LocalDate): Member = Member.register(
-        UUID.randomUUID().toString(),
-        EmailAddress(email),
-        startDate
-    )
 }

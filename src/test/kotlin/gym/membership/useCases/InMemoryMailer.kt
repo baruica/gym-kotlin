@@ -22,14 +22,14 @@ class InMemoryMailer : Mailer {
         sentEmails[UUID.randomUUID().toString()] = SubscriptionSummary(emailAddress, startDate, endDate, price)
     }
 
-    override fun send3YearsAnniversaryEmail(member: Member) {
-        sentEmails[UUID.randomUUID().toString()] = ThreeYearsAnniversary(member.emailAddress)
+    override fun send3YearsAnniversaryEmail(member: Member, newSubscriptionPrice: Double) {
+        sentEmails[UUID.randomUUID().toString()] = ThreeYearsAnniversary(member.emailAddress, newSubscriptionPrice)
         member.mark3YearsAnniversaryThankYouEmailAsSent()
     }
 
-    internal fun welcomeEmailWasSentTo(emailAddress: String): Boolean {
+    internal fun welcomeEmailWasSentTo(emailAddress: EmailAddress): Boolean {
         return sentEmails.containsValue(
-            Welcome(EmailAddress(emailAddress))
+            Welcome(emailAddress)
         )
     }
 
@@ -49,9 +49,9 @@ class InMemoryMailer : Mailer {
         )
     }
 
-    internal fun threeYearsAnniversaryWasSentTo(emailAddress: String): Boolean {
+    internal fun threeYearsAnniversaryWasSentTo(emailAddress: EmailAddress, newSubscriptionPrice: Double): Boolean {
         return sentEmails.containsValue(
-            ThreeYearsAnniversary(EmailAddress(emailAddress))
+            ThreeYearsAnniversary(emailAddress, newSubscriptionPrice)
         )
     }
 }

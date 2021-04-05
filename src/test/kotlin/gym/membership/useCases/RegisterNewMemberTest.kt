@@ -12,9 +12,9 @@ class RegisterNewMemberTest {
     fun handle() {
         val repository = InMemoryMemberRepository()
         val memberId = repository.nextId()
-        val emailAddress = "luke@gmail.com"
+        val emailAddress = EmailAddress("luke@gmail.com")
 
-        assertNull(repository.findByEmailAddress(EmailAddress(emailAddress)))
+        assertNull(repository.findByEmailAddress(emailAddress))
 
         val mailer = InMemoryMailer()
 
@@ -24,13 +24,13 @@ class RegisterNewMemberTest {
                 memberId,
                 "subscriptionId def",
                 "2018-06-05",
-                emailAddress
+                emailAddress.value
             )
         )
 
         member?.let {
             assertEquals(memberId, it.id.toString())
-            assertEquals(emailAddress, it.emailAddress.value)
+            assertEquals(emailAddress, it.emailAddress)
 
             assertTrue(mailer.welcomeEmailWasSentTo(emailAddress))
         }

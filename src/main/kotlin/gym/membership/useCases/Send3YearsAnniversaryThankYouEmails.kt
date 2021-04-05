@@ -2,23 +2,24 @@ package gym.membership.useCases
 
 import gym.membership.domain.Mailer
 import gym.membership.domain.Member
+import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
-import java.time.LocalDate
 
 class Send3YearsAnniversaryThankYouEmails(
     private val memberRepository: MemberRepository,
     private val mailer: Mailer,
 ) {
-    fun handle(command: Send3YearsAnniversaryThankYouEmailsCommand): List<Member> {
+    fun handle(command: Send3YearsAnniversaryThankYouEmailsCommand): Member {
 
-        val threeYearsAnniversaryMembers = memberRepository.threeYearsAnniversaryMembers(
-            LocalDate.parse(command.asOfDate)
+        val threeYearsAnniversaryMember = memberRepository.get(
+            MemberId(command.memberId)
         )
 
-        threeYearsAnniversaryMembers.forEach {
-            mailer.send3YearsAnniversaryEmail(it)
-        }
+        mailer.send3YearsAnniversaryEmail(
+            threeYearsAnniversaryMember as Member,
+            command.newSubscriptionPrice
+        )
 
-        return threeYearsAnniversaryMembers
+        return threeYearsAnniversaryMember
     }
 }
