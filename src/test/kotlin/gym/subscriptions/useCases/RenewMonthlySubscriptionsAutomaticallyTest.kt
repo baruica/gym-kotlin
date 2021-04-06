@@ -33,10 +33,10 @@ class RenewMonthlySubscriptionsAutomaticallyTest {
         val tested = RenewMonthlySubscriptionsAutomatically(repository)
 
         val renewedSubscriptions = tested.handle(
-            RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-09")
+            RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
         )
 
         assertEquals(1, renewedSubscriptions.size)
-        assertEquals("2018-08-08", renewedSubscriptions.last().endDate.toString())
+        assertEquals("2018-08-09", renewedSubscriptions.last().endDate.toString())
     }
 }

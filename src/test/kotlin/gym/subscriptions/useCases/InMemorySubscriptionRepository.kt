@@ -33,7 +33,7 @@ class InMemorySubscriptionRepository : SubscriptionRepository {
     override fun endedMonthlySubscriptions(date: LocalDate): List<Subscription> {
         return subscriptions
             .filter { it.value.isMonthly() }
-            .filter { it.value.willBeEndedAfter(date) }
+            .filter { it.value.willBeEndedAsFrom(date) }
             .values.map { it }
     }
 

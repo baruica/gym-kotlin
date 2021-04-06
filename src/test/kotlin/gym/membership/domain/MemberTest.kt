@@ -1,6 +1,5 @@
 package gym.membership.domain
 
-import gym.fifthOfJune
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import kotlin.test.assertFalse
@@ -13,11 +12,11 @@ class MemberTest {
         val memberWith3yearsAnniversaryOnTheFifthOfJune = Member.register(
             "member abc",
             EmailAddress("julie@gmail.com"),
-            fifthOfJune().minusYears(3)
+            LocalDate.parse("2018-06-05").minusYears(3)
         )
 
         assertFalse(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-04")))
-        assertTrue(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(fifthOfJune()))
+        assertTrue(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-05")))
         assertFalse(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-07-06")))
     }
 }

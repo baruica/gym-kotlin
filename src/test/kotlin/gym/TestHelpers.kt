@@ -4,8 +4,6 @@ import gym.subscriptions.domain.Subscription
 import java.time.LocalDate
 import java.util.*
 
-fun fifthOfJune(): LocalDate = LocalDate.parse("2018-06-05")
-
 fun monthlySubscription(
     basePrice: Int,
     startDate: LocalDate,

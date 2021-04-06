@@ -32,7 +32,7 @@ class TurnoverForAGivenMonthTest {
         assertEquals(2, subscriptionRepository.onGoingSubscriptions(today).size)
         assertEquals(Turnover(80), tested.handle(TurnoverForAGivenMonthQuery(today)))
 
-        assertEquals(2, subscriptionRepository.onGoingSubscriptions(inAMonth).size)
-        assertEquals(Turnover(68), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
+        assertEquals(3, subscriptionRepository.onGoingSubscriptions(inAMonth).size)
+        assertEquals(Turnover(118), tested.handle(TurnoverForAGivenMonthQuery(inAMonth)))
     }
 }

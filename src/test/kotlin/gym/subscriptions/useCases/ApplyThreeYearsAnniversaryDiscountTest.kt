@@ -11,13 +11,15 @@ internal class ApplyThreeYearsAnniversaryDiscountTest {
     fun handle() {
         val repository = InMemorySubscriptionRepository()
 
-        repository.store(
-            yearlySubscription(
-                1300,
-                LocalDate.parse("2015-07-09"),
-                subscriptionId = repository.nextId()
-            )
+        val subscription = yearlySubscription(
+            1300,
+            LocalDate.parse("2015-07-09"),
+            subscriptionId = repository.nextId()
         )
+        subscription.renew()
+        subscription.renew()
+
+        repository.store(subscription)
 
         val tested = ApplyThreeYearsAnniversaryDiscount(repository)
 

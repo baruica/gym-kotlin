@@ -1,9 +1,9 @@
 package gym.membership.useCases
 
-import gym.fifthOfJune
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 import java.util.*
 import kotlin.test.assertTrue
 
@@ -16,7 +16,7 @@ class Send3YearsAnniversaryThankYouEmailsTest {
         val luke = Member.register(
             UUID.randomUUID().toString(),
             EmailAddress("luke@gmail.com"),
-            fifthOfJune().minusYears(3)
+            LocalDate.parse("2018-06-05").minusYears(3)
         )
         memberRepository.store(luke)
 

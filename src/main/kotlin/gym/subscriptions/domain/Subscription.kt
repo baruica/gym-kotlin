@@ -28,7 +28,8 @@ class Subscription private constructor(
             val priceAfterDiscount = Price(planPrice)
                 .applyDurationDiscount(planDurationInMonths)
                 .applyStudentDiscount(isStudent)
-            val endDate = startDate.plusMonths(planDurationInMonths.toLong()).minusDays(1)
+
+            val endDate = startDate.plusMonths(planDurationInMonths.toLong())
 
             return Subscription(
                 SubscriptionId(subscriptionId),
@@ -44,7 +45,7 @@ class Subscription private constructor(
         endDate = endDate.plus(Period.ofMonths(durationInMonths))
     }
 
-    fun willBeEndedAfter(date: LocalDate): Boolean {
+    fun willBeEndedAsFrom(date: LocalDate): Boolean {
         return date.isAfter(endDate)
     }
 
@@ -61,7 +62,8 @@ class Subscription private constructor(
     }
 
     fun hasThreeYearsAnniversaryOn(date: LocalDate): Boolean {
-        return startDate.plus(Period.ofYears(3)).equals(date)
+        return date == startDate.plusYears(3)
+            && date == endDate
     }
 
     fun applyThreeYearsAnniversaryDiscount(date: LocalDate) {
