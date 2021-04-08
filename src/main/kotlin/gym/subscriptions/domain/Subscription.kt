@@ -16,9 +16,8 @@ class Subscription private constructor(
     internal val startDate: LocalDate,
     internal var endDate: LocalDate,
     internal var price: Price,
+    private var threeYearsAnniversaryDiscountApplied: Boolean,
 ) : Aggregate {
-    private var threeYearsAnniversaryDiscountApplied: Boolean = false
-
     companion object {
         fun subscribe(
             subscriptionId: String,
@@ -38,7 +37,8 @@ class Subscription private constructor(
                 planDurationInMonths,
                 startDate,
                 endDate,
-                priceAfterDiscount
+                priceAfterDiscount,
+                false
             )
         }
     }
