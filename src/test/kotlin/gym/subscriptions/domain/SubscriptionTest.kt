@@ -47,6 +47,22 @@ class SubscriptionTest {
     }
 
     @Test
+    fun `3 years anniversary discount can only be applied once`() {
+        val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
+        assertEquals(Price(900), subscription.price)
+
+        subscription.renew()
+        subscription.renew()
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
+        assertEquals(Price(855), subscription.price)
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
+        assertEquals(Price(855), subscription.price)
+    }
+
+    @Test
     fun `can be renewed`() {
         val subscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 

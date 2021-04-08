@@ -17,6 +17,8 @@ class Subscription private constructor(
     internal var endDate: LocalDate,
     internal var price: Price,
 ) : Aggregate {
+    private var threeYearsAnniversaryDiscountApplied: Boolean = false
+
     companion object {
         fun subscribe(
             subscriptionId: String,
@@ -67,9 +69,16 @@ class Subscription private constructor(
     }
 
     fun applyThreeYearsAnniversaryDiscount(date: LocalDate) {
-        price = price.applyThreeYearsAnniversaryDiscount(
-            hasThreeYearsAnniversaryOn(date)
-        )
+        if (!threeYearsAnniversaryDiscountApplied) {
+            val newPrice = price.applyThreeYearsAnniversaryDiscount(
+                hasThreeYearsAnniversaryOn(date)
+            )
+
+            if (price != newPrice) {
+                price = newPrice
+                threeYearsAnniversaryDiscountApplied = true
+            }
+        }
     }
 }
 
