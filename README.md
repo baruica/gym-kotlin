@@ -10,7 +10,7 @@
 - Monthly subscriptions are renewed automatically
 - A welcome email is sent to new members
 - A summary of the new subscriptions is sent by email
-- After 3 years of membership, we apply 5% off all their subscriptions and give them the good news with an email
+- After the first 3 years of membership, we apply 5% off all their subscriptions and give them the good news with an email
 
 ## Choices
 
@@ -22,8 +22,7 @@
 - *Aggregate* ids are provided by their *
   repository* ([read](https://matthiasnoback.nl/2018/05/when-and-where-to-determine-the-id-of-an-entity/))
 - *Aggregate* ids have their own types ([read](https://buildplease.com/pages/vo-ids/))
-- *Domain events* are put aside during the aggregate's execution, then "collected" and published by the use
-  case ([read](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/))
+- *Domain events* are put aside during the aggregate's execution, then "collected" and published by the use case ([read](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/))
 - avoid *get/set* prefixes ([read](https://blog.pragmatists.com/refactoring-from-anemic-model-to-ddd-880d3dd3d45f))
 
 ## Links
