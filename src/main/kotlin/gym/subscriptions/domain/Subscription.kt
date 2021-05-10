@@ -6,7 +6,8 @@ import java.time.LocalDate
 import java.time.Period
 import kotlin.math.roundToInt
 
-inline class SubscriptionId(private val id: String) : AggregateId {
+@JvmInline
+value class SubscriptionId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 

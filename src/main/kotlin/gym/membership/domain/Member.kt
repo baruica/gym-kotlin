@@ -4,7 +4,8 @@ import common.Aggregate
 import common.AggregateId
 import java.time.LocalDate
 
-inline class MemberId(private val id: String) : AggregateId {
+@JvmInline
+value class MemberId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 

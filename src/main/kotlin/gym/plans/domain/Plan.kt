@@ -3,7 +3,8 @@ package gym.plans.domain
 import common.Aggregate
 import common.AggregateId
 
-inline class PlanId(private val id: String) : AggregateId {
+@JvmInline
+value class PlanId(private val id: String) : AggregateId {
     override fun toString(): String = id
 }
 
