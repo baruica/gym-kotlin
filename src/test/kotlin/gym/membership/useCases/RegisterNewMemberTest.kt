@@ -1,12 +1,10 @@
 package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 
-class RegisterNewMemberTest {
+class RegisterNewMemberTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -14,7 +12,7 @@ class RegisterNewMemberTest {
         val memberId = repository.nextId()
         val emailAddress = EmailAddress("luke@gmail.com")
 
-        assertNull(repository.findByEmailAddress(emailAddress))
+        repository.findByEmailAddress(emailAddress) shouldBe null
 
         val mailer = InMemoryMailer()
 
@@ -29,10 +27,10 @@ class RegisterNewMemberTest {
         )
 
         member?.let {
-            assertEquals(memberId, it.id.toString())
-            assertEquals(emailAddress, it.emailAddress)
+            it.id.toString() shouldBe memberId
+            it.emailAddress shouldBe emailAddress
 
-            assertTrue(mailer.welcomeEmailWasSentTo(emailAddress))
+            mailer.welcomeEmailWasSentTo(emailAddress) shouldBe true
         }
     }
 }

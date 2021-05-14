@@ -1,11 +1,11 @@
 package gym.subscriptions.useCases
 
 import gym.yearlySubscription
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 import java.time.LocalDate
-import kotlin.test.assertEquals
 
-internal class ApplyThreeYearsAnniversaryDiscountTest {
+internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -26,16 +26,16 @@ internal class ApplyThreeYearsAnniversaryDiscountTest {
         val subscriptionsBeforeThreeYearsAnniversary = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-08")
         )
-        assertEquals(0, subscriptionsBeforeThreeYearsAnniversary.size)
+        subscriptionsBeforeThreeYearsAnniversary.size shouldBe 0
 
         val subscriptionsWithThreeYearsDiscount = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-09")
         )
-        assertEquals(1111.5, subscriptionsWithThreeYearsDiscount.last().price.amount)
+        subscriptionsWithThreeYearsDiscount.last().price.amount shouldBe 1111.5
 
         val subscriptionsAfterThreeYearsAnniversary = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-10")
         )
-        assertEquals(0, subscriptionsAfterThreeYearsAnniversary.size)
+        subscriptionsAfterThreeYearsAnniversary.size shouldBe 0
     }
 }

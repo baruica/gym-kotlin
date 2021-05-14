@@ -1,9 +1,9 @@
 package gym.subscriptions.useCases
 
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 
-class SubscribeToPlanTest {
+class SubscribeToPlanTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -22,8 +22,8 @@ class SubscribeToPlanTest {
             )
         )
 
-        assertEquals(subscriptionId, subscription.id.toString())
-        assertEquals("2018-12-18", subscription.startDate.toString())
-        assertEquals(450.0, subscription.price.amount)
+        subscription.id.toString() shouldBe subscriptionId
+        subscription.startDate.toString() shouldBe "2018-12-18"
+        subscription.price.amount shouldBe 450.0
     }
 }

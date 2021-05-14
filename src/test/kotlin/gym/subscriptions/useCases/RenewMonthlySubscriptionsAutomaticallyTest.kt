@@ -2,11 +2,11 @@ package gym.subscriptions.useCases
 
 import gym.monthlySubscription
 import gym.yearlySubscription
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 import java.time.LocalDate
-import kotlin.test.assertEquals
 
-class RenewMonthlySubscriptionsAutomaticallyTest {
+class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -36,7 +36,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest {
             RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
         )
 
-        assertEquals(1, renewedSubscriptions.size)
-        assertEquals("2018-08-09", renewedSubscriptions.last().endDate.toString())
+        renewedSubscriptions.size shouldBe 1
+        renewedSubscriptions.last().endDate.toString() shouldBe "2018-08-09"
     }
 }

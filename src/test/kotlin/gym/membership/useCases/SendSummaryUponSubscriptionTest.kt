@@ -1,10 +1,10 @@
 package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
-import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 
-internal class SendSummaryUponSubscriptionTest {
+internal class SendSummaryUponSubscriptionTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -27,13 +27,11 @@ internal class SendSummaryUponSubscriptionTest {
             )
         )
 
-        assertTrue(
-            mailer.subscriptionSummaryEmailWasSentTo(
-                EmailAddress(emailAddress),
-                startDate,
-                endDate,
-                price
-            )
-        )
+        mailer.subscriptionSummaryEmailWasSentTo(
+            EmailAddress(emailAddress),
+            startDate,
+            endDate,
+            price
+        ) shouldBe true
     }
 }

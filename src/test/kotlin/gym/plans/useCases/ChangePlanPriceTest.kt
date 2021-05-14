@@ -2,10 +2,10 @@ package gym.plans.useCases
 
 import gym.plans.domain.Plan
 import gym.plans.domain.Price
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 
-class ChangePlanPriceTest {
+class ChangePlanPriceTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -22,6 +22,6 @@ class ChangePlanPriceTest {
             ChangePriceOfPlanCommand(planId, 400)
         )
 
-        assertEquals(Price(400), plan.price)
+        plan.price shouldBe Price(400)
     }
 }

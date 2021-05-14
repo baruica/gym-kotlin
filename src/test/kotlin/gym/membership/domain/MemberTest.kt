@@ -1,11 +1,10 @@
 package gym.membership.domain
 
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 import java.time.LocalDate
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
-class MemberTest {
+class MemberTest : AnnotationSpec() {
 
     @Test
     fun `is 3 years anniversary`() {
@@ -15,8 +14,8 @@ class MemberTest {
             LocalDate.parse("2018-06-05").minusYears(3)
         )
 
-        assertFalse(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-04")))
-        assertTrue(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-05")))
-        assertFalse(memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-07-06")))
+        memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-04")) shouldBe false
+        memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-06-05")) shouldBe true
+        memberWith3yearsAnniversaryOnTheFifthOfJune.isThreeYearsAnniversary(LocalDate.parse("2018-07-06")) shouldBe false
     }
 }

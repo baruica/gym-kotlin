@@ -1,13 +1,13 @@
 package gym.membership.domain
 
-import org.junit.jupiter.api.Test
-import kotlin.test.assertFailsWith
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.AnnotationSpec
 
-class EmailAddressTest {
+class EmailAddressTest : AnnotationSpec() {
 
     @Test
     fun `does not allow an invalid email address`() {
-        assertFailsWith<IllegalArgumentException> {
+        shouldThrow<IllegalArgumentException> {
             EmailAddress("bob[at]gmail.com")
         }
     }

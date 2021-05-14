@@ -2,12 +2,12 @@ package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 import java.util.*
-import kotlin.test.assertTrue
 
-class Send3YearsAnniversaryThankYouEmailsTest {
+class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
 
     @Test
     fun handle() {
@@ -31,6 +31,6 @@ class Send3YearsAnniversaryThankYouEmailsTest {
             )
         )
 
-        assertTrue(mailer.threeYearsAnniversaryWasSentTo(luke.emailAddress, 780.0))
+        mailer.threeYearsAnniversaryWasSentTo(luke.emailAddress, 780.0) shouldBe true
     }
 }

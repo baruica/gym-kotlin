@@ -2,48 +2,46 @@ package gym.subscriptions.domain
 
 import gym.monthlySubscription
 import gym.yearlySubscription
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 import java.time.LocalDate
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
-class SubscriptionTest {
+class SubscriptionTest : AnnotationSpec() {
 
     @Test
     fun `base price for a monthly subscription`() {
         val subscriptionWithoutDiscount = monthlySubscription(300, LocalDate.parse("2018-06-05"), isStudent = false)
 
-        assertEquals(Price(300), subscriptionWithoutDiscount.price)
+        subscriptionWithoutDiscount.price shouldBe Price(300)
     }
 
     @Test
     fun `10 percent discount for yearly subscription`() {
         val subscriptionWithYearlyDiscount = yearlySubscription(1000, LocalDate.parse("2018-06-05"), isStudent = false)
 
-        assertEquals(Price(900), subscriptionWithYearlyDiscount.price)
+        subscriptionWithYearlyDiscount.price shouldBe Price(900)
     }
 
     @Test
     fun `20 percent discount for students`() {
         val monthlySubscriptionWithStudentDiscount = monthlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
-        assertEquals(Price(80), monthlySubscriptionWithStudentDiscount.price)
+        monthlySubscriptionWithStudentDiscount.price shouldBe Price(80)
 
         val yearlySubscriptionWithStudentDiscount = yearlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
-        assertEquals(Price(72), yearlySubscriptionWithStudentDiscount.price)
+        yearlySubscriptionWithStudentDiscount.price shouldBe Price(72)
     }
 
     @Test
     fun `5 percent discount after 3 years`() {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
-        assertEquals(Price(900), subscription.price)
+        subscription.price shouldBe Price(900)
 
         subscription.renew()
-        assertEquals(Price(900), subscription.price)
+        subscription.price shouldBe Price(900)
 
         subscription.renew()
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
-        assertEquals(Price(855), subscription.price)
+        subscription.price shouldBe Price(855)
     }
 
     @Test
@@ -51,55 +49,55 @@ class SubscriptionTest {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
 
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
-        assertEquals(Price(900), subscription.price)
+        subscription.price shouldBe Price(900)
 
         subscription.renew()
         subscription.renew()
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
-        assertEquals(Price(855), subscription.price)
+        subscription.price shouldBe Price(855)
 
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
-        assertEquals(Price(855), subscription.price)
+        subscription.price shouldBe Price(855)
     }
 
     @Test
     fun `can be renewed`() {
         val subscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
-        assertFalse(subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-05")))
-        assertTrue(subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-06")))
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-05")) shouldBe false
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-06")) shouldBe true
 
         subscription.renew()
 
-        assertFalse(subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-05")))
-        assertTrue(subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-06")))
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-05")) shouldBe false
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-06")) shouldBe true
     }
 
     @Test
     fun `can be ongoing`() {
         val ongoingSubscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
-        assertFalse(ongoingSubscription.isOngoing(LocalDate.parse("2018-06-04")))
-        assertTrue(ongoingSubscription.isOngoing(LocalDate.parse("2018-06-05")))
-        assertTrue(ongoingSubscription.isOngoing(LocalDate.parse("2018-06-19")))
-        assertTrue(ongoingSubscription.isOngoing(LocalDate.parse("2018-07-05")))
-        assertFalse(ongoingSubscription.isOngoing(LocalDate.parse("2018-07-06")))
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-04")) shouldBe false
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-05")) shouldBe true
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-19")) shouldBe true
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-07-05")) shouldBe true
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-07-06")) shouldBe false
     }
 
     @Test
     fun `can tell if it'll be ended as from a given date`() {
         val subscriptionEndingEndOfJune = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
-        assertFalse(subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-05")))
-        assertTrue(subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-06")))
+        subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-05")) shouldBe false
+        subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-06")) shouldBe true
     }
 
     @Test
     fun `has a monthly turnover`() {
         val monthlySubscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
-        assertEquals(100, monthlySubscription.monthlyTurnover())
+        monthlySubscription.monthlyTurnover() shouldBe 100
 
         val yearlySubscription = yearlySubscription(1200, LocalDate.parse("2018-06-05"))
-        assertEquals(90, yearlySubscription.monthlyTurnover())
+        yearlySubscription.monthlyTurnover() shouldBe 90
     }
 }

@@ -1,21 +1,21 @@
 package gym.plans.domain
 
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 
-class PlanTest {
+class PlanTest : AnnotationSpec() {
 
     @Test
     fun `its duration cannot be anything but 1 month or 12 months`() {
-        assertFailsWith<IllegalArgumentException> {
+        shouldThrow<IllegalArgumentException> {
             Plan.new("plan abc", 400, 4)
         }
     }
 
     @Test
     fun `its price cannot be negative`() {
-        assertFailsWith<IllegalArgumentException> {
+        shouldThrow<IllegalArgumentException> {
             Plan.new("plan abc", -10, 1)
         }
     }
@@ -25,6 +25,6 @@ class PlanTest {
         val tested = Plan.new("plan abc", 400, 1)
         tested.changePrice(500)
 
-        assertEquals(Price(500), tested.price)
+        tested.price shouldBe Price(500)
     }
 }
