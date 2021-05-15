@@ -2,7 +2,7 @@ package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.booleans.shouldBeTrue
 
 internal class SendSummaryUponSubscriptionTest : AnnotationSpec() {
 
@@ -32,6 +32,6 @@ internal class SendSummaryUponSubscriptionTest : AnnotationSpec() {
             startDate,
             endDate,
             price
-        ) shouldBe true
+        ).shouldBeTrue()
     }
 }

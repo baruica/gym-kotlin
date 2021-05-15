@@ -3,7 +3,7 @@ package gym.membership.useCases
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.booleans.shouldBeTrue
 import java.time.LocalDate
 import java.util.*
 
@@ -31,6 +31,6 @@ class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
             )
         )
 
-        mailer.threeYearsAnniversaryWasSentTo(luke.emailAddress, 780.0) shouldBe true
+        mailer.threeYearsAnniversaryWasSentTo(luke.emailAddress, 780.0).shouldBeTrue()
     }
 }

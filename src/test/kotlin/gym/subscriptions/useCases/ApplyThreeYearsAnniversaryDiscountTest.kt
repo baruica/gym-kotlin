@@ -2,6 +2,7 @@ package gym.subscriptions.useCases
 
 import gym.yearlySubscription
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
@@ -26,7 +27,7 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
         val subscriptionsBeforeThreeYearsAnniversary = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-08")
         )
-        subscriptionsBeforeThreeYearsAnniversary.size shouldBe 0
+        subscriptionsBeforeThreeYearsAnniversary.shouldBeEmpty()
 
         val subscriptionsWithThreeYearsDiscount = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-09")
@@ -36,6 +37,6 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
         val subscriptionsAfterThreeYearsAnniversary = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-10")
         )
-        subscriptionsAfterThreeYearsAnniversary.size shouldBe 0
+        subscriptionsAfterThreeYearsAnniversary.shouldBeEmpty()
     }
 }

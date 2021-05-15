@@ -3,6 +3,7 @@ package gym.subscriptions.useCases
 import gym.monthlySubscription
 import gym.yearlySubscription
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
@@ -36,7 +37,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
             RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
         )
 
-        renewedSubscriptions.size shouldBe 1
+        renewedSubscriptions.shouldHaveSize(1)
         renewedSubscriptions.last().endDate.toString() shouldBe "2018-08-09"
     }
 }

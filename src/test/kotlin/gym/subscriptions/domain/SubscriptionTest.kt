@@ -3,6 +3,8 @@ package gym.subscriptions.domain
 import gym.monthlySubscription
 import gym.yearlySubscription
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
@@ -64,32 +66,32 @@ class SubscriptionTest : AnnotationSpec() {
     fun `can be renewed`() {
         val subscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
-        subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-05")) shouldBe false
-        subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-06")) shouldBe true
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-05")).shouldBeFalse()
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-06")).shouldBeTrue()
 
         subscription.renew()
 
-        subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-05")) shouldBe false
-        subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-06")) shouldBe true
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-05")).shouldBeFalse()
+        subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-06")).shouldBeTrue()
     }
 
     @Test
     fun `can be ongoing`() {
         val ongoingSubscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
-        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-04")) shouldBe false
-        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-05")) shouldBe true
-        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-19")) shouldBe true
-        ongoingSubscription.isOngoing(LocalDate.parse("2018-07-05")) shouldBe true
-        ongoingSubscription.isOngoing(LocalDate.parse("2018-07-06")) shouldBe false
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-04")).shouldBeFalse()
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-05")).shouldBeTrue()
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-06-19")).shouldBeTrue()
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-07-05")).shouldBeTrue()
+        ongoingSubscription.isOngoing(LocalDate.parse("2018-07-06")).shouldBeFalse()
     }
 
     @Test
     fun `can tell if it'll be ended as from a given date`() {
         val subscriptionEndingEndOfJune = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
-        subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-05")) shouldBe false
-        subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-06")) shouldBe true
+        subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-05")).shouldBeFalse()
+        subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-06")).shouldBeTrue()
     }
 
     @Test
