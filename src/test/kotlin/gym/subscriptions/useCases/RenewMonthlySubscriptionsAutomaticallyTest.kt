@@ -38,6 +38,6 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
         )
 
         renewedSubscriptions.shouldHaveSize(1)
-        renewedSubscriptions.last().endDate.toString() shouldBe "2018-08-09"
+        renewedSubscriptions.last().endDate shouldBe LocalDate.parse("2018-08-09")
     }
 }

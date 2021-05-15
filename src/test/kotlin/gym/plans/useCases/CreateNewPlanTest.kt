@@ -1,5 +1,6 @@
 package gym.plans.useCases
 
+import gym.plans.domain.PlanId
 import gym.plans.domain.Price
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -21,7 +22,7 @@ class CreateNewPlanTest : AnnotationSpec() {
             )
         )
 
-        newPlan.id.toString() shouldBe newPlanId
+        newPlan.id shouldBe PlanId(newPlanId)
         newPlan.price shouldBe Price(300)
     }
 }

@@ -1,5 +1,6 @@
 package gym.subscriptions.useCases
 
+import gym.subscriptions.domain.Price
 import gym.yearlySubscription
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -32,7 +33,7 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
         val subscriptionsWithThreeYearsDiscount = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-09")
         )
-        subscriptionsWithThreeYearsDiscount.last().price.amount shouldBe 1111.5
+        subscriptionsWithThreeYearsDiscount.last().price shouldBe Price(1111.5)
 
         val subscriptionsAfterThreeYearsAnniversary = tested.handle(
             ApplyThreeYearsAnniversaryDiscountCommand("2018-07-10")

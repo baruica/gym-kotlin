@@ -1,6 +1,7 @@
 package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
+import gym.membership.domain.MemberId
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldBeNull
@@ -29,7 +30,7 @@ class RegisterNewMemberTest : AnnotationSpec() {
         )
 
         member?.let {
-            it.id.toString() shouldBe memberId
+            it.id shouldBe MemberId(memberId)
             it.emailAddress shouldBe emailAddress
 
             mailer.welcomeEmailWasSentTo(emailAddress).shouldBeTrue()

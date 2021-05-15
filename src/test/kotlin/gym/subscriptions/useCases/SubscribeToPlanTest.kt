@@ -1,7 +1,10 @@
 package gym.subscriptions.useCases
 
+import gym.subscriptions.domain.Price
+import gym.subscriptions.domain.SubscriptionId
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
+import java.time.LocalDate
 
 class SubscribeToPlanTest : AnnotationSpec() {
 
@@ -22,8 +25,8 @@ class SubscribeToPlanTest : AnnotationSpec() {
             )
         )
 
-        subscription.id.toString() shouldBe subscriptionId
-        subscription.startDate.toString() shouldBe "2018-12-18"
-        subscription.price.amount shouldBe 450.0
+        subscription.id shouldBe SubscriptionId(subscriptionId)
+        subscription.startDate shouldBe LocalDate.parse("2018-12-18")
+        subscription.price shouldBe Price(450)
     }
 }
