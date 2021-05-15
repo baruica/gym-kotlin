@@ -10,7 +10,13 @@ fun monthlySubscription(
     isStudent: Boolean = false,
     subscriptionId: String = UUID.randomUUID().toString()
 ): Subscription {
-    return newSubscription(subscriptionId, basePrice, startDate, 1, isStudent)
+    return newSubscription(
+        subscriptionId,
+        basePrice,
+        startDate,
+        1,
+        isStudent
+    )
 }
 
 fun yearlySubscription(
@@ -19,7 +25,13 @@ fun yearlySubscription(
     isStudent: Boolean = false,
     subscriptionId: String = UUID.randomUUID().toString()
 ): Subscription {
-    return newSubscription(subscriptionId, basePrice, startDate, 12, isStudent)
+    return newSubscription(
+        subscriptionId,
+        basePrice,
+        startDate,
+        12,
+        isStudent
+    )
 }
 
 fun newSubscription(
