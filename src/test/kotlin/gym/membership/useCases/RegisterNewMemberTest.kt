@@ -2,6 +2,7 @@ package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 
 class RegisterNewMemberTest : AnnotationSpec() {
@@ -12,7 +13,7 @@ class RegisterNewMemberTest : AnnotationSpec() {
         val memberId = repository.nextId()
         val emailAddress = EmailAddress("luke@gmail.com")
 
-        repository.findByEmailAddress(emailAddress) shouldBe null
+        repository.findByEmailAddress(emailAddress).shouldBeNull()
 
         val mailer = InMemoryMailer()
 
