@@ -26,10 +26,12 @@ class SubscriptionTest : AnnotationSpec() {
 
     @Test
     fun `20 percent discount for students`() {
-        val monthlySubscriptionWithStudentDiscount = monthlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
+        val monthlySubscriptionWithStudentDiscount =
+            monthlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
         monthlySubscriptionWithStudentDiscount.price shouldBe Price(80)
 
-        val yearlySubscriptionWithStudentDiscount = yearlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
+        val yearlySubscriptionWithStudentDiscount =
+            yearlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
         yearlySubscriptionWithStudentDiscount.price shouldBe Price(72)
     }
 
@@ -47,11 +49,39 @@ class SubscriptionTest : AnnotationSpec() {
     }
 
     @Test
-    fun `3 years anniversary discount can only be applied once`() {
+    fun `3 years anniversary discount can only be applied after 3 years of subscription`() {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
 
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
         subscription.price shouldBe Price(900)
+
+        subscription.renew()
+        subscription.renew()
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-04"))
+        subscription.price shouldBe Price(900)
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
+        subscription.price shouldBe Price(855)
+    }
+
+    @Test
+    fun `3 years anniversary discount can be applied any time after 3 years of subscription`() {
+        val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
+
+        subscription.renew()
+        subscription.renew()
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-04"))
+        subscription.price shouldBe Price(900)
+
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-10"))
+        subscription.price shouldBe Price(855)
+    }
+
+    @Test
+    fun `3 years anniversary discount can only be applied once`() {
+        val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
 
         subscription.renew()
         subscription.renew()

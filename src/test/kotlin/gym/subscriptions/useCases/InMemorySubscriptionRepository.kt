@@ -39,7 +39,7 @@ class InMemorySubscriptionRepository : SubscriptionRepository {
 
     override fun threeYearsAnniversarySubscriptions(date: LocalDate): List<Subscription> {
         return subscriptions
-            .filter { it.value.hasThreeYearsAnniversaryOn(date) }
+            .filter { it.value.hasThreeYearsAnniversaryAfter(date) }
             .values.map { it }
     }
 

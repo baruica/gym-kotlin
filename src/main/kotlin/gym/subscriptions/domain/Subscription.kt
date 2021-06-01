@@ -64,15 +64,21 @@ class Subscription private constructor(
         return (price.amount / durationInMonths).roundToInt()
     }
 
-    fun hasThreeYearsAnniversaryOn(date: LocalDate): Boolean {
-        return date == startDate.plusYears(3)
-            && date == endDate
+    fun hasThreeYearsAnniversaryAfter(date: LocalDate): Boolean {
+        val threeYearsAfterStartDate = startDate.plusYears(3)
+
+        return date >= threeYearsAfterStartDate
+            && threeYearsAfterStartDate == endDate
+            && date >= endDate
+            && !threeYearsAnniversaryDiscountApplied
     }
 
     fun applyThreeYearsAnniversaryDiscount(date: LocalDate) {
-        if (!threeYearsAnniversaryDiscountApplied) {
+        val hasThreeYearsAnniversaryPassed = hasThreeYearsAnniversaryAfter(date)
+
+        if (hasThreeYearsAnniversaryPassed) {
             val newPrice = price.applyThreeYearsAnniversaryDiscount(
-                hasThreeYearsAnniversaryOn(date)
+                hasThreeYearsAnniversaryPassed
             )
 
             if (price != newPrice) {
