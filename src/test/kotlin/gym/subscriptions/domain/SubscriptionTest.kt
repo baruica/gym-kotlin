@@ -85,10 +85,11 @@ class SubscriptionTest : AnnotationSpec() {
 
         subscription.renew()
         subscription.renew()
+
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
         subscription.price shouldBe Price(855)
 
-        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
+        subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-10"))
         subscription.price shouldBe Price(855)
     }
 
