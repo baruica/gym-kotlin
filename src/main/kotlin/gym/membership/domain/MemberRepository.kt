@@ -1,9 +1,9 @@
 package gym.membership.domain
 
-import common.Repository
+import Repository
 import java.time.LocalDate
 
-interface MemberRepository : Repository {
+interface MemberRepository : Repository<Member> {
 
     fun findByEmailAddress(emailAddress: EmailAddress): Member?
 

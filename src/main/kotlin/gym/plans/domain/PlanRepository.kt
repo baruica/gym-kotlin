@@ -1,5 +1,5 @@
 package gym.plans.domain
 
-import common.Repository
+import Repository
 
-interface PlanRepository : Repository
+interface PlanRepository : Repository<Plan>

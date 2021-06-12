@@ -1,9 +1,9 @@
 package gym.subscriptions.domain
 
-import common.Repository
+import Repository
 import java.time.LocalDate
 
-interface SubscriptionRepository : Repository {
+interface SubscriptionRepository : Repository<Subscription> {
 
     fun endedMonthlySubscriptions(date: LocalDate): List<Subscription>
 

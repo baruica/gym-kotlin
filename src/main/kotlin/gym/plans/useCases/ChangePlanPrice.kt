@@ -1,14 +1,13 @@
 package gym.plans.useCases
 
 import gym.plans.domain.Plan
-import gym.plans.domain.PlanId
 import gym.plans.domain.PlanRepository
 
 class ChangePlanPrice(private val planRepository: PlanRepository) {
 
     fun handle(command: ChangePriceOfPlanCommand): Plan {
 
-        val plan = planRepository.get(PlanId(command.planId)) as Plan
+        val plan = planRepository.get(command.planId)
 
         plan.changePrice(command.newPrice)
 

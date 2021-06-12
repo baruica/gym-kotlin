@@ -1,18 +1,17 @@
 package gym.plans.domain
 
-import common.Aggregate
-import common.AggregateId
+import HasAnId
 
 @JvmInline
-value class PlanId(private val id: String) : AggregateId {
+value class PlanId(private val id: String) {
     override fun toString(): String = id
 }
 
 class Plan private constructor(
-    override val id: PlanId,
+    val id: PlanId,
     internal var price: Price,
     private val duration: Duration,
-) : Aggregate {
+) : HasAnId {
     companion object {
         fun new(
             id: String,
@@ -25,6 +24,10 @@ class Plan private constructor(
                 Duration(durationInMonths)
             )
         }
+    }
+
+    override fun getId(): String {
+        return id.toString()
     }
 
     fun changePrice(newPriceAmount: Int) {

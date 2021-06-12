@@ -1,19 +1,18 @@
 package gym.membership.domain
 
-import common.Aggregate
-import common.AggregateId
+import HasAnId
 import java.time.LocalDate
 
 @JvmInline
-value class MemberId(private val id: String) : AggregateId {
+value class MemberId(private val id: String) {
     override fun toString(): String = id
 }
 
 class Member private constructor(
-    override val id: MemberId,
+    val id: MemberId,
     val emailAddress: EmailAddress,
     private val memberSince: LocalDate,
-) : Aggregate {
+) : HasAnId {
     private var welcomeEmailWasSent = false
     private var threeYearsAnniversaryThankYouEmailWasSent = false
 
@@ -29,6 +28,10 @@ class Member private constructor(
                 memberSince
             )
         }
+    }
+
+    override fun getId(): String {
+        return id.toString()
     }
 
     fun markWelcomeEmailAsSent() {
