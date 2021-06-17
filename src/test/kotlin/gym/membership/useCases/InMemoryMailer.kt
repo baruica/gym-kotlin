@@ -6,12 +6,11 @@ import gym.membership.domain.EmailAddress
 import gym.membership.domain.Mailer
 import gym.membership.domain.Member
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.collections.set
 
-class InMemoryMailer : Mailer {
-
-    private val sentEmails = HashMap<String, Email>()
+class InMemoryMailer(
+    private val sentEmails: HashMap<String, Email> = HashMap<String, Email>()
+) : Mailer {
 
     override fun sendWelcomeEmail(member: Member) {
         sentEmails[UUID.randomUUID().toString()] = Welcome(member.emailAddress)
