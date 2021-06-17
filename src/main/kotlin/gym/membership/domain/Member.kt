@@ -16,6 +16,8 @@ class Member private constructor(
     private var welcomeEmailWasSent = false
     private var threeYearsAnniversaryThankYouEmailWasSent = false
 
+    override fun getId(): String = id.toString()
+
     companion object {
         fun register(
             id: String,
@@ -28,10 +30,6 @@ class Member private constructor(
                 memberSince
             )
         }
-    }
-
-    override fun getId(): String {
-        return id.toString()
     }
 
     fun markWelcomeEmailAsSent() {

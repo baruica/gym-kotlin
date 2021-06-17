@@ -12,6 +12,9 @@ class Plan private constructor(
     internal var price: Price,
     private val duration: Duration,
 ) : Aggregate {
+
+    override fun getId(): String = id.toString()
+
     companion object {
         fun new(
             id: String,
@@ -24,10 +27,6 @@ class Plan private constructor(
                 Duration(durationInMonths)
             )
         }
-    }
-
-    override fun getId(): String {
-        return id.toString()
     }
 
     fun changePrice(newPriceAmount: Int) {

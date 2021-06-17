@@ -18,6 +18,9 @@ class Subscription private constructor(
     internal var price: Price,
     private var threeYearsAnniversaryDiscountApplied: Boolean,
 ) : Aggregate {
+
+    override fun getId(): String = id.toString()
+
     companion object {
         fun subscribe(
             subscriptionId: String,
@@ -41,10 +44,6 @@ class Subscription private constructor(
                 false
             )
         }
-    }
-
-    override fun getId(): String {
-        return id.toString()
     }
 
     fun renew() {
