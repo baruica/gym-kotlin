@@ -1,6 +1,6 @@
 import java.util.*
 
-abstract class InMemoryRepository<T : HasAnId>(
+abstract class InMemoryRepository<T : Aggregate>(
     protected val items: MutableMap<String, T> = HashMap()
 ) : Repository<T> {
 

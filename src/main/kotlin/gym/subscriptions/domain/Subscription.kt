@@ -1,6 +1,6 @@
 package gym.subscriptions.domain
 
-import HasAnId
+import Aggregate
 import java.time.LocalDate
 import java.time.Period
 import kotlin.math.roundToInt
@@ -17,7 +17,7 @@ class Subscription private constructor(
     internal var endDate: LocalDate,
     internal var price: Price,
     private var threeYearsAnniversaryDiscountApplied: Boolean,
-) : HasAnId {
+) : Aggregate {
     companion object {
         fun subscribe(
             subscriptionId: String,

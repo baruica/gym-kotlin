@@ -1,6 +1,6 @@
 package gym.membership.domain
 
-import HasAnId
+import Aggregate
 import java.time.LocalDate
 
 @JvmInline
@@ -12,7 +12,7 @@ class Member private constructor(
     val id: MemberId,
     val emailAddress: EmailAddress,
     private val memberSince: LocalDate,
-) : HasAnId {
+) : Aggregate {
     private var welcomeEmailWasSent = false
     private var threeYearsAnniversaryThankYouEmailWasSent = false
 

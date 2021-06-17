@@ -1,3 +1,3 @@
-interface HasAnId {
+interface Aggregate {
     fun getId(): String
 }

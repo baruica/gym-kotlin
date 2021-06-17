@@ -1,6 +1,6 @@
 package gym.plans.domain
 
-import HasAnId
+import Aggregate
 
 @JvmInline
 value class PlanId(private val id: String) {
@@ -11,7 +11,7 @@ class Plan private constructor(
     val id: PlanId,
     internal var price: Price,
     private val duration: Duration,
-) : HasAnId {
+) : Aggregate {
     companion object {
         fun new(
             id: String,
