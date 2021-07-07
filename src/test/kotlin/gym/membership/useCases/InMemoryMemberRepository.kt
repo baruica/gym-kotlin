@@ -9,13 +9,13 @@ import java.time.LocalDate
 class InMemoryMemberRepository : InMemoryRepository<Member>(), MemberRepository {
 
     override fun findByEmailAddress(emailAddress: EmailAddress): Member? {
-        return items.filter {
+        return aggregates.filter {
             it.value.emailAddress == emailAddress
         }.values.firstOrNull()
     }
 
     override fun threeYearsAnniversaryMembers(date: LocalDate): List<Member> {
-        return items.filter {
+        return aggregates.filter {
             it.value.isThreeYearsAnniversary(date)
         }.values.map { it }
     }

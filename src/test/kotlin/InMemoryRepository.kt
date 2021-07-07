@@ -1,21 +1,21 @@
 import java.util.*
 
 abstract class InMemoryRepository<T : Aggregate>(
-    protected val items: MutableMap<String, T> = HashMap()
+    protected val aggregates: MutableMap<String, T> = HashMap()
 ) : Repository<T> {
 
     override fun nextId(): String = UUID.randomUUID().toString()
 
-    override fun store(item: T) {
-        items[item.getId()] = item
+    override fun store(aggregate: T) {
+        aggregates[aggregate.getId()] = aggregate
     }
 
-    override fun storeAll(items: List<T>) {
-        items.forEach { item: T -> store(item) }
+    override fun storeAll(aggregates: List<T>) {
+        aggregates.forEach { aggregate: T -> store(aggregate) }
     }
 
-    override fun get(itemId: String): T {
-        return items[itemId]
-            ?: throw RuntimeException("$itemId not found")
+    override fun get(aggregateId: String): T {
+        return aggregates[aggregateId]
+            ?: throw RuntimeException("$aggregateId not found")
     }
 }

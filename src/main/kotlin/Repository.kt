@@ -2,9 +2,9 @@ interface Repository<T> {
 
     fun nextId(): String
 
-    fun store(item: T)
+    fun store(aggregate: T)
 
-    fun storeAll(items: List<T>)
+    fun storeAll(aggregates: List<T>)
 
-    fun get(itemId: String): T
+    fun get(aggregateId: String): T
 }
