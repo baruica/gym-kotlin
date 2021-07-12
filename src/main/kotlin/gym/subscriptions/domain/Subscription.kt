@@ -6,8 +6,8 @@ import java.time.Period
 import kotlin.math.roundToInt
 
 @JvmInline
-value class SubscriptionId(private val id: String) {
-    override fun toString(): String = id
+value class SubscriptionId(private val value: String) {
+    override fun toString(): String = value
 }
 
 class Subscription private constructor(
@@ -63,7 +63,7 @@ class Subscription private constructor(
     }
 
     fun monthlyTurnover(): Int {
-        return (price.amount / durationInMonths).roundToInt()
+        return (price.value / durationInMonths).roundToInt()
     }
 
     fun hasThreeYearsAnniversaryAfter(date: LocalDate): Boolean {
@@ -91,12 +91,13 @@ class Subscription private constructor(
     }
 }
 
-internal data class Price(val amount: Double) {
+@JvmInline
+internal value class Price(val value: Double) {
     constructor(amount: Int) : this(amount.toDouble())
 
     init {
-        require(amount >= 0) {
-            "Price amount must be non-negative, was [$amount]"
+        require(value >= 0) {
+            "Price amount must be non-negative, was [$value]"
         }
     }
 
@@ -119,6 +120,6 @@ internal data class Price(val amount: Double) {
     }
 
     private fun applyDiscount(rate: Double): Price {
-        return Price((amount * (1 - rate)))
+        return Price((value * (1 - rate)))
     }
 }

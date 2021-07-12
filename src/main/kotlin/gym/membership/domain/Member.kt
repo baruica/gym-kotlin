@@ -4,8 +4,8 @@ import Aggregate
 import java.time.LocalDate
 
 @JvmInline
-value class MemberId(private val id: String) {
-    override fun toString(): String = id
+value class MemberId(private val value: String) {
+    override fun toString(): String = value
 }
 
 class Member private constructor(

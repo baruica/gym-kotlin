@@ -3,8 +3,8 @@ package gym.plans.domain
 import Aggregate
 
 @JvmInline
-value class PlanId(private val id: String) {
-    override fun toString(): String = id
+value class PlanId(private val value: String) {
+    override fun toString(): String = value
 }
 
 class Plan private constructor(
@@ -34,18 +34,20 @@ class Plan private constructor(
     }
 }
 
-internal data class Price(private val amount: Int) {
+@JvmInline
+internal value class Price(private val value: Int) {
     init {
-        require(amount >= 0) {
-            "Price amount must be non-negative, was [$amount]"
+        require(value >= 0) {
+            "Price amount must be non-negative, was [$value]"
         }
     }
 }
 
-internal data class Duration(private val durationInMonths: Int) {
+@JvmInline
+internal value class Duration(private val value: Int) {
     init {
-        require(listOf(1, 12).contains(durationInMonths)) {
-            "Plan duration is either 1 month or 12 months, was [$durationInMonths]"
+        require(listOf(1, 12).contains(value)) {
+            "Plan duration is either 1 month or 12 months, was [$value]"
         }
     }
 }
