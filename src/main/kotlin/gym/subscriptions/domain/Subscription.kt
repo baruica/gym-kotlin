@@ -92,12 +92,16 @@ class Subscription private constructor(
 }
 
 @JvmInline
-internal value class Price(val value: Double) {
-    constructor(amount: Int) : this(amount.toDouble())
-
+internal value class Price private constructor(val value: Double) {
     init {
         require(value >= 0) {
             "Price amount must be non-negative, was [$value]"
+        }
+    }
+
+    companion object {
+        operator fun invoke(value: Number): Price {
+            return Price(value.toDouble())
         }
     }
 
