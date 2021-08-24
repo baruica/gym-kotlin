@@ -20,7 +20,7 @@ class RegisterNewMemberTest : AnnotationSpec() {
         val mailer = InMemoryMailer()
 
         val tested = RegisterNewMember(repository, mailer)
-        val member = tested.handle(
+        val member = tested(
             RegisterNewMemberCommand(
                 memberId,
                 "subscriptionId def",

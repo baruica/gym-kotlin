@@ -5,14 +5,13 @@ import gym.plans.domain.PlanRepository
 
 class CreateNewPlan(private val planRepository: PlanRepository) {
 
-    fun handle(command: CreateNewPlanCommand): Plan {
+    operator fun invoke(command: CreateNewPlanCommand): Plan {
 
         val newPlan = Plan.new(
             command.planId,
             command.planPrice,
             command.planDurationInMonths
         )
-
         planRepository.store(newPlan)
 
         return newPlan

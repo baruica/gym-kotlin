@@ -14,7 +14,7 @@ class CreateNewPlanTest : AnnotationSpec() {
 
         val tested = CreateNewPlan(repository)
 
-        val newPlan = tested.handle(
+        val newPlan = tested(
             CreateNewPlanCommand(
                 newPlanId,
                 300,

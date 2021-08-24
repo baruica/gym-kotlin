@@ -8,7 +8,7 @@ class Send3YearsAnniversaryThankYouEmails(
     private val memberRepository: MemberRepository,
     private val mailer: Mailer,
 ) {
-    fun handle(command: Send3YearsAnniversaryThankYouEmailsCommand): Member {
+    operator fun invoke(command: Send3YearsAnniversaryThankYouEmailsCommand): Member {
 
         val threeYearsAnniversaryMember = memberRepository.get(
             command.memberId

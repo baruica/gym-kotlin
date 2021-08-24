@@ -10,7 +10,7 @@ class RegisterNewMember(
     private val memberRepository: MemberRepository,
     private val mailer: Mailer,
 ) {
-    fun handle(command: RegisterNewMemberCommand): Member? {
+    operator fun invoke(command: RegisterNewMemberCommand): Member? {
 
         val emailAddress = EmailAddress(command.email)
         val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)

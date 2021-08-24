@@ -5,7 +5,7 @@ import gym.plans.domain.PlanRepository
 
 class ChangePlanPrice(private val planRepository: PlanRepository) {
 
-    fun handle(command: ChangePriceOfPlanCommand): Plan {
+    operator fun invoke(command: ChangePriceOfPlanCommand): Plan {
 
         val plan = planRepository.get(command.planId)
 

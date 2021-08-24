@@ -6,7 +6,7 @@ import gym.membership.domain.Mailer
 class SendSummaryUponSubscription(
     private val mailer: Mailer,
 ) {
-    fun handle(command: SendSummaryUponSubscriptionCommand) {
+    operator fun invoke(command: SendSummaryUponSubscriptionCommand) {
 
         mailer.sendSubscriptionSummary(
             EmailAddress(command.email),

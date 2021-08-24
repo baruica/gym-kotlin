@@ -15,7 +15,7 @@ class SubscribeToPlanTest : AnnotationSpec() {
 
         val tested = SubscribeToPlan(repository)
 
-        val subscription = tested.handle(
+        val subscription = tested(
             SubscribeToPlanCommand(
                 subscriptionId,
                 500,

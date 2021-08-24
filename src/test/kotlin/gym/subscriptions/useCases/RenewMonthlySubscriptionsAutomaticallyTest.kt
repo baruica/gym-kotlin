@@ -33,7 +33,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
 
         val tested = RenewMonthlySubscriptionsAutomatically(repository)
 
-        val renewedSubscriptions = tested.handle(
+        val renewedSubscriptions = tested(
             RenewMonthlySubscriptionsAutomaticallyCommand("2018-07-10")
         )
 

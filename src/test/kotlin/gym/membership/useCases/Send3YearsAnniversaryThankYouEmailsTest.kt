@@ -24,7 +24,7 @@ class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
 
         val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
 
-        tested.handle(
+        tested(
             Send3YearsAnniversaryThankYouEmailsCommand(
                 luke.id.toString(),
                 780.0

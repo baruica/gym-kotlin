@@ -7,7 +7,7 @@ import java.time.LocalDate
 class SubscribeToPlan(
     private val subscriptionRepository: SubscriptionRepository
 ) {
-    fun handle(command: SubscribeToPlanCommand): Subscription {
+    operator fun invoke(command: SubscribeToPlanCommand): Subscription {
 
         val subscription = Subscription.subscribe(
             command.subscriptionId,
