@@ -16,6 +16,6 @@ abstract class InMemoryRepository<T : Aggregate>(
 
     override fun get(aggregateId: String): T {
         return aggregates[aggregateId]
-            ?: throw RuntimeException("$aggregateId not found")
+            ?: throw NoSuchElementException("$aggregateId not found")
     }
 }
