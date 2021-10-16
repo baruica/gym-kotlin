@@ -2,6 +2,7 @@ plugins {
     val kotlinVersion = "1.5.31"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("io.kotest") version "0.3.8"
+    id("io.gitlab.arturbosch.detekt").version("1.18.1")
 }
 
 group = "me.baruica"
