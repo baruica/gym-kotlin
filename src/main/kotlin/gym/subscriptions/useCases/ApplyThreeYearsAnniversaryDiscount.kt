@@ -4,6 +4,8 @@ import gym.subscriptions.domain.Subscription
 import gym.subscriptions.domain.SubscriptionRepository
 import java.time.LocalDate
 
+data class ApplyThreeYearsAnniversaryDiscountCommand(val asOfDate: String)
+
 class ApplyThreeYearsAnniversaryDiscount(
     private val subscriptionRepository: SubscriptionRepository
 ) {

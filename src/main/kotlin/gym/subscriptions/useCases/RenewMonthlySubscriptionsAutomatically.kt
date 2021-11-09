@@ -4,6 +4,8 @@ import gym.subscriptions.domain.Subscription
 import gym.subscriptions.domain.SubscriptionRepository
 import java.time.LocalDate
 
+data class RenewMonthlySubscriptionsAutomaticallyCommand(val asOfDate: String)
+
 class RenewMonthlySubscriptionsAutomatically(
     private val subscriptionRepository: SubscriptionRepository
 ) {

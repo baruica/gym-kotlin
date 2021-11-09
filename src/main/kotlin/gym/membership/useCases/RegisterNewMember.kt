@@ -6,6 +6,13 @@ import gym.membership.domain.Member
 import gym.membership.domain.MemberRepository
 import java.time.LocalDate
 
+data class RegisterNewMemberCommand(
+    val memberId: String,
+    val subscriptionId: String,
+    val subscriptionStartDate: String,
+    val email: String,
+)
+
 class RegisterNewMember(
     private val memberRepository: MemberRepository,
     private val mailer: Mailer,

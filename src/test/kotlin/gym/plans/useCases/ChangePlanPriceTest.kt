@@ -19,7 +19,7 @@ class ChangePlanPriceTest : AnnotationSpec() {
         val tested = ChangePlanPrice(repository)
 
         val plan = tested(
-            ChangePriceOfPlanCommand(planId, 400)
+            ChangePlanPriceCommand(planId, 400)
         )
 
         plan.price shouldBe Price(400)
