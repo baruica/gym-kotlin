@@ -18,6 +18,7 @@ class CreateNewPlan(private val planRepository: PlanRepository) {
             command.planPrice,
             command.planDurationInMonths
         )
+
         planRepository.store(newPlan)
 
         return newPlan

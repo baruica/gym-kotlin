@@ -41,7 +41,7 @@ class Subscription private constructor(
                 startDate,
                 endDate,
                 priceAfterDiscount,
-                false
+                threeYearsAnniversaryDiscountApplied = false
             )
         }
     }
@@ -117,7 +117,7 @@ internal value class Price private constructor(val value: Double) {
         } else this
     }
 
-    fun applyThreeYearsAnniversaryDiscount(hasThreeYearsAnniversary: Boolean): Price {
+    internal fun applyThreeYearsAnniversaryDiscount(hasThreeYearsAnniversary: Boolean): Price {
         return if (hasThreeYearsAnniversary) {
             applyDiscount(0.05)
         } else this
