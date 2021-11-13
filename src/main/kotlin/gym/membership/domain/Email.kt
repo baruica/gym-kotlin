@@ -1,7 +1,9 @@
 package gym.membership.domain
 
-sealed class Email(open val emailAddress: EmailAddress, val emailBody: String) {
-
+sealed class Email(
+    open val emailAddress: EmailAddress,
+    val emailBody: String
+) {
     data class Welcome(
         override val emailAddress: EmailAddress
     ) : Email(
