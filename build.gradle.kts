@@ -1,8 +1,7 @@
 plugins {
-    val kotlinVersion = "1.6.0"
-    id("org.jetbrains.kotlin.jvm") version kotlinVersion
+    id("org.jetbrains.kotlin.jvm") version "1.6.0"
     id("io.kotest") version "0.3.8"
-    id("io.gitlab.arturbosch.detekt").version("1.18.1")
+    id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
 
 group = "me.baruica"
@@ -20,12 +19,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-val kotestVersion = "4.6.3"
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.0.0")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:5.0.0")
 }
 
 java {
