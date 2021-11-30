@@ -28,12 +28,12 @@ class TurnoverForAGivenMonthTest : AnnotationSpec() {
             yearlySubscription(500, inAMonth)
         )
 
-        val tested = TurnoverForAGivenMonth(subscriptionRepository)
+        val tested = TurnoverForAGivenMonthHandler(subscriptionRepository)
 
         subscriptionRepository.onGoingSubscriptions(today).shouldHaveSize(2)
-        tested(TurnoverForAGivenMonthQuery(today)) shouldBe Turnover(80)
+        tested(TurnoverForAGivenMonth(today)) shouldBe Turnover(80)
 
         subscriptionRepository.onGoingSubscriptions(inAMonth).shouldHaveSize(3)
-        tested(TurnoverForAGivenMonthQuery(inAMonth)) shouldBe Turnover(118)
+        tested(TurnoverForAGivenMonth(inAMonth)) shouldBe Turnover(118)
     }
 }

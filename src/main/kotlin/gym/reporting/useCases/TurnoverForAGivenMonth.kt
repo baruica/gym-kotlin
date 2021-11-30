@@ -4,12 +4,12 @@ import gym.reporting.Turnover
 import gym.subscriptions.domain.SubscriptionRepository
 import java.time.LocalDate
 
-data class TurnoverForAGivenMonthQuery(val asOfDate: LocalDate)
+data class TurnoverForAGivenMonth(val asOfDate: LocalDate)
 
-class TurnoverForAGivenMonth(
+class TurnoverForAGivenMonthHandler(
     private val subscriptionRepository: SubscriptionRepository
 ) {
-    operator fun invoke(command: TurnoverForAGivenMonthQuery): Turnover {
+    operator fun invoke(command: TurnoverForAGivenMonth): Turnover {
 
         return Turnover.monthly(
             subscriptionRepository.onGoingSubscriptions(command.asOfDate)

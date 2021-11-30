@@ -4,16 +4,16 @@ import gym.membership.domain.Mailer
 import gym.membership.domain.Member
 import gym.membership.domain.MemberRepository
 
-data class Send3YearsAnniversaryThankYouEmailsCommand(
+data class Send3YearsAnniversaryThankYouEmails(
     val memberId: String,
     val newSubscriptionPrice: Double,
 )
 
-class Send3YearsAnniversaryThankYouEmails(
+class Send3YearsAnniversaryThankYouEmailsHandler(
     private val memberRepository: MemberRepository,
     private val mailer: Mailer,
 ) {
-    operator fun invoke(command: Send3YearsAnniversaryThankYouEmailsCommand): Member {
+    operator fun invoke(command: Send3YearsAnniversaryThankYouEmails): Member {
 
         val threeYearsAnniversaryMember = memberRepository.get(
             command.memberId

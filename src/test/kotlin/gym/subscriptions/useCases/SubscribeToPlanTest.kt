@@ -13,10 +13,10 @@ class SubscribeToPlanTest : AnnotationSpec() {
         val repository = InMemorySubscriptionRepository()
         val subscriptionId = repository.nextId()
 
-        val tested = SubscribeToPlan(repository)
+        val tested = SubscribeToPlanHandler(repository)
 
         val subscription = tested(
-            SubscribeToPlanCommand(
+            SubscribeToPlan(
                 subscriptionId,
                 500,
                 12,

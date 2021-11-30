@@ -19,9 +19,9 @@ class RegisterNewMemberTest : AnnotationSpec() {
 
         val mailer = InMemoryMailer()
 
-        val tested = RegisterNewMember(repository, mailer)
+        val tested = RegisterNewMemberHandler(repository, mailer)
         val member = tested(
-            RegisterNewMemberCommand(
+            RegisterNewMember(
                 memberId,
                 "subscriptionId def",
                 "2018-06-05",

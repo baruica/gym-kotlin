@@ -22,10 +22,10 @@ class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
 
         val mailer = InMemoryMailer()
 
-        val tested = Send3YearsAnniversaryThankYouEmails(memberRepository, mailer)
+        val tested = Send3YearsAnniversaryThankYouEmailsHandler(memberRepository, mailer)
 
         tested(
-            Send3YearsAnniversaryThankYouEmailsCommand(
+            Send3YearsAnniversaryThankYouEmails(
                 luke.id.toString(),
                 780.0
             )

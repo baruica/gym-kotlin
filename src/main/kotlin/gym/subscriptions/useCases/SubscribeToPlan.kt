@@ -4,7 +4,7 @@ import gym.subscriptions.domain.Subscription
 import gym.subscriptions.domain.SubscriptionRepository
 import java.time.LocalDate
 
-data class SubscribeToPlanCommand(
+data class SubscribeToPlan(
     val subscriptionId: String,
     val planPrice: Int,
     val planDurationInMonths: Int,
@@ -12,10 +12,10 @@ data class SubscribeToPlanCommand(
     val isStudent: Boolean,
 )
 
-class SubscribeToPlan(
+class SubscribeToPlanHandler(
     private val subscriptionRepository: SubscriptionRepository
 ) {
-    operator fun invoke(command: SubscribeToPlanCommand): Subscription {
+    operator fun invoke(command: SubscribeToPlan): Subscription {
 
         val subscription = Subscription.subscribe(
             command.subscriptionId,

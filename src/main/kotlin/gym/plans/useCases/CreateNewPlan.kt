@@ -3,15 +3,15 @@ package gym.plans.useCases
 import gym.plans.domain.Plan
 import gym.plans.domain.PlanRepository
 
-data class CreateNewPlanCommand(
+data class CreateNewPlan(
     val planId: String,
     val planPrice: Int,
     val planDurationInMonths: Int,
 )
 
-class CreateNewPlan(private val planRepository: PlanRepository) {
+class CreateNewPlanHandler(private val planRepository: PlanRepository) {
 
-    operator fun invoke(command: CreateNewPlanCommand): Plan {
+    operator fun invoke(command: CreateNewPlan): Plan {
 
         val newPlan = Plan.new(
             command.planId,

@@ -6,18 +6,18 @@ import gym.membership.domain.Member
 import gym.membership.domain.MemberRepository
 import java.time.LocalDate
 
-data class RegisterNewMemberCommand(
+data class RegisterNewMember(
     val memberId: String,
     val subscriptionId: String,
     val subscriptionStartDate: String,
     val email: String,
 )
 
-class RegisterNewMember(
+class RegisterNewMemberHandler(
     private val memberRepository: MemberRepository,
     private val mailer: Mailer,
 ) {
-    operator fun invoke(command: RegisterNewMemberCommand): Member? {
+    operator fun invoke(command: RegisterNewMember): Member? {
 
         val emailAddress = EmailAddress(command.email)
         val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)

@@ -23,20 +23,20 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
 
         repository.store(subscription)
 
-        val tested = ApplyThreeYearsAnniversaryDiscount(repository)
+        val tested = ApplyThreeYearsAnniversaryDiscountHandler(repository)
 
         val subscriptionsBeforeThreeYearsAnniversary = tested(
-            ApplyThreeYearsAnniversaryDiscountCommand("2018-07-08")
+            ApplyThreeYearsAnniversaryDiscount("2018-07-08")
         )
         subscriptionsBeforeThreeYearsAnniversary.shouldBeEmpty()
 
         val subscriptionsWithThreeYearsDiscount = tested(
-            ApplyThreeYearsAnniversaryDiscountCommand("2018-07-12")
+            ApplyThreeYearsAnniversaryDiscount("2018-07-12")
         )
         subscriptionsWithThreeYearsDiscount.last().price shouldBe Price(1111.5)
 
         val subscriptionsAfterThreeYearsAnniversary = tested(
-            ApplyThreeYearsAnniversaryDiscountCommand("2018-07-09")
+            ApplyThreeYearsAnniversaryDiscount("2018-07-09")
         )
         subscriptionsAfterThreeYearsAnniversary.shouldBeEmpty()
     }

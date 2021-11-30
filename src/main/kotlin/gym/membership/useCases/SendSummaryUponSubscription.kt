@@ -3,17 +3,17 @@ package gym.membership.useCases
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Mailer
 
-data class SendSummaryUponSubscriptionCommand(
+data class SendSummaryUponSubscription(
     val email: String,
     val startDate: String,
     val endDate: String,
     val price: Int
 )
 
-class SendSummaryUponSubscription(
+class SendSummaryUponSubscriptionHandler(
     private val mailer: Mailer,
 ) {
-    operator fun invoke(command: SendSummaryUponSubscriptionCommand) {
+    operator fun invoke(command: SendSummaryUponSubscription) {
 
         mailer.sendSubscriptionSummary(
             EmailAddress(command.email),
