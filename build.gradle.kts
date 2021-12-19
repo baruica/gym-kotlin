@@ -9,9 +9,6 @@ description = "The Gym"
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
 }
 
 tasks.withType<Test> {
@@ -20,8 +17,8 @@ tasks.withType<Test> {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.0.1")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:5.0.1")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.0.2")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:5.0.2")
 }
 
 java {
