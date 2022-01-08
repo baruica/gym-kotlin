@@ -1,10 +1,10 @@
-import java.util.*
+import com.github.guepardoapps.kulid.ULID
 
 abstract class InMemoryRepository<T : Aggregate>(
     protected val aggregates: MutableMap<String, T> = HashMap()
 ) : Repository<T> {
 
-    override fun nextId(): String = UUID.randomUUID().toString()
+    override fun nextId(): String = ULID.random()
 
     override fun store(aggregate: T) {
         aggregates[aggregate.getId()] = aggregate

@@ -1,11 +1,11 @@
 package gym.membership.useCases
 
+import com.github.guepardoapps.kulid.ULID
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import java.time.LocalDate
-import java.util.*
 
 class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
 
@@ -14,7 +14,7 @@ class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
         val memberRepository = InMemoryMemberRepository()
 
         val luke = Member.register(
-            UUID.randomUUID().toString(),
+            ULID.random(),
             EmailAddress("luke@gmail.com"),
             LocalDate.parse("2018-06-05").minusYears(3)
         )
