@@ -12,10 +12,6 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.github.guepardoapps:kulid:2.0.0.0")
@@ -30,4 +26,8 @@ java {
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
