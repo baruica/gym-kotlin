@@ -9,7 +9,7 @@ import gym.membership.domain.Member
 import kotlin.collections.set
 
 class InMemoryMailer(
-    private val sentEmails: HashMap<String, Email> = HashMap<String, Email>()
+    private val sentEmails: HashMap<String, Email> = HashMap()
 ) : Mailer {
 
     override fun sendWelcomeEmail(member: Member) {
