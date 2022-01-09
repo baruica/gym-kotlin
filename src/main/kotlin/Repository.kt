@@ -1,10 +1,10 @@
-interface Repository<T> {
+interface Repository<AGGREGATE> {
 
     fun nextId(): String
 
-    fun store(aggregate: T)
+    fun store(aggregate: AGGREGATE)
 
-    fun storeAll(aggregates: List<T>)
+    fun storeAll(aggregates: List<AGGREGATE>)
 
-    fun get(aggregateId: String): T
+    fun get(aggregateId: String): AGGREGATE
 }
