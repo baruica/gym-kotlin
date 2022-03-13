@@ -34,7 +34,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
         val tested = RenewMonthlySubscriptionsAutomaticallyHandler(repository)
 
         val renewedSubscriptions = tested(
-            RenewMonthlySubscriptionsAutomatically("2018-07-10")
+            RenewMonthlySubscriptionsAutomatically(LocalDate.parse("2018-07-10"))
         )
 
         renewedSubscriptions.shouldHaveSize(1)

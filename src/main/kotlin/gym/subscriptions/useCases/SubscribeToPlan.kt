@@ -8,7 +8,7 @@ data class SubscribeToPlan(
     val subscriptionId: String,
     val planPrice: Int,
     val planDurationInMonths: Int,
-    val startDate: String,
+    val startDate: LocalDate,
     val isStudent: Boolean,
 )
 
@@ -20,7 +20,7 @@ class SubscribeToPlanHandler(
         val subscription = Subscription.subscribe(
             command.subscriptionId,
             command.planDurationInMonths,
-            LocalDate.parse(command.startDate),
+            command.startDate,
             command.planPrice,
             command.isStudent
         )

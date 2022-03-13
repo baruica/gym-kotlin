@@ -9,7 +9,7 @@ import java.time.LocalDate
 data class RegisterNewMember(
     val memberId: String,
     val subscriptionId: String,
-    val subscriptionStartDate: String,
+    val subscriptionStartDate: LocalDate,
     val email: String,
 )
 
@@ -26,7 +26,7 @@ class RegisterNewMemberHandler(
             val member = Member.register(
                 command.memberId,
                 emailAddress,
-                LocalDate.parse(command.subscriptionStartDate)
+                command.subscriptionStartDate
             )
 
             mailer.sendWelcomeEmail(member)

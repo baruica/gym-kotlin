@@ -2,7 +2,8 @@ package gym.reporting
 
 import gym.subscriptions.domain.Subscription
 
-data class Turnover internal constructor(val total: Int) {
+@JvmInline
+value class Turnover internal constructor(val value: Int) {
     companion object {
         fun monthly(onGoingSubscriptions: List<Subscription>): Turnover {
             return Turnover(

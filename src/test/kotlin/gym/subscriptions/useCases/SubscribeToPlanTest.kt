@@ -20,7 +20,7 @@ class SubscribeToPlanTest : AnnotationSpec() {
                 subscriptionId,
                 500,
                 12,
-                "2018-12-18",
+                LocalDate.parse("2018-12-18"),
                 false
             )
         )

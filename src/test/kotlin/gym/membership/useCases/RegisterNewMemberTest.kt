@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
+import java.time.LocalDate
 
 class RegisterNewMemberTest : AnnotationSpec() {
 
@@ -24,7 +25,7 @@ class RegisterNewMemberTest : AnnotationSpec() {
             RegisterNewMember(
                 memberId,
                 "subscriptionId def",
-                "2018-06-05",
+                LocalDate.parse("2018-06-05"),
                 emailAddress.value
             )
         )
