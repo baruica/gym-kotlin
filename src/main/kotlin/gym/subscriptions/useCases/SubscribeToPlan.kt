@@ -10,23 +10,23 @@ data class SubscribeToPlan(
     val planDurationInMonths: Int,
     val startDate: LocalDate,
     val isStudent: Boolean,
-)
-
-class SubscribeToPlanHandler(
-    private val subscriptionRepository: SubscriptionRepository
 ) {
-    operator fun invoke(command: SubscribeToPlan): Subscription {
+    class Handler(
+        private val subscriptionRepository: SubscriptionRepository
+    ) {
+        operator fun invoke(command: SubscribeToPlan): Subscription {
 
-        val subscription = Subscription.subscribe(
-            command.subscriptionId,
-            command.planDurationInMonths,
-            command.startDate,
-            command.planPrice,
-            command.isStudent
-        )
+            val subscription = Subscription.subscribe(
+                command.subscriptionId,
+                command.planDurationInMonths,
+                command.startDate,
+                command.planPrice,
+                command.isStudent
+            )
 
-        subscriptionRepository.store(subscription)
+            subscriptionRepository.store(subscription)
 
-        return subscription
+            return subscription
+        }
     }
 }

@@ -21,7 +21,7 @@ class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
 
         val mailer = InMemoryMailer()
 
-        val tested = Send3YearsAnniversaryThankYouEmailsHandler(memberRepository, mailer)
+        val tested = Send3YearsAnniversaryThankYouEmails.Handler(memberRepository, mailer)
 
         tested(
             Send3YearsAnniversaryThankYouEmails(

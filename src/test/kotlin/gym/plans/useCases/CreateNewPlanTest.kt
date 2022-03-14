@@ -12,7 +12,7 @@ class CreateNewPlanTest : AnnotationSpec() {
         val repository = InMemoryPlanRepository()
         val newPlanId = repository.nextId()
 
-        val tested = CreateNewPlanHandler(repository)
+        val tested = CreateNewPlan.Handler(repository)
 
         val newPlan = tested(
             CreateNewPlan(

@@ -7,20 +7,20 @@ data class CreateNewPlan(
     val planId: String,
     val planPrice: Int,
     val planDurationInMonths: Int,
-)
+) {
+    class Handler(private val planRepository: PlanRepository) {
 
-class CreateNewPlanHandler(private val planRepository: PlanRepository) {
+        operator fun invoke(command: CreateNewPlan): Plan {
 
-    operator fun invoke(command: CreateNewPlan): Plan {
+            val newPlan = Plan.new(
+                command.planId,
+                command.planPrice,
+                command.planDurationInMonths
+            )
 
-        val newPlan = Plan.new(
-            command.planId,
-            command.planPrice,
-            command.planDurationInMonths
-        )
+            planRepository.store(newPlan)
 
-        planRepository.store(newPlan)
-
-        return newPlan
+            return newPlan
+        }
     }
 }

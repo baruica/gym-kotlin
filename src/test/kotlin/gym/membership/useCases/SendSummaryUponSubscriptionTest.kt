@@ -16,7 +16,7 @@ internal class SendSummaryUponSubscriptionTest : AnnotationSpec() {
 
         val mailer = InMemoryMailer()
 
-        val tested = SendSummaryUponSubscriptionHandler(mailer)
+        val tested = SendSummaryUponSubscription.Handler(mailer)
 
         tested(
             SendSummaryUponSubscription(

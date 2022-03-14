@@ -6,18 +6,18 @@ import gym.plans.domain.PlanRepository
 data class ChangePlanPrice(
     val planId: String,
     val newPrice: Int,
-)
+) {
+    class Handler(private val planRepository: PlanRepository) {
 
-class ChangePlanPriceHandler(private val planRepository: PlanRepository) {
+        operator fun invoke(command: ChangePlanPrice): Plan {
 
-    operator fun invoke(command: ChangePlanPrice): Plan {
+            val plan = planRepository.get(command.planId)
 
-        val plan = planRepository.get(command.planId)
+            plan.changePrice(command.newPrice)
 
-        plan.changePrice(command.newPrice)
+            planRepository.store(plan)
 
-        planRepository.store(plan)
-
-        return plan
+            return plan
+        }
     }
 }

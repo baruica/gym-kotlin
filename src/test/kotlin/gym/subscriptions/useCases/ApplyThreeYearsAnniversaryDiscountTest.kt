@@ -23,7 +23,7 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
 
         repository.store(subscription)
 
-        val tested = ApplyThreeYearsAnniversaryDiscountHandler(repository)
+        val tested = ApplyThreeYearsAnniversaryDiscount.Handler(repository)
 
         val subscriptionsBeforeThreeYearsAnniversary = tested(
             ApplyThreeYearsAnniversaryDiscount(LocalDate.parse("2018-07-08"))

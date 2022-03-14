@@ -11,31 +11,31 @@ data class RegisterNewMember(
     val subscriptionId: String,
     val subscriptionStartDate: LocalDate,
     val email: String,
-)
-
-class RegisterNewMemberHandler(
-    private val memberRepository: MemberRepository,
-    private val mailer: Mailer,
 ) {
-    operator fun invoke(command: RegisterNewMember): Member? {
+    class Handler(
+        private val memberRepository: MemberRepository,
+        private val mailer: Mailer,
+    ) {
+        operator fun invoke(command: RegisterNewMember): Member? {
 
-        val emailAddress = EmailAddress(command.email)
-        val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)
+            val emailAddress = EmailAddress(command.email)
+            val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)
 
-        if (knownMember == null) {
-            val member = Member.register(
-                command.memberId,
-                emailAddress,
-                command.subscriptionStartDate
-            )
+            if (knownMember == null) {
+                val member = Member.register(
+                    command.memberId,
+                    emailAddress,
+                    command.subscriptionStartDate
+                )
 
-            mailer.sendWelcomeEmail(member)
+                mailer.sendWelcomeEmail(member)
 
-            memberRepository.store(member)
+                memberRepository.store(member)
 
-            return member
+                return member
+            }
+
+            return null
         }
-
-        return null
     }
 }
