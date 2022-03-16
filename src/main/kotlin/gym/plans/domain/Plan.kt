@@ -17,12 +17,12 @@ class Plan private constructor(
 
     companion object {
         fun new(
-            id: String,
+            id: PlanId,
             priceAmount: Int,
             durationInMonths: Int
         ): Plan {
             return Plan(
-                PlanId(id),
+                id,
                 Price(priceAmount),
                 Duration(durationInMonths)
             )

@@ -6,6 +6,7 @@ import gym.membership.domain.Email.*
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Mailer
 import gym.membership.domain.Member
+import java.time.LocalDate
 import kotlin.collections.set
 
 class InMemoryMailer(
@@ -17,7 +18,7 @@ class InMemoryMailer(
         member.markWelcomeEmailAsSent()
     }
 
-    override fun sendSubscriptionSummary(emailAddress: EmailAddress, startDate: String, endDate: String, price: Int) {
+    override fun sendSubscriptionSummary(emailAddress: EmailAddress, startDate: LocalDate, endDate: LocalDate, price: Int) {
         sentEmails[ULID.random()] = SubscriptionSummary(emailAddress, startDate, endDate, price)
     }
 
@@ -34,8 +35,8 @@ class InMemoryMailer(
 
     internal fun subscriptionSummaryEmailWasSentTo(
         emailAddress: EmailAddress,
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         price: Int
     ): Boolean {
         return sentEmails.containsValue(

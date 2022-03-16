@@ -1,16 +1,14 @@
 package gym.membership.useCases
 
-import gym.membership.domain.EmailAddress
-import gym.membership.domain.Mailer
-import gym.membership.domain.Member
-import gym.membership.domain.MemberRepository
+import gym.membership.domain.*
+import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
 data class RegisterNewMember(
-    val memberId: String,
-    val subscriptionId: String,
+    val memberId: MemberId,
+    val subscriptionId: SubscriptionId,
     val subscriptionStartDate: LocalDate,
-    val email: String,
+    val email: EmailAddress,
 ) {
     class Handler(
         private val memberRepository: MemberRepository,
@@ -18,13 +16,12 @@ data class RegisterNewMember(
     ) {
         operator fun invoke(command: RegisterNewMember): Member? {
 
-            val emailAddress = EmailAddress(command.email)
-            val knownMember: Member? = memberRepository.findByEmailAddress(emailAddress)
+            val knownMember: Member? = memberRepository.findByEmailAddress(command.email)
 
             if (knownMember == null) {
                 val member = Member.register(
                     command.memberId,
-                    emailAddress,
+                    command.email,
                     command.subscriptionStartDate
                 )
 

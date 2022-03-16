@@ -23,7 +23,7 @@ class Subscription private constructor(
 
     companion object {
         fun subscribe(
-            subscriptionId: String,
+            subscriptionId: SubscriptionId,
             planDurationInMonths: Int,
             startDate: LocalDate,
             planPrice: Int,
@@ -36,7 +36,7 @@ class Subscription private constructor(
             val endDate = startDate.plusMonths(planDurationInMonths.toLong())
 
             return Subscription(
-                SubscriptionId(subscriptionId),
+                subscriptionId,
                 planDurationInMonths,
                 startDate,
                 endDate,

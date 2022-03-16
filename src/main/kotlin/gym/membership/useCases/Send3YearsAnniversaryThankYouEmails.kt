@@ -2,10 +2,11 @@ package gym.membership.useCases
 
 import gym.membership.domain.Mailer
 import gym.membership.domain.Member
+import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
 
 data class Send3YearsAnniversaryThankYouEmails(
-    val memberId: String,
+    val memberId: MemberId,
     val newSubscriptionPrice: Double,
 ) {
     class Handler(
@@ -15,7 +16,7 @@ data class Send3YearsAnniversaryThankYouEmails(
         operator fun invoke(command: Send3YearsAnniversaryThankYouEmails): Member {
 
             val threeYearsAnniversaryMember = memberRepository.get(
-                command.memberId
+                command.memberId.toString()
             )
 
             mailer.send3YearsAnniversaryEmail(

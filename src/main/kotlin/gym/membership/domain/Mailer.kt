@@ -1,13 +1,15 @@
 package gym.membership.domain
 
+import java.time.LocalDate
+
 interface Mailer {
 
     fun sendWelcomeEmail(member: Member)
 
     fun sendSubscriptionSummary(
         emailAddress: EmailAddress,
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         price: Int
     )
 

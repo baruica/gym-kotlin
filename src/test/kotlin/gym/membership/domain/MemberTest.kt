@@ -10,7 +10,7 @@ class MemberTest : AnnotationSpec() {
     @Test
     fun `is 3 years anniversary`() {
         val memberWith3yearsAnniversaryOnTheFifthOfJune = Member.register(
-            "member abc",
+            MemberId("member abc"),
             EmailAddress("julie@gmail.com"),
             LocalDate.parse("2018-06-05").minusYears(3)
         )

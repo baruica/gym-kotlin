@@ -1,5 +1,7 @@
 package gym.membership.domain
 
+import java.time.LocalDate
+
 sealed class Email(
     open val emailAddress: EmailAddress,
     val emailBody: String
@@ -13,8 +15,8 @@ sealed class Email(
 
     data class SubscriptionSummary(
         override val emailAddress: EmailAddress,
-        val startDate: String,
-        val endDate: String,
+        val startDate: LocalDate,
+        val endDate: LocalDate,
         val price: Int
     ) : Email(
         emailAddress,

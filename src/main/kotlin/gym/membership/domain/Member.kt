@@ -20,12 +20,12 @@ class Member private constructor(
 
     companion object {
         fun register(
-            id: String,
+            id: MemberId,
             emailAddress: EmailAddress,
             memberSince: LocalDate
         ): Member {
             return Member(
-                MemberId(id),
+                id,
                 emailAddress,
                 memberSince
             )

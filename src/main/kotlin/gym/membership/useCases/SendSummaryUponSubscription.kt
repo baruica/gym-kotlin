@@ -2,11 +2,12 @@ package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Mailer
+import java.time.LocalDate
 
 data class SendSummaryUponSubscription(
     val email: String,
-    val startDate: String,
-    val endDate: String,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
     val price: Int
 ) {
     class Handler(

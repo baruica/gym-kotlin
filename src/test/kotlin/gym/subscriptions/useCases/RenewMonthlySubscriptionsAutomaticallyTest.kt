@@ -1,6 +1,7 @@
 package gym.subscriptions.useCases
 
 import gym.monthlySubscription
+import gym.subscriptions.domain.SubscriptionId
 import gym.yearlySubscription
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -18,7 +19,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
             monthlySubscription(
                 200,
                 LocalDate.parse("2018-06-09"),
-                subscriptionId = monthlySubscriptionId
+                subscriptionId = SubscriptionId(monthlySubscriptionId)
             )
         )
 
@@ -27,7 +28,7 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
             yearlySubscription(
                 1300,
                 LocalDate.parse("2018-06-12"),
-                subscriptionId = yearlySubscriptionId
+                subscriptionId = SubscriptionId(yearlySubscriptionId)
             )
         )
 

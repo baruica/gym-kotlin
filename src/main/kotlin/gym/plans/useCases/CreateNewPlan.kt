@@ -1,10 +1,11 @@
 package gym.plans.useCases
 
 import gym.plans.domain.Plan
+import gym.plans.domain.PlanId
 import gym.plans.domain.PlanRepository
 
 data class CreateNewPlan(
-    val planId: String,
+    val planId: PlanId,
     val planPrice: Int,
     val planDurationInMonths: Int,
 ) {

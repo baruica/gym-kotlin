@@ -10,7 +10,7 @@ class CreateNewPlanTest : AnnotationSpec() {
     @Test
     fun handle() {
         val repository = InMemoryPlanRepository()
-        val newPlanId = repository.nextId()
+        val newPlanId = PlanId(repository.nextId())
 
         val tested = CreateNewPlan.Handler(repository)
 
@@ -22,7 +22,7 @@ class CreateNewPlanTest : AnnotationSpec() {
             )
         )
 
-        newPlan.id shouldBe PlanId(newPlanId)
+        newPlan.id shouldBe newPlanId
         newPlan.price shouldBe Price(300)
     }
 }

@@ -11,7 +11,7 @@ class SubscribeToPlanTest : AnnotationSpec() {
     @Test
     fun handle() {
         val repository = InMemorySubscriptionRepository()
-        val subscriptionId = repository.nextId()
+        val subscriptionId = SubscriptionId(repository.nextId())
 
         val tested = SubscribeToPlan.Handler(repository)
 
@@ -25,7 +25,7 @@ class SubscribeToPlanTest : AnnotationSpec() {
             )
         )
 
-        subscription.id shouldBe SubscriptionId(subscriptionId)
+        subscription.id shouldBe subscriptionId
         subscription.startDate shouldBe LocalDate.parse("2018-12-18")
         subscription.price shouldBe Price(450)
     }

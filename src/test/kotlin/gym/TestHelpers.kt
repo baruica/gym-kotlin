@@ -2,13 +2,14 @@ package gym
 
 import com.github.guepardoapps.kulid.ULID
 import gym.subscriptions.domain.Subscription
+import gym.subscriptions.domain.SubscriptionId
 import java.time.LocalDate
 
 fun monthlySubscription(
     basePrice: Int,
     startDate: LocalDate,
     isStudent: Boolean = false,
-    subscriptionId: String = ULID.random()
+    subscriptionId: SubscriptionId = SubscriptionId(ULID.random())
 ): Subscription {
     return newSubscription(
         subscriptionId,
@@ -23,7 +24,7 @@ fun yearlySubscription(
     basePrice: Int,
     startDate: LocalDate,
     isStudent: Boolean = false,
-    subscriptionId: String = ULID.random()
+    subscriptionId: SubscriptionId = SubscriptionId(ULID.random())
 ): Subscription {
     return newSubscription(
         subscriptionId,
@@ -35,7 +36,7 @@ fun yearlySubscription(
 }
 
 fun newSubscription(
-    subscriptionId: String,
+    subscriptionId: SubscriptionId,
     price: Int,
     startDate: LocalDate,
     durationInMonths: Int,
