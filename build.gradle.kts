@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.0"
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
     id("io.kotest") version "0.3.9"
 }
 
