@@ -29,8 +29,12 @@ class Plan private constructor(
         }
     }
 
-    fun changePrice(newPriceAmount: Int) {
-        price = Price(newPriceAmount)
+    fun changePrice(newPriceAmount: Int): Plan {
+        return Plan(
+            id,
+            Price(newPriceAmount),
+            duration
+        )
     }
 }
 

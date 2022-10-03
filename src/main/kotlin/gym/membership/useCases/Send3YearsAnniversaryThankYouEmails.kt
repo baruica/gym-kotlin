@@ -15,16 +15,14 @@ data class Send3YearsAnniversaryThankYouEmails(
     ) {
         operator fun invoke(command: Send3YearsAnniversaryThankYouEmails): Member {
 
-            val threeYearsAnniversaryMember = memberRepository.get(
+            return memberRepository.get(
                 command.memberId.toString()
-            )
-
-            mailer.send3YearsAnniversaryEmail(
-                threeYearsAnniversaryMember,
-                command.newSubscriptionPrice
-            )
-
-            return threeYearsAnniversaryMember
+            ).also {
+                mailer.send3YearsAnniversaryEmail(
+                    it,
+                    command.newSubscriptionPrice
+                )
+            }
         }
     }
 }

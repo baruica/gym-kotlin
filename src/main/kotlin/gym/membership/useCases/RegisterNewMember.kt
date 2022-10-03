@@ -16,21 +16,14 @@ data class RegisterNewMember(
     ) {
         operator fun invoke(command: RegisterNewMember): Member? {
 
-            val knownMember: Member? = memberRepository.findByEmailAddress(command.email)
-
-            if (knownMember == null) {
-                val member = Member.register(
+            memberRepository.findByEmailAddress(command.email)
+                ?: return Member.register(
                     command.memberId,
                     command.email,
                     command.subscriptionStartDate
                 )
-
-                mailer.sendWelcomeEmail(member)
-
-                memberRepository.store(member)
-
-                return member
-            }
+                    .also { mailer.sendWelcomeEmail(it) }
+                    .also { memberRepository.store(it) }
 
             return null
         }

@@ -13,15 +13,13 @@ data class CreateNewPlan(
 
         operator fun invoke(command: CreateNewPlan): Plan {
 
-            val newPlan = Plan.new(
+            return Plan.new(
                 command.planId,
                 command.planPrice,
                 command.planDurationInMonths
-            )
-
-            planRepository.store(newPlan)
-
-            return newPlan
+            ).also {
+                planRepository.store(it)
+            }
         }
     }
 }

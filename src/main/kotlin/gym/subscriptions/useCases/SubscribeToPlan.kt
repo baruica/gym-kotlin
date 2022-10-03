@@ -17,17 +17,15 @@ data class SubscribeToPlan(
     ) {
         operator fun invoke(command: SubscribeToPlan): Subscription {
 
-            val subscription = Subscription.subscribe(
+            return Subscription.subscribe(
                 command.subscriptionId,
                 command.planDurationInMonths,
                 command.startDate,
                 command.planPrice,
                 command.isStudent
-            )
-
-            subscriptionRepository.store(subscription)
-
-            return subscription
+            ).also {
+                subscriptionRepository.store(it)
+            }
         }
     }
 }
