@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.22"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
     id("io.kotest") version "0.3.9"
 }
 
@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.22")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")
     implementation("com.github.guepardoapps:kulid:2.0.0.0")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.4")
