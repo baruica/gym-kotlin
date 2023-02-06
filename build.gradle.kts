@@ -15,7 +15,7 @@ repositories {
 dependencies {
     implementation("com.github.guepardoapps:kulid:2.0.0.0")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.4")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")
 }
 
 java {
