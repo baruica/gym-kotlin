@@ -12,10 +12,12 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
+val kotestVersion = "5.6.1"
+
 dependencies {
     implementation("com.github.guepardoapps:kulid:2.0.0.0")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.6.0")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:5.6.0")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
 }
 
 java {
