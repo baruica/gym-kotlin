@@ -1,21 +1,21 @@
 import com.github.guepardoapps.kulid.ULID
 
-abstract class InMemoryRepository<AGGREGATE : Aggregate>(
-    protected val aggregates: MutableMap<String, AGGREGATE> = HashMap()
-) : Repository<AGGREGATE> {
+abstract class InMemoryRepository<ID, A: Identifiable<ID>>(
+    internal val aggregates: MutableMap<Id<ID>, A> = HashMap()
+) : Repository<ID, A> {
 
     override fun nextId(): String = ULID.random()
 
-    override fun store(aggregate: AGGREGATE) {
-        aggregates[aggregate.getId()] = aggregate
+    override fun store(aggregate: A) {
+        aggregates[aggregate.id] = aggregate
     }
 
-    override fun storeAll(aggregates: List<AGGREGATE>) {
-        aggregates.forEach { aggregate: AGGREGATE -> store(aggregate) }
+    override fun storeAll(aggregates: List<A>) {
+        aggregates.forEach { aggregate: A -> store(aggregate) }
     }
 
-    override fun get(aggregateId: String): AGGREGATE {
-        return aggregates[aggregateId]
-            ?: throw NoSuchElementException("$aggregateId not found")
+    override fun get(id: Id<ID>): A {
+        return aggregates[id]
+            ?: throw NoSuchElementException("$id not found")
     }
 }

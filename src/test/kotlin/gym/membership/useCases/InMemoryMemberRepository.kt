@@ -6,7 +6,7 @@ import gym.membership.domain.Member
 import gym.membership.domain.MemberRepository
 import java.time.LocalDate
 
-class InMemoryMemberRepository : InMemoryRepository<Member>(), MemberRepository {
+class InMemoryMemberRepository : InMemoryRepository<String, Member>(), MemberRepository {
 
     override fun findByEmailAddress(emailAddress: EmailAddress): Member? {
         return aggregates.filter {

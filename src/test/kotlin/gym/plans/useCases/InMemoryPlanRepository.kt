@@ -4,4 +4,4 @@ import InMemoryRepository
 import gym.plans.domain.Plan
 import gym.plans.domain.PlanRepository
 
-class InMemoryPlanRepository : InMemoryRepository<Plan>(), PlanRepository
+class InMemoryPlanRepository : InMemoryRepository<String, Plan>(), PlanRepository

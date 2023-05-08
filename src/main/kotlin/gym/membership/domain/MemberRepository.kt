@@ -3,7 +3,7 @@ package gym.membership.domain
 import Repository
 import java.time.LocalDate
 
-interface MemberRepository : Repository<Member> {
+interface MemberRepository : Repository<String, Member> {
 
     fun findByEmailAddress(emailAddress: EmailAddress): Member?
 

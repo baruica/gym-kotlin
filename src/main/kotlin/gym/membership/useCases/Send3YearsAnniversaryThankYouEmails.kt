@@ -16,7 +16,7 @@ data class Send3YearsAnniversaryThankYouEmails(
         operator fun invoke(command: Send3YearsAnniversaryThankYouEmails): Member {
 
             return memberRepository.get(
-                command.memberId.toString()
+                command.memberId
             ).also {
                 mailer.send3YearsAnniversaryEmail(
                     it,

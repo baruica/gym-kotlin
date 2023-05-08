@@ -1,21 +1,19 @@
 package gym.subscriptions.domain
 
-import Aggregate
 import Id
+import Identifiable
 import java.time.LocalDate
 import java.time.Period
 import kotlin.math.roundToInt
 
 class Subscription private constructor(
-    val id: Id<String>,
+    override val id: Id<String>,
     private val durationInMonths: Int,
     internal val startDate: LocalDate,
     internal var endDate: LocalDate,
     internal var price: Price,
     private var threeYearsAnniversaryDiscountApplied: Boolean,
-) : Aggregate {
-
-    override fun getId(): String = id.toString()
+) : Identifiable<String> {
 
     companion object {
         fun subscribe(

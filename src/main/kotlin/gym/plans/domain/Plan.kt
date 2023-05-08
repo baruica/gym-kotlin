@@ -1,15 +1,13 @@
 package gym.plans.domain
 
-import Aggregate
 import Id
+import Identifiable
 
 class Plan private constructor(
-    val id: Id<String>,
+    override val id: Id<String>,
     internal var price: Price,
     private val duration: Duration,
-) : Aggregate {
-
-    override fun getId(): String = id.toString()
+) : Identifiable<String> {
 
     companion object {
         fun new(

@@ -5,7 +5,7 @@ import gym.subscriptions.domain.Subscription
 import gym.subscriptions.domain.SubscriptionRepository
 import java.time.LocalDate
 
-class InMemorySubscriptionRepository : InMemoryRepository<Subscription>(), SubscriptionRepository {
+class InMemorySubscriptionRepository : InMemoryRepository<String, Subscription>(), SubscriptionRepository {
 
     override fun endedMonthlySubscriptions(date: LocalDate): List<Subscription> {
         return aggregates

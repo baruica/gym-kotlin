@@ -12,7 +12,7 @@ data class ChangePlanPrice(
 
         operator fun invoke(command: ChangePlanPrice): Plan {
 
-            return planRepository.get(command.planId.toString())
+            return planRepository.get(command.planId)
                 .changePrice(command.newPrice)
                 .also { planRepository.store(it) }
         }

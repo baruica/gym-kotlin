@@ -1,18 +1,16 @@
 package gym.membership.domain
 
-import Aggregate
 import Id
+import Identifiable
 import java.time.LocalDate
 
 class Member private constructor(
-    val id: Id<String>,
+    override val id: Id<String>,
     val emailAddress: EmailAddress,
     private val memberSince: LocalDate,
-) : Aggregate {
+) : Identifiable<String> {
     private var welcomeEmailWasSent = false
     private var threeYearsAnniversaryThankYouEmailWasSent = false
-
-    override fun getId(): String = id.toString()
 
     companion object {
         fun register(
