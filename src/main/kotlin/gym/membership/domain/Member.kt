@@ -1,15 +1,11 @@
 package gym.membership.domain
 
 import Aggregate
+import Id
 import java.time.LocalDate
 
-@JvmInline
-value class MemberId(private val value: String) {
-    override fun toString(): String = value
-}
-
 class Member private constructor(
-    val id: MemberId,
+    val id: Id<String>,
     val emailAddress: EmailAddress,
     private val memberSince: LocalDate,
 ) : Aggregate {
@@ -20,7 +16,7 @@ class Member private constructor(
 
     companion object {
         fun register(
-            id: MemberId,
+            id: Id<String>,
             emailAddress: EmailAddress,
             memberSince: LocalDate
         ): Member {

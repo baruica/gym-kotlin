@@ -1,12 +1,15 @@
 package gym.membership.useCases
 
-import gym.membership.domain.*
-import gym.subscriptions.domain.SubscriptionId
+import Id
+import gym.membership.domain.EmailAddress
+import gym.membership.domain.Mailer
+import gym.membership.domain.Member
+import gym.membership.domain.MemberRepository
 import java.time.LocalDate
 
 data class RegisterNewMember(
-    val memberId: MemberId,
-    val subscriptionId: SubscriptionId,
+    val memberId: Id<String>,
+    val subscriptionId: Id<String>,
     val subscriptionStartDate: LocalDate,
     val email: EmailAddress,
 ) {

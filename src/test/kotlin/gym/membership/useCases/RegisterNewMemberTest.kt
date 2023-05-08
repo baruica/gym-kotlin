@@ -1,8 +1,7 @@
 package gym.membership.useCases
 
+import Id
 import gym.membership.domain.EmailAddress
-import gym.membership.domain.MemberId
-import gym.subscriptions.domain.SubscriptionId
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldBeNull
@@ -24,15 +23,15 @@ class RegisterNewMemberTest : AnnotationSpec() {
         val tested = RegisterNewMember.Handler(repository, mailer)
         val member = tested(
             RegisterNewMember(
-                MemberId(memberId),
-                SubscriptionId("subscriptionId def"),
+                Id(memberId),
+                Id("subscriptionId def"),
                 LocalDate.parse("2018-06-05"),
                 EmailAddress(emailAddress.value)
             )
         )
 
         member?.let {
-            it.id shouldBe MemberId(memberId)
+            it.id shouldBe Id(memberId)
             it.emailAddress shouldBe emailAddress
 
             mailer.welcomeEmailWasSentTo(emailAddress).shouldBeTrue()

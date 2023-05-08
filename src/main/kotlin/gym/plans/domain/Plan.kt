@@ -1,14 +1,10 @@
 package gym.plans.domain
 
 import Aggregate
-
-@JvmInline
-value class PlanId(private val value: String) {
-    override fun toString(): String = value
-}
+import Id
 
 class Plan private constructor(
-    val id: PlanId,
+    val id: Id<String>,
     internal var price: Price,
     private val duration: Duration,
 ) : Aggregate {
@@ -17,7 +13,7 @@ class Plan private constructor(
 
     companion object {
         fun new(
-            id: PlanId,
+            id: Id<String>,
             priceAmount: Int,
             durationInMonths: Int
         ): Plan {

@@ -1,12 +1,12 @@
 package gym.membership.useCases
 
+import Id
 import gym.membership.domain.Mailer
 import gym.membership.domain.Member
-import gym.membership.domain.MemberId
 import gym.membership.domain.MemberRepository
 
 data class Send3YearsAnniversaryThankYouEmails(
-    val memberId: MemberId,
+    val memberId: Id<String>,
     val newSubscriptionPrice: Double,
 ) {
     class Handler(

@@ -1,6 +1,6 @@
 package gym.plans.useCases
 
-import gym.plans.domain.PlanId
+import Id
 import gym.plans.domain.Price
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -10,7 +10,7 @@ class CreateNewPlanTest : AnnotationSpec() {
     @Test
     fun handle() {
         val repository = InMemoryPlanRepository()
-        val newPlanId = PlanId(repository.nextId())
+        val newPlanId = Id(repository.nextId())
 
         val tested = CreateNewPlan.Handler(repository)
 

@@ -1,5 +1,6 @@
 package gym.membership.domain
 
+import Id
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -10,7 +11,7 @@ class MemberTest : AnnotationSpec() {
     @Test
     fun `is 3 years anniversary`() {
         val memberWith3yearsAnniversaryOnTheFifthOfJune = Member.register(
-            MemberId("member abc"),
+            Id("member abc"),
             EmailAddress("julie@gmail.com"),
             LocalDate.parse("2018-06-05").minusYears(3)
         )

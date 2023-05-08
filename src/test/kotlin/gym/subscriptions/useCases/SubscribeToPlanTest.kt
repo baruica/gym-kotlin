@@ -1,7 +1,7 @@
 package gym.subscriptions.useCases
 
+import Id
 import gym.subscriptions.domain.Price
-import gym.subscriptions.domain.SubscriptionId
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
@@ -11,7 +11,7 @@ class SubscribeToPlanTest : AnnotationSpec() {
     @Test
     fun handle() {
         val repository = InMemorySubscriptionRepository()
-        val subscriptionId = SubscriptionId(repository.nextId())
+        val subscriptionId = Id(repository.nextId())
 
         val tested = SubscribeToPlan.Handler(repository)
 

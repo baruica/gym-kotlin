@@ -1,7 +1,7 @@
 package gym.subscriptions.useCases
 
+import Id
 import gym.subscriptions.domain.Price
-import gym.subscriptions.domain.SubscriptionId
 import gym.yearlySubscription
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -17,7 +17,7 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
         val subscription = yearlySubscription(
             1300,
             LocalDate.parse("2015-07-09"),
-            subscriptionId = SubscriptionId(repository.nextId())
+            subscriptionId = Id(repository.nextId())
         )
         subscription.renew()
         subscription.renew()

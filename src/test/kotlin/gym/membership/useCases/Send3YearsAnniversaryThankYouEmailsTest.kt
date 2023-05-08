@@ -1,8 +1,8 @@
 package gym.membership.useCases
 
+import Id
 import gym.membership.domain.EmailAddress
 import gym.membership.domain.Member
-import gym.membership.domain.MemberId
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import java.time.LocalDate
@@ -14,7 +14,7 @@ class Send3YearsAnniversaryThankYouEmailsTest : AnnotationSpec() {
         val memberRepository = InMemoryMemberRepository()
 
         val luke = Member.register(
-            MemberId(memberRepository.nextId()),
+            Id(memberRepository.nextId()),
             EmailAddress("luke@gmail.com"),
             LocalDate.parse("2018-06-05").minusYears(3)
         )

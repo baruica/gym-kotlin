@@ -1,17 +1,13 @@
 package gym.subscriptions.domain
 
 import Aggregate
+import Id
 import java.time.LocalDate
 import java.time.Period
 import kotlin.math.roundToInt
 
-@JvmInline
-value class SubscriptionId(private val value: String) {
-    override fun toString(): String = value
-}
-
 class Subscription private constructor(
-    val id: SubscriptionId,
+    val id: Id<String>,
     private val durationInMonths: Int,
     internal val startDate: LocalDate,
     internal var endDate: LocalDate,
@@ -23,7 +19,7 @@ class Subscription private constructor(
 
     companion object {
         fun subscribe(
-            subscriptionId: SubscriptionId,
+            subscriptionId: Id<String>,
             planDurationInMonths: Int,
             startDate: LocalDate,
             planPrice: Int,
