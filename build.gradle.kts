@@ -12,7 +12,7 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-val kotestVersion = "5.6.1"
+val kotestVersion = "5.6.2"
 
 dependencies {
     implementation("com.github.guepardoapps:kulid:2.0.0.0")
