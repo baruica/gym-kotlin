@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val kotestVersion = "5.6.2"
+val kotestVersion = "5.7.1"
 
 dependencies {
     implementation("com.github.guepardoapps:kulid:2.0.0.0")
