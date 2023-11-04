@@ -1,6 +1,12 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.20"
+    kotlin("jvm") version "1.9.20"
     id("io.kotest") version "0.4.10"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 group = "me.baruica"
@@ -17,10 +23,6 @@ dependencies {
     implementation("jp.kukv:kULID:2.0.0.1")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
 }
 
 tasks.withType<Test> {
