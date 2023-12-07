@@ -2,13 +2,12 @@ package gym.plans.useCases
 
 import Id
 import gym.plans.domain.Price
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
-class CreateNewPlanTest : AnnotationSpec() {
+class CreateNewPlanTest : StringSpec({
 
-    @Test
-    fun handle() {
+    "handle" {
         val repository = InMemoryPlanRepository()
         val newPlanId = Id(repository.nextId())
 
@@ -25,4 +24,4 @@ class CreateNewPlanTest : AnnotationSpec() {
         newPlan.id shouldBe newPlanId
         newPlan.price shouldBe Price(300)
     }
-}
+})

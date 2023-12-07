@@ -2,30 +2,27 @@ package gym.subscriptions.domain
 
 import gym.monthlySubscription
 import gym.yearlySubscription
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
-class SubscriptionTest : AnnotationSpec() {
+class SubscriptionTest : StringSpec({
 
-    @Test
-    fun `base price for a monthly subscription`() {
+    "base price for a monthly subscription" {
         val subscriptionWithoutDiscount = monthlySubscription(300, LocalDate.parse("2018-06-05"), isStudent = false)
 
         subscriptionWithoutDiscount.price shouldBe Price(300)
     }
 
-    @Test
-    fun `10 percent discount for yearly subscription`() {
+    "10 percent discount for yearly subscription" {
         val subscriptionWithYearlyDiscount = yearlySubscription(1000, LocalDate.parse("2018-06-05"), isStudent = false)
 
         subscriptionWithYearlyDiscount.price shouldBe Price(900)
     }
 
-    @Test
-    fun `20 percent discount for students`() {
+    "20 percent discount for students" {
         val monthlySubscriptionWithStudentDiscount =
             monthlySubscription(100, LocalDate.parse("2018-06-05"), isStudent = true)
         monthlySubscriptionWithStudentDiscount.price shouldBe Price(80)
@@ -35,8 +32,7 @@ class SubscriptionTest : AnnotationSpec() {
         yearlySubscriptionWithStudentDiscount.price shouldBe Price(72)
     }
 
-    @Test
-    fun `5 percent discount after 3 years`() {
+    "5 percent discount after 3 years" {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
         subscription.price shouldBe Price(900)
 
@@ -48,8 +44,7 @@ class SubscriptionTest : AnnotationSpec() {
         subscription.price shouldBe Price(855)
     }
 
-    @Test
-    fun `3 years anniversary discount can only be applied after 3 years of subscription`() {
+    "3 years anniversary discount can only be applied after 3 years of subscription" {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
 
         subscription.applyThreeYearsAnniversaryDiscount(LocalDate.parse("2021-06-05"))
@@ -65,8 +60,7 @@ class SubscriptionTest : AnnotationSpec() {
         subscription.price shouldBe Price(855)
     }
 
-    @Test
-    fun `3 years anniversary discount can be applied any time after 3 years of subscription`() {
+    "3 years anniversary discount can be applied any time after 3 years of subscription" {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
 
         subscription.renew()
@@ -79,8 +73,7 @@ class SubscriptionTest : AnnotationSpec() {
         subscription.price shouldBe Price(855)
     }
 
-    @Test
-    fun `3 years anniversary discount can only be applied once`() {
+    "3 years anniversary discount can only be applied once" {
         val subscription = yearlySubscription(1000, LocalDate.parse("2018-06-05"))
 
         subscription.renew()
@@ -93,8 +86,7 @@ class SubscriptionTest : AnnotationSpec() {
         subscription.price shouldBe Price(855)
     }
 
-    @Test
-    fun `can be renewed`() {
+    "can be renewed" {
         val subscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
         subscription.willBeEndedAsFrom(LocalDate.parse("2018-07-05")).shouldBeFalse()
@@ -106,8 +98,7 @@ class SubscriptionTest : AnnotationSpec() {
         subscription.willBeEndedAsFrom(LocalDate.parse("2018-08-06")).shouldBeTrue()
     }
 
-    @Test
-    fun `can be ongoing`() {
+    "can be ongoing" {
         val ongoingSubscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
         ongoingSubscription.isOngoing(LocalDate.parse("2018-06-04")).shouldBeFalse()
@@ -117,20 +108,18 @@ class SubscriptionTest : AnnotationSpec() {
         ongoingSubscription.isOngoing(LocalDate.parse("2018-07-06")).shouldBeFalse()
     }
 
-    @Test
-    fun `can tell if it'll be ended as from a given date`() {
+    "can tell if it'll be ended as from a given date" {
         val subscriptionEndingEndOfJune = monthlySubscription(100, LocalDate.parse("2018-06-05"))
 
         subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-05")).shouldBeFalse()
         subscriptionEndingEndOfJune.willBeEndedAsFrom(LocalDate.parse("2018-07-06")).shouldBeTrue()
     }
 
-    @Test
-    fun `has a monthly turnover`() {
+    "has a monthly turnover" {
         val monthlySubscription = monthlySubscription(100, LocalDate.parse("2018-06-05"))
         monthlySubscription.monthlyTurnover() shouldBe 100
 
         val yearlySubscription = yearlySubscription(1200, LocalDate.parse("2018-06-05"))
         yearlySubscription.monthlyTurnover() shouldBe 90
     }
-}
+})

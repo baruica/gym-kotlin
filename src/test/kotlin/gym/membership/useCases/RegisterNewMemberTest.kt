@@ -2,16 +2,15 @@ package gym.membership.useCases
 
 import Id
 import gym.membership.domain.EmailAddress
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
-class RegisterNewMemberTest : AnnotationSpec() {
+class RegisterNewMemberTest : StringSpec({
 
-    @Test
-    fun handle() {
+    "handle" {
         val repository = InMemoryMemberRepository()
         val memberId = repository.nextId()
         val emailAddress = EmailAddress("luke@gmail.com")
@@ -37,4 +36,4 @@ class RegisterNewMemberTest : AnnotationSpec() {
             mailer.welcomeEmailWasSentTo(emailAddress).shouldBeTrue()
         }
     }
-}
+})

@@ -3,15 +3,14 @@ package gym.subscriptions.useCases
 import Id
 import gym.monthlySubscription
 import gym.yearlySubscription
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
-class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
+class RenewMonthlySubscriptionsAutomaticallyTest : StringSpec({
 
-    @Test
-    fun handle() {
+    "handle" {
         val repository = InMemorySubscriptionRepository()
 
         val monthlySubscriptionId = repository.nextId()
@@ -41,4 +40,4 @@ class RenewMonthlySubscriptionsAutomaticallyTest : AnnotationSpec() {
         renewedSubscriptions.shouldHaveSize(1)
         renewedSubscriptions.last().endDate shouldBe LocalDate.parse("2018-08-09")
     }
-}
+})

@@ -1,14 +1,13 @@
 package gym.membership.useCases
 
 import gym.membership.domain.EmailAddress
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import java.time.LocalDate
 
-internal class SendSummaryUponSubscriptionTest : AnnotationSpec() {
+internal class SendSummaryUponSubscriptionTest : StringSpec({
 
-    @Test
-    fun handle() {
+    "handle" {
 
         val emailAddress = "luke@gmail.com"
         val startDate = LocalDate.parse("2018-06-05")
@@ -35,4 +34,4 @@ internal class SendSummaryUponSubscriptionTest : AnnotationSpec() {
             price
         ).shouldBeTrue()
     }
-}
+})

@@ -3,15 +3,14 @@ package gym.subscriptions.useCases
 import Id
 import gym.subscriptions.domain.Price
 import gym.yearlySubscription
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 
-internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
+internal class ApplyThreeYearsAnniversaryDiscountTest : StringSpec({
 
-    @Test
-    fun handle() {
+    "handle" {
         val repository = InMemorySubscriptionRepository()
 
         val subscription = yearlySubscription(
@@ -41,4 +40,4 @@ internal class ApplyThreeYearsAnniversaryDiscountTest : AnnotationSpec() {
         )
         subscriptionsAfterThreeYearsAnniversary.shouldBeEmpty()
     }
-}
+})

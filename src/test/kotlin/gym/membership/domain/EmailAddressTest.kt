@@ -1,14 +1,13 @@
 package gym.membership.domain
 
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.core.spec.style.StringSpec
 
-class EmailAddressTest : AnnotationSpec() {
+class EmailAddressTest : StringSpec({
 
-    @Test
-    fun `does not allow an invalid email address`() {
+    "does not allow an invalid email address" {
         shouldThrow<IllegalArgumentException> {
             EmailAddress("bob[at]gmail.com")
         }
     }
-}
+})
