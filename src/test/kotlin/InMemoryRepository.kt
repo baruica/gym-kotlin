@@ -1,6 +1,6 @@
 import com.github.guepardoapps.kulid.ULID
 
-abstract class InMemoryRepository<ID, A: Identifiable<ID>>(
+abstract class InMemoryRepository<ID, A : Identifiable<ID>>(
     internal val aggregates: MutableMap<Id<ID>, A> = HashMap()
 ) : Repository<ID, A> {
 

@@ -18,7 +18,12 @@ class InMemoryMailer(
         member.markWelcomeEmailAsSent()
     }
 
-    override fun sendSubscriptionSummary(emailAddress: EmailAddress, startDate: LocalDate, endDate: LocalDate, price: Int) {
+    override fun sendSubscriptionSummary(
+        emailAddress: EmailAddress,
+        startDate: LocalDate,
+        endDate: LocalDate,
+        price: Int
+    ) {
         sentEmails[ULID.random()] = SubscriptionSummary(emailAddress, startDate, endDate, price)
     }
 

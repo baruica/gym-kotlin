@@ -10,7 +10,8 @@ data class ApplyThreeYearsAnniversaryDiscount(val asOfDate: LocalDate) {
     ) {
         operator fun invoke(command: ApplyThreeYearsAnniversaryDiscount): List<Subscription> {
 
-            val threeYearsAnniversarySubscriptions = subscriptionRepository.threeYearsAnniversarySubscriptions(command.asOfDate)
+            val threeYearsAnniversarySubscriptions =
+                subscriptionRepository.threeYearsAnniversarySubscriptions(command.asOfDate)
 
             threeYearsAnniversarySubscriptions.forEach {
                 it.applyThreeYearsAnniversaryDiscount(command.asOfDate)

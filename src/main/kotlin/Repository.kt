@@ -1,4 +1,4 @@
-interface Repository<ID, A: Identifiable<ID>> {
+interface Repository<ID, A : Identifiable<ID>> {
 
     fun nextId(): String
 
