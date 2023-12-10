@@ -1,1 +1,2 @@
-rootProject.name = "gym-kotlin"
+rootProject.name="gym-kotlin"
+kotlin.code.style=official
