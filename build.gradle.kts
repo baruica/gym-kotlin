@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.22"
-    id("io.kotest") version "0.4.10"
+    id("io.kotest") version "0.4.11"
 }
 
 java {
