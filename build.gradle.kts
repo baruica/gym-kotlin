@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.23"
     id("io.kotest") version "0.4.11"
+    id("com.autonomousapps.dependency-analysis") version "1.30.0"
 }
 
 java {
@@ -20,7 +21,10 @@ repositories {
 val kotestVersion = "5.8.1"
 
 dependencies {
-    implementation("jp.kukv:kULID:2.0.0.1")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
+    testImplementation("jp.kukv:kULID:2.0.0.1")
+    testRuntimeOnly("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-shared:5.8.1")
+    testImplementation("io.kotest:kotest-common:5.8.1")
+    testImplementation("io.kotest:kotest-framework-api:5.8.1")
 }
