@@ -24,7 +24,7 @@ dependencies {
     testImplementation("jp.kukv:kULID:2.0.0.1")
     testRuntimeOnly("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
-    testImplementation("io.kotest:kotest-assertions-shared:5.8.1")
-    testImplementation("io.kotest:kotest-common:5.8.1")
-    testImplementation("io.kotest:kotest-framework-api:5.8.1")
+    testImplementation("io.kotest:kotest-assertions-shared:$kotestVersion")
+    testImplementation("io.kotest:kotest-common:$kotestVersion")
+    testImplementation("io.kotest:kotest-framework-api:$kotestVersion")
 }
